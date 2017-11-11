@@ -15,6 +15,11 @@ class GameVC: UIViewController {
     var enemies: [String: EnemyLogoView] = [:]
     var enemiesMoveBehaviours: [String: UIDynamicItemBehavior] = [:]
     
+    lazy var collisionBehavior: UICollisionBehavior = {
+        let behavior = UICollisionBehavior()
+        return behavior
+    }()
+    
     lazy var animator: UIDynamicAnimator = {
         UIDynamicAnimator(referenceView: self.gameSceneView)
     }()
@@ -71,6 +76,10 @@ extension GameVC: GameVCInput {
         
         enemies[id] = enemyLogoView
         enemiesMoveBehaviours[id] = behavior
+        
+        collisionBehavior.addItem(enemyLogoView)
+        collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+        animator.addBehavior(collisionBehavior)
         
         output.viewDidAddEnemy(withId: id)
     }
