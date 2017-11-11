@@ -31,6 +31,8 @@ protocol GameVCInput {
     
     func hideComboLabel()
     
+    func getGameViewFrame() -> CGRect
+    
 }
 
 

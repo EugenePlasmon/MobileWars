@@ -15,16 +15,19 @@ class DefenderLogoView: UIView {
     
     @IBOutlet weak var defenderImage: UIImageView!
     
-    
     //MARK: - Public
     
     public class func createView() -> DefenderLogoView {
         let nib = UINib(nibName: "DefenderLogoView", bundle: nil)
         let view = nib.instantiate(withOwner: self,
-                                   options: [:]).first as! DefenderLogoView
+                                     options: [:]).first as! DefenderLogoView
         view.configure()
         
         return view
+    }
+    
+    public class func size() -> CGSize {
+        return CGSize(width: 60, height: 60)
     }
     
     //MARK: - Private

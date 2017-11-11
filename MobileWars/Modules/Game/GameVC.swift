@@ -173,9 +173,14 @@ extension GameVC: GameVCInput {
             self.comboLabel.text = nil
         })
     }
+    
+    func getGameViewFrame() -> CGRect {
+        return gameSceneView.frame
+    }
 }
 
 
+//MARK: - EnemyLogoViewOutput
 extension GameVC: EnemyLogoViewOutput {
     
     func didTouchDown(_ sender: EnemyLogoView) {
@@ -196,6 +201,7 @@ extension GameVC: EnemyLogoViewOutput {
 }
 
 
+//MARK: - UICollisionBehaviorDelegate
 extension GameVC: UICollisionBehaviorDelegate {
     
     func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {

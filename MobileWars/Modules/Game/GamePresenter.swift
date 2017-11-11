@@ -12,6 +12,7 @@ import UIKit
 private let velocityUpdateTimeInterval = 0.1
 private let maxTimeIntervalForCombo = 5.0
 private let touchesCountRequiredToNextCombo = 5
+private let defendersCount = 3
 
 
 public class GamePresenter: NSObject {
@@ -58,18 +59,32 @@ public class GamePresenter: NSObject {
                                                        repeats: true)
     }
     
-    private func addDefendersAtBottom() {
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        var coordX = screenWidth / 4
-        let coordY = screenHeight - 100
-        for _ in 0..<3 {
-            let randomPointAtBottom = CGPoint(x: coordX, y: coordY)
+    private func addDefenders() {
+        let gameViewFrame = userInterface.getGameViewFrame()
+        let gameViewWidth = gameViewFrame.width
+        let gameViewHeight = gameViewFrame.height
+        
+        let bottomInset: CGFloat = 12.0
+        let defenderSize = DefenderLogoView.size()
+        let defenderHeight = defenderSize.height
+        let defenderWidth = defenderSize.width
+        
+        let coordY = gameViewHeight - 0.5 * defenderHeight - bottomInset
+        
+        let defendersSumWidth = CGFloat(defendersCount) * defenderWidth
+        let edgeInset: CGFloat = 80.0
+        let defendersStackWidth = gameViewWidth - 2 * edgeInset
+        let spaceBetweenDefenders = (defendersStackWidth - defendersSumWidth) / CGFloat(defendersCount - 1)
+        
+        let coordXForFirstDefender = edgeInset + 0.5 * defenderWidth
+        
+        for i in 0..<defendersCount {
+            let coordXForCurrentDefender = coordXForFirstDefender + CGFloat(i) * (defenderWidth + spaceBetweenDefenders)
+            let randomPointAtBottom = CGPoint(x: coordXForCurrentDefender, y: coordY)
             
             let id = UUID().uuidString
             
             userInterface.addDefender(at: randomPointAtBottom, withId: id)
-            coordX += screenWidth / 4
         }
     }
     
@@ -192,7 +207,7 @@ extension GamePresenter: GameVCOutput {
     func viewDidReady() {
         score = 0 // Обнуляем счет при новой игровой "сессии"
         startAddingEnemies()
-        addDefendersAtBottom()
+        addDefenders()
     }
     
     func viewWillDissapear() {
