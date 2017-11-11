@@ -22,16 +22,25 @@ class GamePresenter: NSObject {
     private func closeModule() {
         userInterface.dismiss(animated: true, completion: nil)
     }
+    
+    private func addEnemyAtRandomPointAtTop() {
+        let screenWidth = UIScreen.main.bounds.width
+        let randomX = Int(arc4random()) % Int(screenWidth)
+        let randomPointAtTop = CGPoint(x: randomX, y: 0)
+        
+        userInterface.addEnemy(at: randomPointAtTop)
+    }
 }
 
 
+//MARK: - GameVCOutput
 extension GamePresenter: GameVCOutput {
     
     func viewDidReady() {
-        userInterface.drawEnemies()
+        addEnemyAtRandomPointAtTop()
     }
     
     func viewDidPressBackButton() {
-        self.closeModule()
+        closeModule()
     }
 }

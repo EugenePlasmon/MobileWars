@@ -11,9 +11,12 @@ import UIKit
 
 class GameVC: UIViewController {
     
-    var output: GamePresenter!
+    var output: GameVCOutput!
+    var enemies: [EnemyLogoView] = []
     
+    @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var gameSceneView: UIView!
     
     //MARK: - Init
     
@@ -42,11 +45,15 @@ class GameVC: UIViewController {
 }
 
 
+//MARK: - GameVCInput
 extension GameVC: GameVCInput {
     
-    func drawEnemies() {
+    func addEnemy(at point: CGPoint) {
         let enemyLogoView = EnemyLogoView.createView()
-        view.addSubview(enemyLogoView)
-        enemyLogoView.center = CGPoint(x: 200, y: 200)
+        enemies.append(enemyLogoView)
+        
+        gameSceneView.addSubview(enemyLogoView)
+        
+        enemyLogoView.center = point
     }
 }

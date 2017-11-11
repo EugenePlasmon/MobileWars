@@ -20,7 +20,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="GBE-pV-AGl" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="87v-U5-iOf"/>
                 <constraint firstItem="GBE-pV-AGl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Lfx-Ol-SOb"/>

@@ -11,7 +11,7 @@ import UIKit
 
 class MainMenuVC: UIViewController {
     
-    var output: MainMenuPresenter!
+    var output: MainMenuVCOutput!
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var scoresButton: UIButton!

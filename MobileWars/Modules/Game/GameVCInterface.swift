@@ -6,12 +6,12 @@
 //  Copyright © 2017 swiftbook.ru. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 protocol GameVCInput {
     
-    func drawEnemies()
+    func addEnemy(at point: CGPoint)
 }
 
 

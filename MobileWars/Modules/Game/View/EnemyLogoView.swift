@@ -9,8 +9,18 @@
 import UIKit
 
 
+@objc protocol EnemyLogoViewOutput {
+    
+    func didTouchDown(_ sender: EnemyLogoView)
+    
+    func didTouchUp(_ sender: EnemyLogoView)
+}
+
+
 class EnemyLogoView: UIView {
 
+    weak var output: EnemyLogoViewOutput?
+    
     @IBOutlet weak var enemyImage: UIImageView!
     
     class func createView() -> EnemyLogoView {
@@ -38,24 +48,21 @@ class EnemyLogoView: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>,
                               with event: UIEvent?) {
-        print("touchesBegan")
-        enemyImage.tintColor = .blue
+        output?.didTouchDown(self)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>,
                               with event: UIEvent?) {
-        print("touchesMoved")
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>,
                               with event: UIEvent?) {
-        print("touchesEnded")
-        enemyImage.tintColor = .red
+        output?.didTouchUp(self)
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>,
                                   with event: UIEvent?) {
-        print("touchesCancelled")
-        enemyImage.tintColor = .red
+        
     }
 }
