@@ -24,6 +24,13 @@ protocol GameVCInput {
     func dropDownEnemy(withId id: String)
     
     func removeEnemy(withId id: String, withFadeOut: Bool)
+    
+    func updateScoreLabel(withScore score: Int)
+    
+    func showComboLabel(withRate rate: Int)
+    
+    func hideComboLabel()
+    
 }
 
 

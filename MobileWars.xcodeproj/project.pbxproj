@@ -24,6 +24,7 @@
 		F87D8A371FB6597B00C0855E /* EnemyLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A361FB6597B00C0855E /* EnemyLogoView.xib */; };
 		F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A3A1FB700A700C0855E /* PrimitiveTypeExtensions.swift */; };
 		F87D8A3E1FB700C200C0855E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A3D1FB700C200C0855E /* .gitignore */; };
+		F87D8A411FB7768100C0855E /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A401FB7768100C0855E /* SettingsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		F87D8A361FB6597B00C0855E /* EnemyLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnemyLogoView.xib; sourceTree = "<group>"; };
 		F87D8A3A1FB700A700C0855E /* PrimitiveTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTypeExtensions.swift; sourceTree = "<group>"; };
 		F87D8A3D1FB700C200C0855E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		F87D8A401FB7768100C0855E /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				F87D8A251FB64F4200C0855E /* MainMenu */,
 				F87D8A281FB6506800C0855E /* Game */,
+				F87D8A421FB7768500C0855E /* Settings */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -154,6 +157,14 @@
 				F87D8A3A1FB700A700C0855E /* PrimitiveTypeExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F87D8A421FB7768500C0855E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F87D8A401FB7768100C0855E /* SettingsVC.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +253,7 @@
 				F87D8A2E1FB6541F00C0855E /* MainMenuVCInterface.swift in Sources */,
 				F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */,
 				F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */,
+				F87D8A411FB7768100C0855E /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
