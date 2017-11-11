@@ -94,6 +94,31 @@ extension GameVC: GameVCInput {
         
         behavior.addLinearVelocity(inverseVelocity, for: enemyLogoView)
     }
+    
+    func killEnemy(withId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        
+        enemyLogoView.configureImageAsDead()
+    }
+    
+    func removeEnemy(withId id: String, animated: Bool) {
+        guard let enemyLogoView = enemies[id] else {return}
+        guard let behavior = enemiesMoveBehaviours[id] else {return}
+        
+        animator.removeBehavior(behavior)
+        behavior.removeItem(enemyLogoView)
+        enemiesMoveBehaviours[id] = nil
+        
+        if animated {
+            UIView.animate(withDuration: 0.5, animations: {
+                enemyLogoView.alpha = 0.0
+            }, completion: { (completed) in
+                enemyLogoView.removeFromSuperview()
+            })
+        } else {
+            enemyLogoView.removeFromSuperview()
+        }
+    }
 }
 
 

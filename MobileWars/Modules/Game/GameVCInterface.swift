@@ -15,7 +15,11 @@ protocol GameVCInput {
     
     func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String)
     
-    func stopEnemy(withId id: String) 
+    func stopEnemy(withId id: String)
+    
+    func killEnemy(withId id: String)
+    
+    func removeEnemy(withId id: String, animated: Bool)
 }
 
 
