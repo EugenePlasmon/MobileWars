@@ -28,6 +28,7 @@ class GameVC: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var gameSceneView: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var comboLabel: UILabel!
     
     //MARK: - Init
     
@@ -141,6 +142,19 @@ extension GameVC: GameVCInput {
     func updateScoreLabel(withScore score: Int) {
         let stringScore = "\(score)"
         scoreLabel.text = stringScore
+    }
+    
+    func showComboLabel(withRate rate: Int) {
+        UIView.animate(withDuration: 0.2) {
+            self.comboLabel.text = "Combo x\(rate)"
+            self.comboLabel.alpha = 1
+        }
+    }
+    
+    func hideComboLabel() {
+        UIView.animate(withDuration: 0.2) {
+            self.comboLabel.alpha = 0
+        }
     }
 }
 

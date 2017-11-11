@@ -19,7 +19,8 @@ public class GamePresenter: NSObject {
     
     private var addingEnemiesTimer: Timer?
     private var movingEnemyTimers: [String: Timer] = [:]
-
+    private var lastTouchTime: Date?
+    private var touchesForComboCounter = 0
     
     init(userInterface: GameVC) {
         self.userInterface = userInterface
@@ -76,6 +77,56 @@ public class GamePresenter: NSObject {
         movingEnemyTimers[id] = newMovingTimer
     }
     
+    private func makeArrayFromComboCounter(comboCounter: Int) -> [Int] {
+        let comboCounterString = String(comboCounter)
+        let array = comboCounterString.flatMap{Int(String($0))}
+        
+        return array
+    }
+    
+    private func getComboRateToReturn(array: [Int]) -> Int {
+        var newArray = array
+        var comboRate = 0
+        switch array.count {
+        case 1:
+            comboRate = 1
+            return comboRate
+        case 2...:
+            newArray.removeLast()
+            newArray[0] += 1
+            var myString = ""
+            _ = newArray.map{ myString = myString + "\($0)" }
+            comboRate = Int(myString)!
+            return comboRate
+        default:
+            break
+        }
+        
+        return comboRate
+    }
+    
+    private func comboScoreCounting(lastTouchTime: Double) {
+        guard lastTouchTime <= 5 else {
+            touchesForComboCounter = 0
+            userInterface.hideComboLabel()
+            return
+        }
+        touchesForComboCounter += 1
+        
+        if touchesForComboCounter > 10 {
+            let array = makeArrayFromComboCounter(comboCounter: touchesForComboCounter)
+            print(array)
+            
+            let returnRate = getComboRateToReturn(array: array)
+            
+            userInterface.showComboLabel(withRate: returnRate)
+            print("Touches for combo – \(touchesForComboCounter)")
+            print("TIS1970 – \(lastTouchTime)")
+        }
+
+        
+    }
+    
     // MARK: - Timer
     
     @objc private func tickAddingEnemiesTimer() {
@@ -120,6 +171,14 @@ extension GamePresenter: GameVCOutput {
     }
     
     func viewDidTouchDownEnemy(withId id: String) {
+        let now = Date()
+        if let lastTouchTime = lastTouchTime {
+            let timeSinceLast = now.timeIntervalSince(lastTouchTime)
+            comboScoreCounting(lastTouchTime: timeSinceLast)
+        }
+        
+        lastTouchTime = now
+        
         movingEnemyTimers[id]?.invalidate()
         movingEnemyTimers[id] = nil
         
