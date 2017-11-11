@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F233D1111FB74518003816DD /* DefenderLogoView.swift */; };
+		F233D1141FB74539003816DD /* DefenderLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F233D1131FB74539003816DD /* DefenderLogoView.xib */; };
 		F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */; };
 		F87D8A121FB64E1700C0855E /* MainMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A111FB64E1700C0855E /* MainMenuVC.swift */; };
 		F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A161FB64E1700C0855E /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F233D1111FB74518003816DD /* DefenderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefenderLogoView.swift; sourceTree = "<group>"; };
+		F233D1131FB74539003816DD /* DefenderLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefenderLogoView.xib; sourceTree = "<group>"; };
 		F87D8A0C1FB64E1700C0855E /* MobileWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F87D8A111FB64E1700C0855E /* MainMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuVC.swift; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 			children = (
 				F87D8A331FB6595D00C0855E /* EnemyLogoView.swift */,
 				F87D8A361FB6597B00C0855E /* EnemyLogoView.xib */,
+				F233D1111FB74518003816DD /* DefenderLogoView.swift */,
+				F233D1131FB74539003816DD /* DefenderLogoView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -214,6 +220,7 @@
 				F87D8A241FB64E8600C0855E /* MainMenuVC.xib in Resources */,
 				F87D8A2A1FB6507800C0855E /* GameVC.xib in Resources */,
 				F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */,
+				F233D1141FB74539003816DD /* DefenderLogoView.xib in Resources */,
 				F87D8A371FB6597B00C0855E /* EnemyLogoView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */,
 				F87D8A341FB6595D00C0855E /* EnemyLogoView.swift in Sources */,
 				F87D8A121FB64E1700C0855E /* MainMenuVC.swift in Sources */,
 				F87D8A2C1FB652AD00C0855E /* MainMenuPresenter.swift in Sources */,

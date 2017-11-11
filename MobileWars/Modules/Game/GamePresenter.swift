@@ -43,6 +43,21 @@ public class GamePresenter: NSObject {
                                                        repeats: true)
     }
     
+    private func addDefendersAtBottom() {
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        var coordX = Double(screenWidth / 4)
+        let coordY = Double(screenHeight - 100)
+        for _ in 0..<3 {
+            let randomPointAtTop = CGPoint(x: coordX, y: coordY)
+            
+            let id = UUID().uuidString
+            
+            userInterface.addDefender(at: randomPointAtTop, withId: id)
+            coordX += Double(screenWidth / 4)
+        }
+    }
+    
     private func stopAddingEnemies() {
         addingEnemiesTimer?.invalidate()
         addingEnemiesTimer = nil
@@ -102,6 +117,7 @@ extension GamePresenter: GameVCOutput {
     
     func viewDidReady() {
         startAddingEnemies()
+        addDefendersAtBottom()
     }
     
     func viewWillDissapear() {

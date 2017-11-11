@@ -13,6 +13,8 @@ protocol GameVCInput {
     
     func addEnemy(at point: CGPoint, withId id: String)
     
+    func addDefender(at point: CGPoint, withId id: String)
+    
     func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String)
     
     func stopEnemy(withId id: String)

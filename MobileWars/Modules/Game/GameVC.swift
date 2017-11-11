@@ -87,6 +87,14 @@ extension GameVC: GameVCInput {
         output.viewDidAddEnemy(withId: id)
     }
     
+    func addDefender(at point: CGPoint, withId id: String) {
+        let defenderLogoView = DefenderLogoView.createView()
+        defenderLogoView.defenderId = id
+        defenderLogoView.center = point
+        
+        gameSceneView.addSubview(defenderLogoView)
+    }
+    
     func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String) {
         guard let enemyLogoView = enemies[id] else {return}
         guard let behavior = enemiesMoveBehaviours[id] else {return}
