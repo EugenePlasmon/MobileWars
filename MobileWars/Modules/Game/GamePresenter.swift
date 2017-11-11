@@ -10,14 +10,29 @@ import UIKit
 
 
 private let velocityUpdateTimeInterval = 0.1
+private let maxTimeIntervalForCombo = 5.0
+private let touchesCountRequiredToNextCombo = 5
 
 
 public class GamePresenter: NSObject {
+    
+    enum ComboMode: Int {
+        case noCombo = 1
+        case x2 = 2
+        case x3 = 3
+        case x5 = 5
+        case x10 = 10
+    }
     
     unowned var userInterface: GameVC
     
     private var addingEnemiesTimer: Timer?
     private var movingEnemyTimers: [String: Timer] = [:]
+    private var timerForNextTouchInCombo: Timer?
+    private var lastTouchTime: Date?
+    private var score = 0
+    private var touchesInCurrentCombo = 0
+    private var currentComboMode: ComboMode = .noCombo
     
     init(userInterface: GameVC) {
         self.userInterface = userInterface
@@ -74,7 +89,47 @@ public class GamePresenter: NSObject {
         movingEnemyTimers[id] = newMovingTimer
     }
     
-    // MARK: - Timer
+    //MARK: - Score counting
+    
+    private func calculateCombo() {
+        let now = Date()
+        
+        if lastTouchTime != nil {
+            touchesInCurrentCombo += 1
+                
+            if touchesInCurrentCombo >= touchesCountRequiredToNextCombo && currentComboMode != .x10 {
+                print("NEXT COMBO MODE!")
+                setNextComboMode()
+                touchesInCurrentCombo = 1
+            }
+        } else {
+            touchesInCurrentCombo = 1
+        }
+        
+        lastTouchTime = now
+    }
+    
+    private func calculateScore() {
+        calculateCombo()
+        score += currentComboMode.rawValue
+    }
+    
+    private func setNextComboMode() {
+        switch currentComboMode {
+        case .noCombo:
+            currentComboMode = .x2
+        case .x2:
+            currentComboMode = .x3
+        case .x3:
+            currentComboMode = .x5
+        case .x5:
+            currentComboMode = .x10
+        default:
+            break
+        }
+    }
+    
+    // MARK: - Timers
     
     @objc private func tickAddingEnemiesTimer() {
         let maxDelay = 2.0
@@ -94,6 +149,25 @@ public class GamePresenter: NSObject {
         
         movingEnemyTimers = [:]
     }
+    
+    private func startTimerForNextTouchInCombo() {
+        timerForNextTouchInCombo?.invalidate()
+        
+        timerForNextTouchInCombo = Timer.scheduledTimer(timeInterval: maxTimeIntervalForCombo,
+                                                              target: self,
+                                                            selector: #selector(timerForNextTouchInComboExpired),
+                                                            userInfo: nil,
+                                                             repeats: false)
+    }
+    
+    @objc private func timerForNextTouchInComboExpired() {
+        //TODO: mb show label combo expired?
+        
+        currentComboMode = .noCombo
+        touchesInCurrentCombo = 0
+        
+        userInterface.hideComboLabel()
+    }
 }
 
 
@@ -101,6 +175,7 @@ public class GamePresenter: NSObject {
 extension GamePresenter: GameVCOutput {
     
     func viewDidReady() {
+        score = 0 // Обнуляем счет при новой игровой "сессии"
         startAddingEnemies()
     }
     
@@ -117,6 +192,19 @@ extension GamePresenter: GameVCOutput {
     }
     
     func viewDidTouchDownEnemy(withId id: String) {
+        startTimerForNextTouchInCombo()
+        calculateScore()
+        userInterface.updateScoreLabel(withScore: score)
+        
+        if currentComboMode != .noCombo {
+            userInterface.showComboLabel(withRate: currentComboMode.rawValue)
+        } else {
+            userInterface.hideComboLabel()
+        }
+        
+        let now = Date()
+        lastTouchTime = now
+        
         movingEnemyTimers[id]?.invalidate()
         movingEnemyTimers[id] = nil
         
