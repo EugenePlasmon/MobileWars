@@ -19,7 +19,8 @@ import UIKit
 
 class EnemyLogoView: UIView {
 
-    weak var output: EnemyLogoViewOutput?
+    public weak var output: EnemyLogoViewOutput?
+    public var enemyId: String?
     
     @IBOutlet weak var enemyImage: UIImageView!
     
@@ -41,7 +42,7 @@ class EnemyLogoView: UIView {
     private func configureImage() {
         let image = #imageLiteral(resourceName: "android_default").withRenderingMode(.alwaysTemplate)
         enemyImage.image = image
-        enemyImage.tintColor = .green
+        enemyImage.tintColor = UIColor(red: 153.0/255.0, green: 204.0/255.0, blue: 3.0/255.0, alpha: 1.0)
     }
     
     //MARK: - Touches

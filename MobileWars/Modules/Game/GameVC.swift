@@ -61,8 +61,11 @@ extension GameVC: GameVCInput {
     
     func addEnemy(at point: CGPoint, withId id: String) {
         let enemyLogoView = EnemyLogoView.createView()
-        gameSceneView.addSubview(enemyLogoView)
+        enemyLogoView.output = self
+        enemyLogoView.enemyId = id
         enemyLogoView.center = point
+        
+        gameSceneView.addSubview(enemyLogoView)
         
         let behavior = UIDynamicItemBehavior()
         behavior.resistance = 0
@@ -80,5 +83,35 @@ extension GameVC: GameVCInput {
         guard let behavior = enemiesMoveBehaviours[id] else {return}
         
         behavior.addLinearVelocity(velocity, for: enemyLogoView)
+    }
+    
+    func stopEnemy(withId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        guard let behavior = enemiesMoveBehaviours[id] else {return}
+        
+        let currentVelocity = behavior.linearVelocity(for: enemyLogoView)
+        let inverseVelocity = currentVelocity.inverse()
+        
+        behavior.addLinearVelocity(inverseVelocity, for: enemyLogoView)
+    }
+}
+
+
+extension GameVC: EnemyLogoViewOutput {
+    
+    func didTouchDown(_ sender: EnemyLogoView) {
+        guard let id = sender.enemyId else {
+            assert(false, "EnemyLogoView has no id")
+        }
+        
+        output.viewDidTouchDownEnemy(withId: id)
+    }
+    
+    func didTouchUp(_ sender: EnemyLogoView) {
+        guard let id = sender.enemyId else {
+            assert(false, "EnemyLogoView has no id")
+        }
+        
+        output.viewDidTouchUpEnemy(withId: id)
     }
 }

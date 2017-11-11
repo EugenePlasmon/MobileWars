@@ -112,4 +112,13 @@ extension GamePresenter: GameVCOutput {
     func viewDidAddEnemy(withId id: String) {
         startMovingEnemy(withId: id)
     }
+    
+    func viewDidTouchDownEnemy(withId id: String) {
+        movingEnemyTimers[id]?.invalidate()
+        userInterface.stopEnemy(withId: id)
+    }
+    
+    func viewDidTouchUpEnemy(withId id: String) {
+        
+    }
 }
