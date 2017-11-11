@@ -21,6 +21,8 @@ public class GamePresenter: NSObject {
     private var movingEnemyTimers: [String: Timer] = [:]
     private var lastTouchTime: Date?
     private var touchesForComboCounter = 0
+    private var returnRate = 0
+    private var comboScore = 0
     
     init(userInterface: GameVC) {
         self.userInterface = userInterface
@@ -105,10 +107,18 @@ public class GamePresenter: NSObject {
         return comboRate
     }
     
+    func comboScore(touches: Int, rate: Int) -> Int {
+        return touches * rate
+    }
+    
     private func comboScoreCounting(lastTouchTime: Double) {
         guard lastTouchTime <= 5 else {
-            touchesForComboCounter = 0
+            print("COMBO SCORE = \(comboScore)")
+            score += comboScore
+            userInterface.updateScoreLabel(withScore: score)
             userInterface.hideComboLabel()
+            touchesForComboCounter = 0
+            comboScore = 0
             return
         }
         touchesForComboCounter += 1
@@ -117,14 +127,14 @@ public class GamePresenter: NSObject {
             let array = makeArrayFromComboCounter(comboCounter: touchesForComboCounter)
             print(array)
             
-            let returnRate = getComboRateToReturn(array: array)
-            
+            returnRate = getComboRateToReturn(array: array)
+
             userInterface.showComboLabel(withRate: returnRate)
+            
+            comboScore = comboScore(touches: touchesForComboCounter, rate: returnRate)
             print("Touches for combo – \(touchesForComboCounter)")
             print("TIS1970 – \(lastTouchTime)")
         }
-
-        
     }
     
     // MARK: - Timer
