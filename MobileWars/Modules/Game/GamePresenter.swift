@@ -13,8 +13,14 @@ class GamePresenter: NSObject {
     
     unowned var userInterface: GameVC
     
+    var addingEnemiesTimer: Timer?
+    
     init(userInterface: GameVC) {
         self.userInterface = userInterface
+    }
+    
+    deinit {
+        addingEnemiesTimer?.invalidate()
     }
     
     //MARK: - Private
@@ -23,12 +29,41 @@ class GamePresenter: NSObject {
         userInterface.dismiss(animated: true, completion: nil)
     }
     
-    private func addEnemyAtRandomPointAtTop() {
+    private func startAddingEnemies() {
+        addEnemyAtRandomPointAtTop()
+        
+        addingEnemiesTimer = Timer.scheduledTimer(timeInterval: 1.0,
+                                           target: self,
+                                         selector: #selector(tickTimer),
+                                         userInfo: nil,
+                                          repeats: true)
+    }
+    
+    private func stopAddingEnemies() {
+        addingEnemiesTimer?.invalidate()
+        addingEnemiesTimer = nil
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+    }
+    
+    @objc private func addEnemyAtRandomPointAtTop() {
         let screenWidth = UIScreen.main.bounds.width
-        let randomX = Int(arc4random()) % Int(screenWidth)
+        let randomX = Int.random(from: 0, to: Int(screenWidth))
         let randomPointAtTop = CGPoint(x: randomX, y: 0)
         
-        userInterface.addEnemy(at: randomPointAtTop)
+        let id = UUID().uuidString
+        
+        userInterface.addEnemy(at: randomPointAtTop, withId: id)
+    }
+    
+    // MARK: - Timer
+    
+    @objc private func tickTimer() {
+        let maxDelay = 2.0
+        let randomDelay = Double.random(from: 0.0, to: maxDelay)
+        
+        perform(#selector(addEnemyAtRandomPointAtTop), with: nil,
+                                                 afterDelay: randomDelay)
     }
 }
 
@@ -37,7 +72,11 @@ class GamePresenter: NSObject {
 extension GamePresenter: GameVCOutput {
     
     func viewDidReady() {
-        addEnemyAtRandomPointAtTop()
+        startAddingEnemies()
+    }
+    
+    func viewWillDissapear() {
+        stopAddingEnemies()
     }
     
     func viewDidPressBackButton() {

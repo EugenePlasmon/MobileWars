@@ -11,13 +11,15 @@ import UIKit
 
 protocol GameVCInput {
     
-    func addEnemy(at point: CGPoint)
+    func addEnemy(at point: CGPoint, withId id: String)
 }
 
 
 protocol GameVCOutput {
     
     func viewDidReady()
+    
+    func viewWillDissapear()
     
     func viewDidPressBackButton()
 }

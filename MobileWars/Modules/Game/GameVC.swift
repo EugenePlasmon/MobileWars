@@ -47,6 +47,12 @@ class GameVC: UIViewController {
         output.viewDidReady()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        output.viewWillDissapear()
+    }
+    
     //MARK: - Actions
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -58,7 +64,7 @@ class GameVC: UIViewController {
 //MARK: - GameVCInput
 extension GameVC: GameVCInput {
     
-    func addEnemy(at point: CGPoint) {
+    func addEnemy(at point: CGPoint, withId id: String) {
         let enemyLogoView = EnemyLogoView.createView()
         gameSceneView.addSubview(enemyLogoView)
         enemyLogoView.center = point
