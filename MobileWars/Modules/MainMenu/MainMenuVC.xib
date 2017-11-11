@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController id="iz7-tQ-oLD" customClass="MainMenuVC" customModule="MobileWars" customModuleProvider="target">
+            <view key="view" contentMode="scaleToFill" id="MQd-BS-bom">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="9WF-C2-a0M">
+                        <rect key="frame" x="155.5" y="301.5" width="63" height="84"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3X-M9-OdL">
+                                <rect key="frame" x="0.0" y="0.0" width="63" height="30"/>
+                                <state key="normal" title="Играть"/>
+                                <connections>
+                                    <action selector="playButtonPressed:" destination="iz7-tQ-oLD" eventType="touchUpInside" id="gVU-cd-SAc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8hh-ca-jev">
+                                <rect key="frame" x="0.0" y="54" width="63" height="30"/>
+                                <state key="normal" title="Рекорды"/>
+                                <connections>
+                                    <action selector="scoresButtonPressed:" destination="iz7-tQ-oLD" eventType="touchUpInside" id="olJ-Ij-8ty"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="9WF-C2-a0M" firstAttribute="centerY" secondItem="t6y-lj-tTK" secondAttribute="centerY" id="KAY-NG-O3O"/>
+                    <constraint firstItem="9WF-C2-a0M" firstAttribute="centerX" secondItem="t6y-lj-tTK" secondAttribute="centerX" id="O2n-ql-VTC"/>
+                </constraints>
+                <viewLayoutGuide key="safeArea" id="t6y-lj-tTK"/>
+            </view>
+            <connections>
+                <outlet property="playButton" destination="n3X-M9-OdL" id="xPE-LT-Ork"/>
+                <outlet property="scoresButton" destination="8hh-ca-jev" id="mVK-Y0-xIp"/>
+            </connections>
+            <point key="canvasLocation" x="51.5" y="179.5"/>
+        </viewController>
+    </objects>
+</document>
