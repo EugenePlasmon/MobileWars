@@ -12,12 +12,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EnemyLogoView" customModule="MobileWars" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+        <view contentMode="scaleAspectFit" id="iN0-l3-epB" customClass="EnemyLogoView" customModule="MobileWars" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="46" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="android_default" translatesAutoresizingMaskIntoConstraints="NO" id="GBE-pV-AGl">
-                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="android_default" translatesAutoresizingMaskIntoConstraints="NO" id="GBE-pV-AGl">
+                    <rect key="frame" x="0.0" y="0.0" width="46" height="50"/>
                 </imageView>
             </subviews>
             <constraints>
@@ -31,10 +31,10 @@
             <connections>
                 <outlet property="enemyImage" destination="GBE-pV-AGl" id="PfU-Bk-h6j"/>
             </connections>
-            <point key="canvasLocation" x="-122" y="-251"/>
+            <point key="canvasLocation" x="-118" y="-251"/>
         </view>
     </objects>
     <resources>
-        <image name="android_default" width="90" height="90"/>
+        <image name="android_default" width="42" height="50"/>
     </resources>
 </document>

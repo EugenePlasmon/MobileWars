@@ -14,6 +14,14 @@ protocol GameVCInput {
     func addEnemy(at point: CGPoint, withId id: String)
     
     func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String)
+    
+    func stopEnemy(withId id: String)
+    
+    func killEnemy(withId id: String)
+    
+    func dropDownEnemy(withId id: String)
+    
+    func removeEnemy(withId id: String, withFadeOut: Bool)
 }
 
 
@@ -26,4 +34,8 @@ protocol GameVCOutput {
     func viewDidPressBackButton()
     
     func viewDidAddEnemy(withId id: String)
+    
+    func viewDidTouchDownEnemy(withId id: String)
+    
+    func viewDidTouchUpEnemy(withId id: String)
 }

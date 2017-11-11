@@ -86,10 +86,13 @@ public class GamePresenter: NSObject {
     
     private func invalidateAllTimers() {
         addingEnemiesTimer?.invalidate()
+        addingEnemiesTimer = nil
         
         for timer in movingEnemyTimers.values {
             timer.invalidate()
         }
+        
+        movingEnemyTimers = [:]
     }
 }
 
@@ -111,5 +114,24 @@ extension GamePresenter: GameVCOutput {
     
     func viewDidAddEnemy(withId id: String) {
         startMovingEnemy(withId: id)
+    }
+    
+    func viewDidTouchDownEnemy(withId id: String) {
+        movingEnemyTimers[id]?.invalidate()
+        movingEnemyTimers[id] = nil
+        
+        userInterface.stopEnemy(withId: id)
+        userInterface.killEnemy(withId: id)
+    }
+    
+    func viewDidTouchUpEnemy(withId id: String) {
+        userInterface.dropDownEnemy(withId: id)
+        
+        let waitTime = 0.5
+        
+        //FIXME: retain self
+        DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+            self.userInterface.removeEnemy(withId: id, withFadeOut: true)
+        }
     }
 }

@@ -69,4 +69,8 @@ extension CGPoint {
         
         return CGPoint(x: randomX, y: randomY)
     }
+    
+    public func inverse() -> CGPoint {
+        return CGPoint(x: -self.x, y: -self.y)
+    }
 }

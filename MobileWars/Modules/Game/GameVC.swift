@@ -66,8 +66,11 @@ extension GameVC: GameVCInput {
     
     func addEnemy(at point: CGPoint, withId id: String) {
         let enemyLogoView = EnemyLogoView.createView()
-        gameSceneView.addSubview(enemyLogoView)
+        enemyLogoView.output = self
+        enemyLogoView.enemyId = id
         enemyLogoView.center = point
+        
+        gameSceneView.addSubview(enemyLogoView)
         
         let behavior = UIDynamicItemBehavior()
         behavior.resistance = 0
@@ -89,5 +92,67 @@ extension GameVC: GameVCInput {
         guard let behavior = enemiesMoveBehaviours[id] else {return}
         
         behavior.addLinearVelocity(velocity, for: enemyLogoView)
+    }
+    
+    func stopEnemy(withId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        guard let behavior = enemiesMoveBehaviours[id] else {return}
+        
+        let currentVelocity = behavior.linearVelocity(for: enemyLogoView)
+        let inverseVelocity = currentVelocity.inverse()
+        
+        behavior.addLinearVelocity(inverseVelocity, for: enemyLogoView)
+    }
+    
+    func killEnemy(withId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        
+        enemyLogoView.configureImageAsDead()
+        enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 1.5)
+    }
+    
+    func dropDownEnemy(withId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        
+        enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 5.0)
+    }
+    
+    func removeEnemy(withId id: String, withFadeOut: Bool) {
+        guard let enemyLogoView = enemies[id] else {return}
+        guard let behavior = enemiesMoveBehaviours[id] else {return}
+        
+        animator.removeBehavior(behavior)
+        behavior.removeItem(enemyLogoView)
+        enemiesMoveBehaviours[id] = nil
+        
+        if withFadeOut {
+            UIView.animate(withDuration: 0.5, animations: {
+                enemyLogoView.alpha = 0.0
+            }, completion: { (completed) in
+                enemyLogoView.removeFromSuperview()
+            })
+        } else {
+            enemyLogoView.removeFromSuperview()
+        }
+    }
+}
+
+
+extension GameVC: EnemyLogoViewOutput {
+    
+    func didTouchDown(_ sender: EnemyLogoView) {
+        guard let id = sender.enemyId else {
+            assert(false, "EnemyLogoView has no id")
+        }
+        
+        output.viewDidTouchDownEnemy(withId: id)
+    }
+    
+    func didTouchUp(_ sender: EnemyLogoView) {
+        guard let id = sender.enemyId else {
+            assert(false, "EnemyLogoView has no id")
+        }
+        
+        output.viewDidTouchUpEnemy(withId: id)
     }
 }
