@@ -45,6 +45,4 @@ protocol GameVCOutput {
     func viewDidTouchDownEnemy(withId id: String)
     
     func viewDidTouchUpEnemy(withId id: String)
-    
-    func viewAddScore()
 }

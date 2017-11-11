@@ -109,7 +109,6 @@ extension GameVC: GameVCInput {
     func killEnemy(withId id: String) {
         guard let enemyLogoView = enemies[id] else {return}
         
-        output.viewAddScore()
         enemyLogoView.configureImageAsDead()
         enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 1.5)
     }
@@ -152,9 +151,11 @@ extension GameVC: GameVCInput {
     }
     
     func hideComboLabel() {
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.2, animations: {
             self.comboLabel.alpha = 0
-        }
+        }, completion: { (completed) in
+            self.comboLabel.text = nil
+        })
     }
 }
 

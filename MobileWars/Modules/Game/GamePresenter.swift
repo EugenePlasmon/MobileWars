@@ -10,20 +10,29 @@ import UIKit
 
 
 private let velocityUpdateTimeInterval = 0.1
+private let maxTimeIntervalForCombo = 5.0
+private let touchesCountRequiredToNextCombo = 5
 
 
 public class GamePresenter: NSObject {
+    
+    enum ComboMode: Int {
+        case noCombo = 1
+        case x2 = 2
+        case x3 = 3
+        case x5 = 5
+        case x10 = 10
+    }
     
     unowned var userInterface: GameVC
     
     private var addingEnemiesTimer: Timer?
     private var movingEnemyTimers: [String: Timer] = [:]
+    private var timerForNextTouchInCombo: Timer?
     private var lastTouchTime: Date?
     private var score = 0
-    private var touchesForComboCounter = 0
-    private var touchesInCombo = 0
-    private var comboRate = 0
-    private var comboScore = 0
+    private var touchesInCurrentCombo = 0
+    private var currentComboMode: ComboMode = .noCombo
     
     init(userInterface: GameVC) {
         self.userInterface = userInterface
@@ -80,62 +89,47 @@ public class GamePresenter: NSObject {
         movingEnemyTimers[id] = newMovingTimer
     }
     
-    //Методы для SCORE
-    private func makeArrayFromComboCounter(comboCounter: Int) -> [Int] {
-        let comboCounterString = String(comboCounter)
-        let array = comboCounterString.flatMap{Int(String($0))}
-        
-        return array
-    }
+    //MARK: - Score counting
     
-    private func getComboRateToReturn(array: [Int]) -> Int {
-        var newArray = array
-        var comboRate = 0
+    private func calculateCombo() {
+        let now = Date()
         
-        if array.count == 1 {
-            comboRate = 1
+        if lastTouchTime != nil {
+            touchesInCurrentCombo += 1
+                
+            if touchesInCurrentCombo >= touchesCountRequiredToNextCombo && currentComboMode != .x10 {
+                print("NEXT COMBO MODE!")
+                setNextComboMode()
+                touchesInCurrentCombo = 1
+            }
         } else {
-            newArray.removeLast()
-            newArray[0] += 1
-            var myString = ""
-            _ = newArray.map{ myString = myString + "\($0)" }
-            comboRate = Int(myString)!
+            touchesInCurrentCombo = 1
         }
         
-        return comboRate
+        lastTouchTime = now
     }
     
-    func comboScore(touches: Int, rate: Int) -> Int {
-        return touches * rate
+    private func calculateScore() {
+        calculateCombo()
+        score += currentComboMode.rawValue
     }
     
-    private func comboScoreCounting(lastTouchTime: Double) {
-        guard lastTouchTime <= 5 else {
-            print("COMBO SCORE = \(comboScore)")
-            score += comboScore
-            userInterface.updateScoreLabel(withScore: score)
-            userInterface.hideComboLabel()
-            touchesForComboCounter = 0
-            touchesInCombo = 0
-            comboScore = 0
-            return
-        }
-        
-        touchesForComboCounter += 1
-        
-        if touchesForComboCounter > 10 {
-            print("COMBO!")
-            score -= 1
-            touchesInCombo += 1
-            let array = makeArrayFromComboCounter(comboCounter: touchesForComboCounter)
-            comboRate = getComboRateToReturn(array: array)
-            userInterface.showComboLabel(withRate: comboRate)
-            comboScore = comboScore(touches: touchesInCombo, rate: comboRate)
-            print("Touches in Combo-Mode: \(touchesInCombo) | Combo rate: \(comboRate)")
+    private func setNextComboMode() {
+        switch currentComboMode {
+        case .noCombo:
+            currentComboMode = .x2
+        case .x2:
+            currentComboMode = .x3
+        case .x3:
+            currentComboMode = .x5
+        case .x5:
+            currentComboMode = .x10
+        default:
+            break
         }
     }
     
-    // MARK: - Timer
+    // MARK: - Timers
     
     @objc private func tickAddingEnemiesTimer() {
         let maxDelay = 2.0
@@ -154,6 +148,25 @@ public class GamePresenter: NSObject {
         }
         
         movingEnemyTimers = [:]
+    }
+    
+    private func startTimerForNextTouchInCombo() {
+        timerForNextTouchInCombo?.invalidate()
+        
+        timerForNextTouchInCombo = Timer.scheduledTimer(timeInterval: maxTimeIntervalForCombo,
+                                                              target: self,
+                                                            selector: #selector(timerForNextTouchInComboExpired),
+                                                            userInfo: nil,
+                                                             repeats: false)
+    }
+    
+    @objc private func timerForNextTouchInComboExpired() {
+        //TODO: mb show label combo expired?
+        
+        currentComboMode = .noCombo
+        touchesInCurrentCombo = 0
+        
+        userInterface.hideComboLabel()
     }
 }
 
@@ -179,12 +192,17 @@ extension GamePresenter: GameVCOutput {
     }
     
     func viewDidTouchDownEnemy(withId id: String) {
-        let now = Date()
-        if let lastTouchTime = lastTouchTime {
-            let timeSinceLast = now.timeIntervalSince(lastTouchTime)
-            comboScoreCounting(lastTouchTime: timeSinceLast)
+        startTimerForNextTouchInCombo()
+        calculateScore()
+        userInterface.updateScoreLabel(withScore: score)
+        
+        if currentComboMode != .noCombo {
+            userInterface.showComboLabel(withRate: currentComboMode.rawValue)
+        } else {
+            userInterface.hideComboLabel()
         }
         
+        let now = Date()
         lastTouchTime = now
         
         movingEnemyTimers[id]?.invalidate()
@@ -203,10 +221,5 @@ extension GamePresenter: GameVCOutput {
         DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
             self.userInterface.removeEnemy(withId: id, withFadeOut: true)
         }
-    }
-    
-    func viewAddScore() {
-        score += 1
-        userInterface.updateScoreLabel(withScore: score)
     }
 }
