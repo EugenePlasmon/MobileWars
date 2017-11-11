@@ -14,6 +14,16 @@ class GameVC: UIViewController {
     var output: GameVCOutput!
     var enemies: [EnemyLogoView] = []
     
+    lazy var animator: UIDynamicAnimator = {
+        UIDynamicAnimator(referenceView: self.gameSceneView)
+    }()
+    
+    lazy var moveBehavior: UIDynamicItemBehavior = {
+        let behavior = UIDynamicItemBehavior()
+        behavior.allowsRotation = false
+        return behavior
+    }()
+    
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var gameSceneView: UIView!
@@ -50,10 +60,14 @@ extension GameVC: GameVCInput {
     
     func addEnemy(at point: CGPoint) {
         let enemyLogoView = EnemyLogoView.createView()
+        gameSceneView.addSubview(enemyLogoView)
+        enemyLogoView.center = point
+        
         enemies.append(enemyLogoView)
         
-        gameSceneView.addSubview(enemyLogoView)
+        moveBehavior.addItem(enemyLogoView)
+        moveBehavior.addLinearVelocity(CGPoint(x: 1, y: 20), for: enemyLogoView)
         
-        enemyLogoView.center = point
+        animator.addBehavior(moveBehavior)
     }
 }
