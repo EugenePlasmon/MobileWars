@@ -10,6 +10,7 @@ import UIKit
 
 
 private let velocityUpdateTimeInterval = 0.1
+var score = 0
 
 
 public class GamePresenter: NSObject {
@@ -18,6 +19,7 @@ public class GamePresenter: NSObject {
     
     private var addingEnemiesTimer: Timer?
     private var movingEnemyTimers: [String: Timer] = [:]
+
     
     init(userInterface: GameVC) {
         self.userInterface = userInterface
@@ -101,6 +103,7 @@ public class GamePresenter: NSObject {
 extension GamePresenter: GameVCOutput {
     
     func viewDidReady() {
+        score = 0 // Обнуляем счет при новой игровой "сессии"
         startAddingEnemies()
     }
     
@@ -133,5 +136,10 @@ extension GamePresenter: GameVCOutput {
         DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
             self.userInterface.removeEnemy(withId: id, withFadeOut: true)
         }
+    }
+    
+    func viewAddScore() {
+        score += 1
+        userInterface.updateScoreLabel(withScore: score)
     }
 }

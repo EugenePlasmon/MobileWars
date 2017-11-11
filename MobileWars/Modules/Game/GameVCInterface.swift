@@ -22,6 +22,8 @@ protocol GameVCInput {
     func dropDownEnemy(withId id: String)
     
     func removeEnemy(withId id: String, withFadeOut: Bool)
+    
+    func updateScoreLabel(withScore score: Int)
 }
 
 
@@ -38,4 +40,6 @@ protocol GameVCOutput {
     func viewDidTouchDownEnemy(withId id: String)
     
     func viewDidTouchUpEnemy(withId id: String)
+    
+    func viewAddScore()
 }

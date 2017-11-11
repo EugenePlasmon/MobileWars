@@ -27,6 +27,7 @@ class GameVC: UIViewController {
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var gameSceneView: UIView!
+    @IBOutlet weak var scoreLabel: UILabel!
     
     //MARK: - Init
     
@@ -107,6 +108,7 @@ extension GameVC: GameVCInput {
     func killEnemy(withId id: String) {
         guard let enemyLogoView = enemies[id] else {return}
         
+        output.viewAddScore()
         enemyLogoView.configureImageAsDead()
         enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 1.5)
     }
@@ -134,6 +136,11 @@ extension GameVC: GameVCInput {
         } else {
             enemyLogoView.removeFromSuperview()
         }
+    }
+    
+    func updateScoreLabel(withScore score: Int) {
+        let stringScore = "\(score)"
+        scoreLabel.text = stringScore
     }
 }
 
