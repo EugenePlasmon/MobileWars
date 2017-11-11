@@ -6,12 +6,13 @@
 //  Copyright © 2017 swiftbook.ru. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 extension Int {
     
-    public static func random(from: Int, to: Int) -> Int {
+    public static func random(from: Int,
+                                to: Int) -> Int {
         assert(to > from,
                "Invalid parameters: to must be greater than from")
         
@@ -24,7 +25,8 @@ extension Int {
 
 extension Double {
     
-    public static func random(from: Double, to: Double) -> Double {
+    public static func random(from: Double,
+                                to: Double) -> Double {
         assert(to > from,
                "Invalid parameters: to must be greater than from")
         
@@ -32,5 +34,39 @@ extension Double {
         let k = 100000.0
         
         return from + Double(Int(arc4random()) % Int(diff * k)) / k
+    }
+}
+
+
+extension CGFloat {
+    
+    public static func random(from: CGFloat,
+                                to: CGFloat) -> CGFloat {
+        assert(to > from,
+               "Invalid parameters: to must be greater than from")
+        
+        let diff = to - from
+        let k: CGFloat = 100000.0
+        
+        return from + CGFloat(Int(arc4random()) % Int(diff * k)) / k
+    }
+}
+
+
+extension CGPoint {
+    
+    public static func random(xMin: CGFloat,
+                              xMax: CGFloat,
+                              yMin: CGFloat,
+                              yMax: CGFloat) -> CGPoint {
+        assert(xMax > xMin,
+               "Invalid parameters: to must be greater than from")
+        assert(yMax > yMin,
+               "Invalid parameters: to must be greater than from")
+        
+        let randomX = CGFloat.random(from: xMin, to: xMax)
+        let randomY = CGFloat.random(from: yMin, to: yMax)
+        
+        return CGPoint(x: randomX, y: randomY)
     }
 }

@@ -9,18 +9,22 @@
 import UIKit
 
 
-class GamePresenter: NSObject {
+private let velocityUpdateTimeInterval = 0.1
+
+
+public class GamePresenter: NSObject {
     
     unowned var userInterface: GameVC
     
-    var addingEnemiesTimer: Timer?
+    private var addingEnemiesTimer: Timer?
+    private var movingEnemyTimers: [String: Timer] = [:]
     
     init(userInterface: GameVC) {
         self.userInterface = userInterface
     }
     
     deinit {
-        addingEnemiesTimer?.invalidate()
+        invalidateAllTimers()
     }
     
     //MARK: - Private
@@ -33,10 +37,10 @@ class GamePresenter: NSObject {
         addEnemyAtRandomPointAtTop()
         
         addingEnemiesTimer = Timer.scheduledTimer(timeInterval: 1.0,
-                                           target: self,
-                                         selector: #selector(tickTimer),
-                                         userInfo: nil,
-                                          repeats: true)
+                                                        target: self,
+                                                      selector: #selector(tickAddingEnemiesTimer),
+                                                      userInfo: nil,
+                                                       repeats: true)
     }
     
     private func stopAddingEnemies() {
@@ -56,14 +60,36 @@ class GamePresenter: NSObject {
         userInterface.addEnemy(at: randomPointAtTop, withId: id)
     }
     
+    private func startMovingEnemy(withId id: String) {
+        let randomStartVelocity = CGPoint.random(xMin: -50, xMax: 50,
+                                                 yMin: 100, yMax: 300)
+        self.userInterface.addVelocity(randomStartVelocity, forEnemyWithId: id)
+        
+        let newMovingTimer = Timer.scheduledTimer(withTimeInterval: velocityUpdateTimeInterval, repeats: true) { [weak self] (timer) in
+            let randomVelocity = CGPoint.random(xMin: -50, xMax: 50,
+                                                yMin: -50, yMax: 50)
+            self?.userInterface.addVelocity(randomVelocity, forEnemyWithId: id)
+        }
+        
+        movingEnemyTimers[id] = newMovingTimer
+    }
+    
     // MARK: - Timer
     
-    @objc private func tickTimer() {
+    @objc private func tickAddingEnemiesTimer() {
         let maxDelay = 2.0
         let randomDelay = Double.random(from: 0.0, to: maxDelay)
         
         perform(#selector(addEnemyAtRandomPointAtTop), with: nil,
                                                  afterDelay: randomDelay)
+    }
+    
+    private func invalidateAllTimers() {
+        addingEnemiesTimer?.invalidate()
+        
+        for timer in movingEnemyTimers.values {
+            timer.invalidate()
+        }
     }
 }
 
@@ -81,5 +107,9 @@ extension GamePresenter: GameVCOutput {
     
     func viewDidPressBackButton() {
         closeModule()
+    }
+    
+    func viewDidAddEnemy(withId id: String) {
+        startMovingEnemy(withId: id)
     }
 }

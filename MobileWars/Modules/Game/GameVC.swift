@@ -12,16 +12,11 @@ import UIKit
 class GameVC: UIViewController {
     
     var output: GameVCOutput!
-    var enemies: [EnemyLogoView] = []
+    var enemies: [String: EnemyLogoView] = [:]
+    var enemiesMoveBehaviours: [String: UIDynamicItemBehavior] = [:]
     
     lazy var animator: UIDynamicAnimator = {
         UIDynamicAnimator(referenceView: self.gameSceneView)
-    }()
-    
-    lazy var moveBehavior: UIDynamicItemBehavior = {
-        let behavior = UIDynamicItemBehavior()
-        behavior.allowsRotation = false
-        return behavior
     }()
     
     @IBOutlet weak var topBarView: UIView!
@@ -69,11 +64,21 @@ extension GameVC: GameVCInput {
         gameSceneView.addSubview(enemyLogoView)
         enemyLogoView.center = point
         
-        enemies.append(enemyLogoView)
+        let behavior = UIDynamicItemBehavior()
+        behavior.resistance = 0
+        behavior.addItem(enemyLogoView)
+        animator.addBehavior(behavior)
         
-        moveBehavior.addItem(enemyLogoView)
-        moveBehavior.addLinearVelocity(CGPoint(x: 1, y: 20), for: enemyLogoView)
+        enemies[id] = enemyLogoView
+        enemiesMoveBehaviours[id] = behavior
         
-        animator.addBehavior(moveBehavior)
+        output.viewDidAddEnemy(withId: id)
+    }
+    
+    func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        guard let behavior = enemiesMoveBehaviours[id] else {return}
+        
+        behavior.addLinearVelocity(velocity, for: enemyLogoView)
     }
 }

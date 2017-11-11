@@ -12,6 +12,8 @@ import UIKit
 protocol GameVCInput {
     
     func addEnemy(at point: CGPoint, withId id: String)
+    
+    func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String)
 }
 
 
@@ -22,4 +24,6 @@ protocol GameVCOutput {
     func viewWillDissapear()
     
     func viewDidPressBackButton()
+    
+    func viewDidAddEnemy(withId id: String)
 }
