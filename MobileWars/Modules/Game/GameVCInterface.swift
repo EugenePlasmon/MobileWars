@@ -25,6 +25,10 @@ protocol GameVCInput {
     
     func removeEnemy(withId id: String, withFadeOut: Bool)
     
+    func killDefender(withId id: String)
+    
+    func removeDefender(withId id: String)
+    
     func updateScoreLabel(withScore score: Int)
     
     func showComboLabel(withRate rate: Int)
@@ -49,4 +53,7 @@ protocol GameVCOutput {
     func viewDidTouchDownEnemy(withId id: String)
     
     func viewDidTouchUpEnemy(withId id: String)
+    
+    func viewDidCollide(enemyWithId enemyId: String, andDefenderWithId
+                                 defenderId: String)
 }

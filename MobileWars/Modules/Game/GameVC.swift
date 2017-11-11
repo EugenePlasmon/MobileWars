@@ -19,6 +19,7 @@ class GameVC: UIViewController {
     lazy var collisionBehavior: UICollisionBehavior = {
         let behavior = UICollisionBehavior()
         behavior.collisionDelegate = self
+        behavior.translatesReferenceBoundsIntoBoundary = true
         return behavior
     }()
     
@@ -85,7 +86,6 @@ extension GameVC: GameVCInput {
         enemiesMoveBehaviours[id] = behavior
         
         collisionBehavior.addItem(enemyLogoView)
-        collisionBehavior.translatesReferenceBoundsIntoBoundary = true
         animator.addBehavior(collisionBehavior)
         
         output.viewDidAddEnemy(withId: id)
@@ -140,6 +140,7 @@ extension GameVC: GameVCInput {
         guard let behavior = enemiesMoveBehaviours[id] else {return}
         
         animator.removeBehavior(behavior)
+        collisionBehavior.removeItem(enemyLogoView)
         behavior.removeItem(enemyLogoView)
         enemiesMoveBehaviours[id] = nil
         
@@ -152,6 +153,19 @@ extension GameVC: GameVCInput {
         } else {
             enemyLogoView.removeFromSuperview()
         }
+    }
+    
+    func killDefender(withId id: String) {
+        //TODO: explosion of defender
+    }
+    
+    func removeDefender(withId id: String) {
+        guard let defenderLogoView = defenders[id] else {return}
+        collisionBehavior.removeBoundary(withIdentifier: defenderLogoView.defenderId! as NSString)
+        collisionBehavior.removeItem(defenderLogoView)
+        enemiesMoveBehaviours[id] = nil
+        
+        defenderLogoView.removeFromSuperview()
     }
     
     func updateScoreLabel(withScore score: Int) {
@@ -204,7 +218,16 @@ extension GameVC: EnemyLogoViewOutput {
 //MARK: - UICollisionBehaviorDelegate
 extension GameVC: UICollisionBehaviorDelegate {
     
-    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
-        print(identifier ?? "not id")
+    //identifier is equal to defender id
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor
+                                 item: UIDynamicItem, withBoundaryIdentifier
+                           identifier: NSCopying?,
+                                 at p: CGPoint) {
+        let enemyView = item as! EnemyLogoView
+        
+        guard let enemyId = enemyView.enemyId else {return}
+        guard let defenderId = identifier as? NSString else {return}
+        
+        output.viewDidCollide(enemyWithId: enemyId, andDefenderWithId: defenderId as String)
     }
 }
