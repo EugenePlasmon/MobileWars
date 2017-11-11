@@ -20,6 +20,7 @@
 		F87D8A321FB655B900C0855E /* GamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A311FB655B900C0855E /* GamePresenter.swift */; };
 		F87D8A341FB6595D00C0855E /* EnemyLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A331FB6595D00C0855E /* EnemyLogoView.swift */; };
 		F87D8A371FB6597B00C0855E /* EnemyLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A361FB6597B00C0855E /* EnemyLogoView.xib */; };
+		F87D8A391FB6E32400C0855E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A381FB6E32400C0855E /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		F87D8A311FB655B900C0855E /* GamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePresenter.swift; sourceTree = "<group>"; };
 		F87D8A331FB6595D00C0855E /* EnemyLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyLogoView.swift; sourceTree = "<group>"; };
 		F87D8A361FB6597B00C0855E /* EnemyLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnemyLogoView.xib; sourceTree = "<group>"; };
+		F87D8A381FB6E32400C0855E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				F87D8A161FB64E1700C0855E /* Assets.xcassets */,
 				F87D8A181FB64E1700C0855E /* LaunchScreen.storyboard */,
 				F87D8A1B1FB64E1700C0855E /* Info.plist */,
+				F87D8A381FB6E32400C0855E /* .gitignore */,
 			);
 			path = MobileWars;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				F87D8A241FB64E8600C0855E /* MainMenuVC.xib in Resources */,
 				F87D8A2A1FB6507800C0855E /* GameVC.xib in Resources */,
 				F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */,
+				F87D8A391FB6E32400C0855E /* .gitignore in Resources */,
 				F87D8A371FB6597B00C0855E /* EnemyLogoView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
