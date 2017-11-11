@@ -10,7 +10,6 @@ import UIKit
 
 
 private let velocityUpdateTimeInterval = 0.1
-var score = 0
 
 
 public class GamePresenter: NSObject {
@@ -20,8 +19,10 @@ public class GamePresenter: NSObject {
     private var addingEnemiesTimer: Timer?
     private var movingEnemyTimers: [String: Timer] = [:]
     private var lastTouchTime: Date?
+    private var score = 0
     private var touchesForComboCounter = 0
-    private var returnRate = 0
+    private var touchesInCombo = 0
+    private var comboRate = 0
     private var comboScore = 0
     
     init(userInterface: GameVC) {
@@ -79,6 +80,7 @@ public class GamePresenter: NSObject {
         movingEnemyTimers[id] = newMovingTimer
     }
     
+    //Методы для SCORE
     private func makeArrayFromComboCounter(comboCounter: Int) -> [Int] {
         let comboCounterString = String(comboCounter)
         let array = comboCounterString.flatMap{Int(String($0))}
@@ -89,19 +91,15 @@ public class GamePresenter: NSObject {
     private func getComboRateToReturn(array: [Int]) -> Int {
         var newArray = array
         var comboRate = 0
-        switch array.count {
-        case 1:
+        
+        if array.count == 1 {
             comboRate = 1
-            return comboRate
-        case 2...:
+        } else {
             newArray.removeLast()
             newArray[0] += 1
             var myString = ""
             _ = newArray.map{ myString = myString + "\($0)" }
             comboRate = Int(myString)!
-            return comboRate
-        default:
-            break
         }
         
         return comboRate
@@ -118,22 +116,22 @@ public class GamePresenter: NSObject {
             userInterface.updateScoreLabel(withScore: score)
             userInterface.hideComboLabel()
             touchesForComboCounter = 0
+            touchesInCombo = 0
             comboScore = 0
             return
         }
+        
         touchesForComboCounter += 1
         
         if touchesForComboCounter > 10 {
+            print("COMBO!")
+            score -= 1
+            touchesInCombo += 1
             let array = makeArrayFromComboCounter(comboCounter: touchesForComboCounter)
-            print(array)
-            
-            returnRate = getComboRateToReturn(array: array)
-
-            userInterface.showComboLabel(withRate: returnRate)
-            
-            comboScore = comboScore(touches: touchesForComboCounter, rate: returnRate)
-            print("Touches for combo – \(touchesForComboCounter)")
-            print("TIS1970 – \(lastTouchTime)")
+            comboRate = getComboRateToReturn(array: array)
+            userInterface.showComboLabel(withRate: comboRate)
+            comboScore = comboScore(touches: touchesInCombo, rate: comboRate)
+            print("Touches in Combo-Mode: \(touchesInCombo) | Combo rate: \(comboRate)")
         }
     }
     
