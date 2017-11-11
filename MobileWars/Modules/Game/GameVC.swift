@@ -13,10 +13,12 @@ class GameVC: UIViewController {
     
     var output: GameVCOutput!
     var enemies: [String: EnemyLogoView] = [:]
+    var defenders: [String: DefenderLogoView] = [:]
     var enemiesMoveBehaviours: [String: UIDynamicItemBehavior] = [:]
     
     lazy var collisionBehavior: UICollisionBehavior = {
         let behavior = UICollisionBehavior()
+        behavior.collisionDelegate = self
         return behavior
     }()
     
@@ -93,6 +95,12 @@ extension GameVC: GameVCInput {
         defenderLogoView.center = point
         
         gameSceneView.addSubview(defenderLogoView)
+        
+        defenders[id] = defenderLogoView
+        
+        collisionBehavior.addBoundary(withIdentifier: id as NSCopying,
+                                                 for: UIBezierPath(rect: defenderLogoView.frame))
+        
     }
     
     func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String) {
@@ -162,5 +170,13 @@ extension GameVC: EnemyLogoViewOutput {
         }
         
         output.viewDidTouchUpEnemy(withId: id)
+    }
+}
+
+
+extension GameVC: UICollisionBehaviorDelegate {
+    
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
+        print(identifier ?? "not id")
     }
 }

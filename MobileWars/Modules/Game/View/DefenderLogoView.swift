@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class DefenderLogoView: UIView {
 
     public var defenderId: String?

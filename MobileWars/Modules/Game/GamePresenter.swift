@@ -46,15 +46,15 @@ public class GamePresenter: NSObject {
     private func addDefendersAtBottom() {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
-        var coordX = Double(screenWidth / 4)
-        let coordY = Double(screenHeight - 100)
+        var coordX = screenWidth / 4
+        let coordY = screenHeight - 100
         for _ in 0..<3 {
-            let randomPointAtTop = CGPoint(x: coordX, y: coordY)
+            let randomPointAtBottom = CGPoint(x: coordX, y: coordY)
             
             let id = UUID().uuidString
             
-            userInterface.addDefender(at: randomPointAtTop, withId: id)
-            coordX += Double(screenWidth / 4)
+            userInterface.addDefender(at: randomPointAtBottom, withId: id)
+            coordX += screenWidth / 4
         }
     }
     
