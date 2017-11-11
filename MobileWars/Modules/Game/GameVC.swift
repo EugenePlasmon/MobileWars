@@ -13,10 +13,13 @@ class GameVC: UIViewController {
     
     var output: GameVCOutput!
     var enemies: [String: EnemyLogoView] = [:]
+    var defenders: [String: DefenderLogoView] = [:]
     var enemiesMoveBehaviours: [String: UIDynamicItemBehavior] = [:]
     
     lazy var collisionBehavior: UICollisionBehavior = {
         let behavior = UICollisionBehavior()
+        behavior.collisionDelegate = self
+        behavior.translatesReferenceBoundsIntoBoundary = true
         return behavior
     }()
     
@@ -83,10 +86,23 @@ extension GameVC: GameVCInput {
         enemiesMoveBehaviours[id] = behavior
         
         collisionBehavior.addItem(enemyLogoView)
-        collisionBehavior.translatesReferenceBoundsIntoBoundary = true
         animator.addBehavior(collisionBehavior)
         
         output.viewDidAddEnemy(withId: id)
+    }
+    
+    func addDefender(at point: CGPoint, withId id: String) {
+        let defenderLogoView = DefenderLogoView.createView()
+        defenderLogoView.defenderId = id
+        defenderLogoView.center = point
+        
+        gameSceneView.addSubview(defenderLogoView)
+        
+        defenders[id] = defenderLogoView
+        
+        collisionBehavior.addBoundary(withIdentifier: id as NSCopying,
+                                                 for: UIBezierPath(rect: defenderLogoView.frame))
+        
     }
     
     func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String) {
@@ -124,6 +140,7 @@ extension GameVC: GameVCInput {
         guard let behavior = enemiesMoveBehaviours[id] else {return}
         
         animator.removeBehavior(behavior)
+        collisionBehavior.removeItem(enemyLogoView)
         behavior.removeItem(enemyLogoView)
         enemiesMoveBehaviours[id] = nil
         
@@ -136,6 +153,19 @@ extension GameVC: GameVCInput {
         } else {
             enemyLogoView.removeFromSuperview()
         }
+    }
+    
+    func killDefender(withId id: String) {
+        //TODO: explosion of defender
+    }
+    
+    func removeDefender(withId id: String) {
+        guard let defenderLogoView = defenders[id] else {return}
+        collisionBehavior.removeBoundary(withIdentifier: defenderLogoView.defenderId! as NSString)
+        collisionBehavior.removeItem(defenderLogoView)
+        enemiesMoveBehaviours[id] = nil
+        
+        defenderLogoView.removeFromSuperview()
     }
     
     func updateScoreLabel(withScore score: Int) {
@@ -157,9 +187,14 @@ extension GameVC: GameVCInput {
             self.comboLabel.text = nil
         })
     }
+    
+    func getGameViewFrame() -> CGRect {
+        return gameSceneView.frame
+    }
 }
 
 
+//MARK: - EnemyLogoViewOutput
 extension GameVC: EnemyLogoViewOutput {
     
     func didTouchDown(_ sender: EnemyLogoView) {
@@ -176,5 +211,23 @@ extension GameVC: EnemyLogoViewOutput {
         }
         
         output.viewDidTouchUpEnemy(withId: id)
+    }
+}
+
+
+//MARK: - UICollisionBehaviorDelegate
+extension GameVC: UICollisionBehaviorDelegate {
+    
+    //identifier is equal to defender id
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor
+                                 item: UIDynamicItem, withBoundaryIdentifier
+                           identifier: NSCopying?,
+                                 at p: CGPoint) {
+        let enemyView = item as! EnemyLogoView
+        
+        guard let enemyId = enemyView.enemyId else {return}
+        guard let defenderId = identifier as? NSString else {return}
+        
+        output.viewDidCollide(enemyWithId: enemyId, andDefenderWithId: defenderId as String)
     }
 }

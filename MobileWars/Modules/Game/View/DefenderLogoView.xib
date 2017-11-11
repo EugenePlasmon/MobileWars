@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DefenderLogoView" customModule="MobileWars" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple_default" translatesAutoresizingMaskIntoConstraints="NO" id="uvb-1u-gy6">
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="uvb-1u-gy6" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="C6Y-jN-e4M"/>
+                <constraint firstItem="uvb-1u-gy6" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="GNV-qd-gea"/>
+                <constraint firstItem="uvb-1u-gy6" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="nOW-SP-rTt"/>
+                <constraint firstItem="uvb-1u-gy6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="x7b-bJ-aUV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="defenderImage" destination="uvb-1u-gy6" id="3D8-cL-opU"/>
+            </connections>
+            <point key="canvasLocation" x="-94" y="-101"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="apple_default" width="256" height="256"/>
+    </resources>
+</document>

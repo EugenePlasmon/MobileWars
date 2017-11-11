@@ -12,6 +12,7 @@ import UIKit
 private let velocityUpdateTimeInterval = 0.1
 private let maxTimeIntervalForCombo = 5.0
 private let touchesCountRequiredToNextCombo = 5
+private let defendersCount = 3
 
 
 public class GamePresenter: NSObject {
@@ -56,6 +57,35 @@ public class GamePresenter: NSObject {
                                                       selector: #selector(tickAddingEnemiesTimer),
                                                       userInfo: nil,
                                                        repeats: true)
+    }
+    
+    private func addDefenders() {
+        let gameViewFrame = userInterface.getGameViewFrame()
+        let gameViewWidth = gameViewFrame.width
+        let gameViewHeight = gameViewFrame.height
+        
+        let bottomInset: CGFloat = 12.0
+        let defenderSize = DefenderLogoView.size()
+        let defenderHeight = defenderSize.height
+        let defenderWidth = defenderSize.width
+        
+        let coordY = gameViewHeight - 0.5 * defenderHeight - bottomInset
+        
+        let defendersSumWidth = CGFloat(defendersCount) * defenderWidth
+        let edgeInset: CGFloat = 80.0
+        let defendersStackWidth = gameViewWidth - 2 * edgeInset
+        let spaceBetweenDefenders = (defendersStackWidth - defendersSumWidth) / CGFloat(defendersCount - 1)
+        
+        let coordXForFirstDefender = edgeInset + 0.5 * defenderWidth
+        
+        for i in 0..<defendersCount {
+            let coordXForCurrentDefender = coordXForFirstDefender + CGFloat(i) * (defenderWidth + spaceBetweenDefenders)
+            let randomPointAtBottom = CGPoint(x: coordXForCurrentDefender, y: coordY)
+            
+            let id = UUID().uuidString
+            
+            userInterface.addDefender(at: randomPointAtBottom, withId: id)
+        }
     }
     
     private func stopAddingEnemies() {
@@ -177,6 +207,7 @@ extension GamePresenter: GameVCOutput {
     func viewDidReady() {
         score = 0 // Обнуляем счет при новой игровой "сессии"
         startAddingEnemies()
+        addDefenders()
     }
     
     func viewWillDissapear() {
@@ -221,5 +252,15 @@ extension GamePresenter: GameVCOutput {
         DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
             self.userInterface.removeEnemy(withId: id, withFadeOut: true)
         }
+    }
+    
+    func viewDidCollide(enemyWithId enemyId: String, andDefenderWithId defenderId: String) {
+        movingEnemyTimers[enemyId]?.invalidate()
+        movingEnemyTimers[enemyId] = nil
+        
+        userInterface.killEnemy(withId: enemyId)
+        //TODO: explodeEnemy
+        userInterface.removeEnemy(withId: enemyId, withFadeOut: false)
+        userInterface.removeDefender(withId: defenderId)
     }
 }
