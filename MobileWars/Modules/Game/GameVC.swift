@@ -99,9 +99,16 @@ extension GameVC: GameVCInput {
         guard let enemyLogoView = enemies[id] else {return}
         
         enemyLogoView.configureImageAsDead()
+        enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 1.5)
     }
     
-    func removeEnemy(withId id: String, animated: Bool) {
+    func dropDownEnemy(withId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        
+        enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 5.0)
+    }
+    
+    func removeEnemy(withId id: String, withFadeOut: Bool) {
         guard let enemyLogoView = enemies[id] else {return}
         guard let behavior = enemiesMoveBehaviours[id] else {return}
         
@@ -109,7 +116,7 @@ extension GameVC: GameVCInput {
         behavior.removeItem(enemyLogoView)
         enemiesMoveBehaviours[id] = nil
         
-        if animated {
+        if withFadeOut {
             UIView.animate(withDuration: 0.5, animations: {
                 enemyLogoView.alpha = 0.0
             }, completion: { (completed) in

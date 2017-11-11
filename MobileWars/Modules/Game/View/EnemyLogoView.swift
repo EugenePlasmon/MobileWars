@@ -9,6 +9,10 @@
 import UIKit
 
 
+public typealias Radians = Float
+public typealias RadiansPerSecond = Float
+
+
 private let androidColor = UIColor(red: 153.0/255.0, green: 204.0/255.0, blue: 3.0/255.0, alpha: 1.0)
 
 
@@ -24,6 +28,7 @@ class EnemyLogoView: UIView {
 
     public weak var output: EnemyLogoViewOutput?
     public var enemyId: String?
+    private var currentRotationAngle = 0.0
     
     @IBOutlet weak var enemyImage: UIImageView!
     
@@ -46,6 +51,23 @@ class EnemyLogoView: UIView {
         enemyImage.image = #imageLiteral(resourceName: "android_dead")
     }
     
+    public func rotate(toAngle: Radians, withAngularVelocity angularVelocity: RadiansPerSecond) {
+        let zKeyPath = "layer.presentationLayer.transform.rotation.z"
+        let currentAngle = (value(forKeyPath: zKeyPath) as? NSNumber)?.floatValue ?? 0.0
+        
+        let angleDiff = abs(toAngle - currentAngle)
+        let duration = Double(angleDiff / angularVelocity)
+        
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotateAnimation.duration = duration
+        rotateAnimation.fillMode = kCAFillModeForwards;
+        rotateAnimation.isRemovedOnCompletion = false
+        rotateAnimation.fromValue = currentAngle
+        rotateAnimation.toValue = toAngle
+        
+        layer.add(rotateAnimation, forKey: "slowRotation")
+    }
+
     //MARK: - Private
     
     private func configure() {

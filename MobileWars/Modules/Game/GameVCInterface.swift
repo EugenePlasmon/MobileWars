@@ -19,7 +19,9 @@ protocol GameVCInput {
     
     func killEnemy(withId id: String)
     
-    func removeEnemy(withId id: String, animated: Bool)
+    func dropDownEnemy(withId id: String)
+    
+    func removeEnemy(withId id: String, withFadeOut: Bool)
 }
 
 

@@ -125,11 +125,13 @@ extension GamePresenter: GameVCOutput {
     }
     
     func viewDidTouchUpEnemy(withId id: String) {
+        userInterface.dropDownEnemy(withId: id)
+        
         let waitTime = 0.5
         
         //FIXME: retain self
         DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
-            self.userInterface.removeEnemy(withId: id, animated: true)
+            self.userInterface.removeEnemy(withId: id, withFadeOut: true)
         }
     }
 }
