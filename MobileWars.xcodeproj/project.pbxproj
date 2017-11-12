@@ -15,11 +15,12 @@
 		F2E63E491FB87F2200DEBFDF /* SettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */; };
 		F2E63E4B1FB87FCC00DEBFDF /* SettingsVCInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4A1FB87FCC00DEBFDF /* SettingsVCInterface.swift */; };
 		F2E63E4D1FB87FEF00DEBFDF /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4C1FB87FEF00DEBFDF /* SettingsPresenter.swift */; };
-		F2E63E501FB88F9800DEBFDF /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */; };
-		F2E63E541FB8914100DEBFDF /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */; };
+		F2E63E501FB88F9800DEBFDF /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4E1FB88F9800DEBFDF /* SettingsCell.swift */; };
+		F2E63E541FB8914100DEBFDF /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E63E531FB8914100DEBFDF /* SettingsCell.xib */; };
 		F8454FFE1FB8A6B800EC25BB /* AdditionScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8454FFD1FB8A6B800EC25BB /* AdditionScoreView.swift */; };
 		F84550001FB8A6C500EC25BB /* AdditionScoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8454FFF1FB8A6C500EC25BB /* AdditionScoreView.xib */; };
 		F84550021FB8ACBF00EC25BB /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84550011FB8ACBF00EC25BB /* UIViewExtensions.swift */; };
+		F84550041FB8B5AE00EC25BB /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84550031FB8B5AE00EC25BB /* SettingsService.swift */; };
 		F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */; };
 		F87D8A121FB64E1700C0855E /* MainMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A111FB64E1700C0855E /* MainMenuVC.swift */; };
 		F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A161FB64E1700C0855E /* Assets.xcassets */; };
@@ -54,11 +55,12 @@
 		F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsVC.xib; sourceTree = "<group>"; };
 		F2E63E4A1FB87FCC00DEBFDF /* SettingsVCInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVCInterface.swift; sourceTree = "<group>"; };
 		F2E63E4C1FB87FEF00DEBFDF /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
-		F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
-		F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
+		F2E63E4E1FB88F9800DEBFDF /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		F2E63E531FB8914100DEBFDF /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		F8454FFD1FB8A6B800EC25BB /* AdditionScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionScoreView.swift; sourceTree = "<group>"; };
 		F8454FFF1FB8A6C500EC25BB /* AdditionScoreView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdditionScoreView.xib; sourceTree = "<group>"; };
 		F84550011FB8ACBF00EC25BB /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		F84550031FB8B5AE00EC25BB /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		F87D8A0C1FB64E1700C0855E /* MobileWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F87D8A111FB64E1700C0855E /* MainMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuVC.swift; sourceTree = "<group>"; };
@@ -117,10 +119,18 @@
 		F2E63E521FB88FA300DEBFDF /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */,
-				F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */,
+				F2E63E4E1FB88F9800DEBFDF /* SettingsCell.swift */,
+				F2E63E531FB8914100DEBFDF /* SettingsCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F84550051FB8B5B200EC25BB /* SettingsService */ = {
+			isa = PBXGroup;
+			children = (
+				F84550031FB8B5AE00EC25BB /* SettingsService.swift */,
+			);
+			path = SettingsService;
 			sourceTree = "<group>";
 		};
 		F87D8A031FB64E1700C0855E = {
@@ -157,6 +167,7 @@
 				F87D8A481FB86EEC00C0855E /* VibrationService */,
 				F87D8A471FB86EE000C0855E /* RecordsService */,
 				ECD28E7A1FB8911300E04962 /* PlayerService */,
+				F84550051FB8B5B200EC25BB /* SettingsService */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -348,7 +359,7 @@
 				F87D8A1A1FB64E1700C0855E /* LaunchScreen.storyboard in Resources */,
 				F2E63E491FB87F2200DEBFDF /* SettingsVC.xib in Resources */,
 				F87D8A3E1FB700C200C0855E /* .gitignore in Resources */,
-				F2E63E541FB8914100DEBFDF /* SettingsTableViewCell.xib in Resources */,
+				F2E63E541FB8914100DEBFDF /* SettingsCell.xib in Resources */,
 				F87D8A4F1FB88AB300C0855E /* RecordsVC.xib in Resources */,
 				ECD28E751FB890B100E04962 /* hit.mp3 in Resources */,
 				ECD28E761FB890B100E04962 /* explosion.mp3 in Resources */,
@@ -383,11 +394,12 @@
 				F87D8A531FB88F6B00C0855E /* RecordCell.swift in Sources */,
 				F87D8A2E1FB6541F00C0855E /* MainMenuVCInterface.swift in Sources */,
 				F8454FFE1FB8A6B800EC25BB /* AdditionScoreView.swift in Sources */,
-				F2E63E501FB88F9800DEBFDF /* SettingsTableViewCell.swift in Sources */,
+				F2E63E501FB88F9800DEBFDF /* SettingsCell.swift in Sources */,
 				F2E63E4D1FB87FEF00DEBFDF /* SettingsPresenter.swift in Sources */,
 				F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */,
 				F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */,
 				F87D8A461FB86EAE00C0855E /* RecordsService.swift in Sources */,
+				F84550041FB8B5AE00EC25BB /* SettingsService.swift in Sources */,
 				ECD28E791FB8910D00E04962 /* PlayerService.swift in Sources */,
 				F87D8A411FB7768100C0855E /* SettingsVC.swift in Sources */,
 			);

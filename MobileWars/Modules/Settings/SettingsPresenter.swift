@@ -25,7 +25,20 @@ class SettingsPresenter: NSObject {
 }
 
 extension SettingsPresenter: SettingsVCOutput {
+    
     func viewDidPressBackButton() {
         closeModule()
+    }
+    
+    func viewDidChangeVibrationOnEnemySwitcher(toValue: Bool) {
+        SettingsService.changeVibrationOnEnemyIsOn(toValue)
+    }
+    
+    func viewDidChangeVibrationOnCollideSwitcher(toValue: Bool) {
+        SettingsService.changeVibrationOnCollisionIsOn(toValue)
+    }
+    
+    func viewDidChangeSoundsSwitcher(toValue: Bool) {
+        SettingsService.changeSoundsIsOn(toValue)
     }
 }

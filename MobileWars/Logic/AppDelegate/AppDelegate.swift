@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = mainMenuVC
         window?.makeKeyAndVisible()
         
+        SettingsService.setDefaultSettingsValuesIfNeeded()
+        
         return true
     }
 

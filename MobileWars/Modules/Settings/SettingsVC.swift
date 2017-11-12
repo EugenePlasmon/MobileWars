@@ -11,10 +11,10 @@ import UIKit
 class SettingsVC: UIViewController {
 
     var output: SettingsVCOutput!
-    let cellIdentifier = "cellIdentifier"
-    let options = ["Вибрация при убийстве противника",
-                   "Вибрация при убийстве союзника",
-                   "Звук"]
+    let settingsCellIdentifier = "settingsCellIdentifier"
+    let options = ["Vibration after kill enemy",
+                   "Vibration after lose life",
+                   "Sounds in app"]
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -28,8 +28,8 @@ class SettingsVC: UIViewController {
     }
     
     private func setupTableView() {
-        let nib = UINib(nibName: "SettingsTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: cellIdentifier)
+        let nib = UINib(nibName: "SettingsCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: settingsCellIdentifier)
     }
     
     override func viewDidLoad() {
@@ -60,16 +60,46 @@ extension SettingsVC: UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SettingsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellIdentifier,
+                                                            for: indexPath) as! SettingsCell
+        cell.output = self
+        
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 cell.settingTextLabel.text = options[indexPath.row]
+                cell.switchSetting.setOn(SettingsService.vibrationOnEnemyIsOn(), animated: false)
             } else if indexPath.row == 1 {
                 cell.settingTextLabel.text = options[indexPath.row]
+                cell.switchSetting.setOn(SettingsService.vibrationOnCollisionIsOn(), animated: false)
             }
         } else if indexPath.section == 1 {
             cell.settingTextLabel.text = options[2]
+            cell.switchSetting.setOn(SettingsService.soundsIsOn(), animated: false)
         }
+        
         return cell
+    }
+}
+
+
+extension SettingsVC: SettingsCellOutput {
+    
+    func cell(_ cell: SettingsCell, didChangeSwitcherValueTo newSwitcherValue: Bool) {
+        let indexPath = tableView.indexPath(for: cell)
+        
+        if indexPath == nil {return}
+        
+        if indexPath!.section == 0 {
+            if indexPath!.row == 0 {
+                //vib enemy
+                output.viewDidChangeVibrationOnEnemySwitcher(toValue: newSwitcherValue)
+            } else if indexPath!.row == 1 {
+                //vib defender
+                output.viewDidChangeVibrationOnCollideSwitcher(toValue: newSwitcherValue)
+            }
+        } else if indexPath!.section == 1 {
+            //sounds
+            output.viewDidChangeSoundsSwitcher(toValue: newSwitcherValue)
+        }
     }
 }

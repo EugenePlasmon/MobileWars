@@ -15,4 +15,10 @@ protocol SettingsVCInput {
 protocol SettingsVCOutput {
     
     func viewDidPressBackButton()
+    
+    func viewDidChangeVibrationOnEnemySwitcher(toValue: Bool)
+    
+    func viewDidChangeVibrationOnCollideSwitcher(toValue: Bool)
+    
+    func viewDidChangeSoundsSwitcher(toValue: Bool)
 }

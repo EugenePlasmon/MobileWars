@@ -275,8 +275,13 @@ extension GamePresenter: GameVCOutput {
         userInterface.updateScoreLabel(withScore: score)
         userInterface.showAdditionScoreLabel(atEnemyWithId: id, score: currentComboMode.rawValue)
         
-        VibrationService.playVibration(withStyle: .light)
-        PlayerService.playSound(ofType: .hit)
+        if SettingsService.vibrationOnEnemyIsOn() {
+            VibrationService.playVibration(withStyle: .light)
+        }
+        
+        if SettingsService.soundsIsOn() {
+            PlayerService.playSound(ofType: .hit)
+        }
 
         if currentComboMode != .noCombo {
             userInterface.showComboLabel(withRate: currentComboMode.rawValue)
@@ -312,8 +317,13 @@ extension GamePresenter: GameVCOutput {
         userInterface.removeEnemyWithExplosion(withId: enemyId)
         userInterface.removeDefender(withId: defenderId)
         
-        VibrationService.playVibration(withStyle: .heavy)
-        PlayerService.playSound(ofType: .explosion)
+        if SettingsService.vibrationOnCollisionIsOn() {
+            VibrationService.playVibration(withStyle: .heavy)
+        }
+        
+        if SettingsService.soundsIsOn() {
+            PlayerService.playSound(ofType: .explosion)
+        }
         
         score -= scoreDecreaseAfterCollideWithDefender
         currentComboMode = .noCombo
