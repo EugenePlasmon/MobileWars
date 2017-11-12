@@ -33,7 +33,7 @@ protocol GameVCInput {
     
     func showComboLabel(withRate rate: Int)
     
-    func hideComboLabel()
+    func hideComboLabel(withFadeOut: Bool)
     
     func getGameViewFrame() -> CGRect
     

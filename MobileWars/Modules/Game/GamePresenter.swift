@@ -231,7 +231,7 @@ public class GamePresenter: NSObject {
         currentComboMode = .noCombo
         touchesInCurrentCombo = 0
         
-        userInterface.hideComboLabel()
+        userInterface.hideComboLabel(withFadeOut: true)
     }
 }
 
@@ -241,6 +241,7 @@ extension GamePresenter: GameVCOutput {
     
     func viewDidReady() {
         score = 0 // Обнуляем счет при новой игровой "сессии"
+        userInterface.hideComboLabel(withFadeOut: false)
         startAddingEnemies()
         addDefenders()
     }
@@ -266,7 +267,7 @@ extension GamePresenter: GameVCOutput {
         if currentComboMode != .noCombo {
             userInterface.showComboLabel(withRate: currentComboMode.rawValue)
         } else {
-            userInterface.hideComboLabel()
+            userInterface.hideComboLabel(withFadeOut: true)
         }
         
         let now = Date()
