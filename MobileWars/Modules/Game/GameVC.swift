@@ -12,6 +12,11 @@ import UIKit
 private let killEnemySlowAngularVelocity: RadiansPerSecond = 1.5
 private let killEnemyFastAngularVelocity: RadiansPerSecond = 5.0
 
+private let gameSceneViewTopGradientColor =
+    UIColor(red: 237.0/255.0, green: 237.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+private let gameSceneViewBottomGradientColor =
+    UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+
 
 class GameVC: UIViewController {
     
@@ -33,9 +38,30 @@ class GameVC: UIViewController {
     
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var gameSceneView: UIView!
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var gameSceneView: UIView! {
+        didSet {
+            let gradient = CAGradientLayer()
+            gradient.frame.size = gameSceneView.frame.size
+            gradient.colors = [
+                gameSceneViewTopGradientColor.cgColor,
+                gameSceneViewBottomGradientColor.cgColor
+            ]
+            gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+            gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+            gameSceneView.layer.addSublayer(gradient)
+        }
+    }
+    @IBOutlet weak var scoreLabel: UILabel! {
+        didSet {
+            scoreLabel.text = "0"
+        }
+    }
     @IBOutlet weak var comboLabel: UILabel!
+    @IBOutlet weak var comboBGView: UIView! {
+        didSet {
+            comboBGView.layer.cornerRadius = comboBGView.bounds.width / 2
+        }
+    }
     
     //MARK: - Init
     
@@ -207,17 +233,25 @@ extension GameVC: GameVCInput {
     
     func showComboLabel(withRate rate: Int) {
         UIView.animate(withDuration: 0.2) {
-            self.comboLabel.text = "Combo x\(rate)"
-            self.comboLabel.alpha = 1
+            self.comboBGView.alpha = 1.0
+            self.comboLabel.text = "x\(rate)"
+            self.comboLabel.alpha = 1.0
         }
     }
     
-    func hideComboLabel() {
-        UIView.animate(withDuration: 0.2, animations: {
+    func hideComboLabel(withFadeOut: Bool) {
+        if withFadeOut {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.comboLabel.alpha = 0
+                self.comboBGView.alpha = 0
+            }, completion: { (completed) in
+                self.comboLabel.text = nil
+            })
+        } else {
             self.comboLabel.alpha = 0
-        }, completion: { (completed) in
             self.comboLabel.text = nil
-        })
+            self.comboBGView.alpha = 0
+        }
     }
     
     func getGameViewFrame() -> CGRect {
