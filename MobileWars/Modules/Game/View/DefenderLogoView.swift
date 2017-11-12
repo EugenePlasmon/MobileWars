@@ -36,14 +36,13 @@ class DefenderLogoView: UIView {
     }
     
     public func returnAnimatedImages() -> [UIImage] {
-        var images: [UIImage] = []
         let explosive1 = UIImage(named: "explosion_animation_1")!
         let explosive2 = UIImage(named: "explosion_animation_2")!
         let explosive3 = UIImage(named: "explosion_animation_3")!
         let explosive4 = UIImage(named: "explosion_animation_4")!
         let explosive5 = UIImage(named: "explosion_animation_5")!
         let explosive6 = UIImage(named: "explosion_animation_6")!
-        images = [explosive1, explosive2, explosive3, explosive4, explosive5, explosive6]
+        let images: [UIImage] = [explosive1, explosive2, explosive3, explosive4, explosive5, explosive6]
         return images
     }
     

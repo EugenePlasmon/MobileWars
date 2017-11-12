@@ -15,6 +15,7 @@ class GameVC: UIViewController {
     var enemies: [String: EnemyLogoView] = [:]
     var defenders: [String: DefenderLogoView] = [:]
     var enemiesMoveBehaviours: [String: UIDynamicItemBehavior] = [:]
+    let explosionAnimationDuration = 5.0
     
     lazy var collisionBehavior: UICollisionBehavior = {
         let behavior = UICollisionBehavior()
@@ -171,7 +172,8 @@ extension GameVC: GameVCInput {
             enemyLogoView.removeFromSuperview()
         })
         
-        enemyLogoView.enemyImage.image = UIImage.animatedImage(with: imagesToAnimate, duration: 5.0)
+        enemyLogoView.enemyImage.image = UIImage.animatedImage(with: imagesToAnimate,
+                                                           duration: explosionAnimationDuration)
     }
     
     func removeDefender(withId id: String) {
@@ -187,7 +189,8 @@ extension GameVC: GameVCInput {
             defenderLogoView.removeFromSuperview()
         })
 
-        defenderLogoView.defenderImage.image = UIImage.animatedImage(with: imagesToAnimate, duration: 5.0)
+        defenderLogoView.defenderImage.image = UIImage.animatedImage(with: imagesToAnimate,
+                                                                 duration: explosionAnimationDuration)
     }
     
     func updateScoreLabel(withScore score: Int) {
