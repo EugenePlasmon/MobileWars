@@ -12,14 +12,19 @@ import AudioToolbox
 
 class VibrationService: NSObject {
     
-    public enum VibrationPattern {
-        case singleShort
-        case singleLong
-        case doubleShortWithShortPause
-        case doubleLongWithShortPause
+    public enum VibrationStyle {
+        case light
+        case heavy
     }
     
-    public class func playVibration(withPattern: VibrationPattern) {
-        
+    public class func playVibration(withStyle style: VibrationStyle) {
+        switch style {
+        case .light:
+            let impactStyle: UIImpactFeedbackStyle = .light
+            let generator = UIImpactFeedbackGenerator(style: impactStyle)
+            generator.impactOccurred()
+        case .heavy:
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
     }
 }
