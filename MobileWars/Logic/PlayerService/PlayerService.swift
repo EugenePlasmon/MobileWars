@@ -9,18 +9,18 @@
 import AVFoundation
 
 
-public enum SoundType: String {
-    case explosion = "explosion"
-    case hit = "hit"
-}
-
 class PlayerService {
     
-    private var player: AVAudioPlayer?
-
-    public func playSound(ofType type: SoundType) {
+   private static var player: AVAudioPlayer?
+    
+    public enum SoundType: String {
+        case explosion = "explosion"
+        case hit = "hit"
+    }
+    
+    public class func playSound(ofType type: SoundType) {
         guard let url = Bundle.main.url(forResource: type.rawValue, withExtension: "mp3") else { return }
-        
+
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
