@@ -25,4 +25,9 @@ extension MainMenuPresenter: MainMenuVCOutput {
         let gameVC = GameVC.createModule()
         userInterface.present(gameVC, animated: true, completion: nil)
     }
+    
+    func didPressSettingsButton() {
+        let settingsVS = SettingsVC.createModule()
+        userInterface.present(settingsVS, animated: true, completion: nil)
+    }
 }

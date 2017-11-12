@@ -17,4 +17,6 @@ protocol MainMenuVCInput {
 protocol MainMenuVCOutput {
     
     func didPressPlayButton()
+    
+    func didPressSettingsButton()
 }

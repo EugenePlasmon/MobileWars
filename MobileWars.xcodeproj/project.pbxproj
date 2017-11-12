@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F233D1111FB74518003816DD /* DefenderLogoView.swift */; };
 		F233D1141FB74539003816DD /* DefenderLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F233D1131FB74539003816DD /* DefenderLogoView.xib */; };
+		F2E63E491FB87F2200DEBFDF /* SettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */; };
+		F2E63E4B1FB87FCC00DEBFDF /* SettingsVCInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4A1FB87FCC00DEBFDF /* SettingsVCInterface.swift */; };
+		F2E63E4D1FB87FEF00DEBFDF /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4C1FB87FEF00DEBFDF /* SettingsPresenter.swift */; };
+		F2E63E501FB88F9800DEBFDF /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */; };
+		F2E63E541FB8914100DEBFDF /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */; };
 		F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */; };
 		F87D8A121FB64E1700C0855E /* MainMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A111FB64E1700C0855E /* MainMenuVC.swift */; };
 		F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A161FB64E1700C0855E /* Assets.xcassets */; };
@@ -33,6 +38,11 @@
 /* Begin PBXFileReference section */
 		F233D1111FB74518003816DD /* DefenderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefenderLogoView.swift; sourceTree = "<group>"; };
 		F233D1131FB74539003816DD /* DefenderLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefenderLogoView.xib; sourceTree = "<group>"; };
+		F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsVC.xib; sourceTree = "<group>"; };
+		F2E63E4A1FB87FCC00DEBFDF /* SettingsVCInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVCInterface.swift; sourceTree = "<group>"; };
+		F2E63E4C1FB87FEF00DEBFDF /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		F87D8A0C1FB64E1700C0855E /* MobileWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F87D8A111FB64E1700C0855E /* MainMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuVC.swift; sourceTree = "<group>"; };
@@ -67,6 +77,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F2E63E521FB88FA300DEBFDF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */,
+				F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F87D8A031FB64E1700C0855E = {
 			isa = PBXGroup;
 			children = (
@@ -170,7 +189,11 @@
 		F87D8A421FB7768500C0855E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				F2E63E521FB88FA300DEBFDF /* Cell */,
+				F2E63E4A1FB87FCC00DEBFDF /* SettingsVCInterface.swift */,
 				F87D8A401FB7768100C0855E /* SettingsVC.swift */,
+				F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */,
+				F2E63E4C1FB87FEF00DEBFDF /* SettingsPresenter.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -260,7 +283,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F87D8A1A1FB64E1700C0855E /* LaunchScreen.storyboard in Resources */,
+				F2E63E491FB87F2200DEBFDF /* SettingsVC.xib in Resources */,
 				F87D8A3E1FB700C200C0855E /* .gitignore in Resources */,
+				F2E63E541FB8914100DEBFDF /* SettingsTableViewCell.xib in Resources */,
 				F87D8A241FB64E8600C0855E /* MainMenuVC.xib in Resources */,
 				F87D8A2A1FB6507800C0855E /* GameVC.xib in Resources */,
 				F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */,
@@ -284,8 +309,11 @@
 				F87D8A2C1FB652AD00C0855E /* MainMenuPresenter.swift in Sources */,
 				F87D8A301FB655AA00C0855E /* GameVCInterface.swift in Sources */,
 				F87D8A271FB6506100C0855E /* GameVC.swift in Sources */,
+				F2E63E4B1FB87FCC00DEBFDF /* SettingsVCInterface.swift in Sources */,
 				F87D8A321FB655B900C0855E /* GamePresenter.swift in Sources */,
 				F87D8A2E1FB6541F00C0855E /* MainMenuVCInterface.swift in Sources */,
+				F2E63E501FB88F9800DEBFDF /* SettingsTableViewCell.swift in Sources */,
+				F2E63E4D1FB87FEF00DEBFDF /* SettingsPresenter.swift in Sources */,
 				F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */,
 				F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */,
 				F87D8A461FB86EAE00C0855E /* RecordsService.swift in Sources */,
