@@ -41,7 +41,13 @@ public class GamePresenter: NSObject {
     private var movingEnemyTimers: [String: Timer] = [:]
     private var timerForNextTouchInCombo: Timer?
     private var lastTouchTime: Date?
-    private var score = 0
+    private var score = 0 {
+        didSet {
+            if score < 0 {
+                score = 0
+            }
+        }
+    }
     private var touchesInCurrentCombo = 0
     private var currentComboMode: ComboMode = .noCombo
     
