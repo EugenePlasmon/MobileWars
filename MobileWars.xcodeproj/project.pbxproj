@@ -91,15 +91,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F2E63E521FB88FA300DEBFDF /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */,
-				F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */,
-			);
-			path = Cell;
-            sourceTree = "<group>";
-        };
 		ECD28E771FB890B600E04962 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,8 +106,17 @@
 				ECD28E781FB8910D00E04962 /* PlayerService.swift */,
 			);
 			path = PlayerService;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
+		F2E63E521FB88FA300DEBFDF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */,
+				F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F87D8A031FB64E1700C0855E = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +449,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_REFLECTION_METADATA_LEVEL = none;
 			};
 			name = Debug;
 		};
@@ -498,6 +499,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_REFLECTION_METADATA_LEVEL = none;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
