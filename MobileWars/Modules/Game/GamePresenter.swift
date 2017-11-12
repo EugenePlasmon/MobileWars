@@ -36,17 +36,26 @@ public class GamePresenter: NSObject {
     }
     
     unowned var userInterface: GameVC
+    public var team: Team
     
     private var addingEnemiesTimer: Timer?
     private var movingEnemyTimers: [String: Timer] = [:]
     private var timerForNextTouchInCombo: Timer?
     private var lastTouchTime: Date?
-    private var score = 0
+    private var score = 0 {
+        didSet {
+            if score < 0 {
+                score = 0
+            }
+        }
+    }
     private var touchesInCurrentCombo = 0
     private var currentComboMode: ComboMode = .noCombo
+    private var defendersAliveCount = defendersCount
     
-    init(userInterface: GameVC) {
+    init(userInterface: GameVC, team: Team) {
         self.userInterface = userInterface
+        self.team = team
     }
     
     deinit {
@@ -94,7 +103,7 @@ public class GamePresenter: NSObject {
             
             let id = UUID().uuidString
             
-            userInterface.addDefender(at: randomPointAtBottom, withId: id)
+            userInterface.addDefender(at: randomPointAtBottom, withId: id, ofTeam: team)
         }
     }
     
@@ -112,7 +121,7 @@ public class GamePresenter: NSObject {
         
         let id = UUID().uuidString
         
-        userInterface.addEnemy(at: randomPointAtTop, withId: id)
+        userInterface.addEnemy(at: randomPointAtTop, withId: id, ofTeam: team)
     }
     
     private func startMovingEnemy(withId id: String) {
@@ -265,6 +274,8 @@ extension GamePresenter: GameVCOutput {
         calculateScore()
         userInterface.updateScoreLabel(withScore: score)
         
+        VibrationService.playVibration(withStyle: .light)
+        
         if currentComboMode != .noCombo {
             userInterface.showComboLabel(withRate: currentComboMode.rawValue)
         } else {
@@ -295,17 +306,38 @@ extension GamePresenter: GameVCOutput {
     func viewDidCollide(enemyWithId enemyId: String, andDefenderWithId defenderId: String) {
         movingEnemyTimers[enemyId]?.invalidate()
         movingEnemyTimers[enemyId] = nil
-        
-        userInterface.killEnemy(withId: enemyId)
-        //TODO: explodeEnemy
-        userInterface.removeEnemy(withId: enemyId, withFadeOut: false)
+
+        userInterface.removeEnemyWithExplosion(withId: enemyId)
         userInterface.removeDefender(withId: defenderId)
+        
+        VibrationService.playVibration(withStyle: .heavy)
         
         score -= scoreDecreaseAfterCollideWithDefender
         currentComboMode = .noCombo
         userInterface.hideComboLabel(withFadeOut: true)
         touchesInCurrentCombo = 0
         userInterface.updateScoreLabel(withScore: score)
+        
+        defendersAliveCount -= 1
+        
+        if defendersAliveCount == 0 {
+            //game over
+            RecordsService.saveRecordToCache(withScore: score,
+                                                  team: .ios) //TODO: team
+            
+            let title = "Game over!"
+            let message = "You reached \(score) scores"
+            let okTitle = "OK"
+            
+            let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let actionOk = UIAlertAction(title: okTitle, style: .cancel, handler: { (action) in
+                self.closeModule()
+            })
+            
+            ac.addAction(actionOk)
+            
+            userInterface.present(ac, animated: true, completion: nil)
+        }
     }
     
     func viewDidResetCombo() {

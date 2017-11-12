@@ -14,6 +14,7 @@ public typealias RadiansPerSecond = Float
 
 
 private let androidColor = UIColor(red: 153.0/255.0, green: 204.0/255.0, blue: 3.0/255.0, alpha: 1.0)
+private let explosionAnimationDuration = 5.0
 
 
 @objc protocol EnemyLogoViewOutput {
@@ -29,26 +30,51 @@ class EnemyLogoView: UIView {
     public weak var output: EnemyLogoViewOutput?
     public var enemyId: String?
     
+    private var team: Team!
+    
     @IBOutlet weak var enemyImage: UIImageView!
     
     //MARK: - Public
     
-    public class func createView() -> EnemyLogoView {
+    public class func createView(withTeam team: Team) -> EnemyLogoView {
         let nib = UINib(nibName: "EnemyLogoView", bundle: nil)
         let view = nib.instantiate(withOwner: self,
                                      options: [:]).first as! EnemyLogoView
-        
+
+        view.team = team
         view.configure()
         
         return view
     }
     
     public func configureImageAsDefault() {
-        enemyImage.image = #imageLiteral(resourceName: "android_default")
+        var image: UIImage!
+        
+        switch team {
+        case .ios:
+            image = #imageLiteral(resourceName: "android_default")
+        case .android:
+            image = #imageLiteral(resourceName: "apple_default")
+        default:
+            return
+        }
+        
+        enemyImage.image = image
     }
     
     public func configureImageAsDead() {
-        enemyImage.image = #imageLiteral(resourceName: "android_dead")
+        var image: UIImage!
+        
+        switch team {
+        case .ios:
+            image = #imageLiteral(resourceName: "android_dead")
+        case .android:
+            image = #imageLiteral(resourceName: "apple_dead")
+        default:
+            return
+        }
+        
+        enemyImage.image = image
     }
     
     public func rotate(toAngle: Radians, withAngularVelocity angularVelocity: RadiansPerSecond) {
@@ -75,11 +101,28 @@ class EnemyLogoView: UIView {
 
         return currentAngle
     }
+    
+    public func showExplosion() {
+        enemyImage.animationImages = getExplosionImagesToAnimate()
+        enemyImage.startAnimating()
+    }
 
     //MARK: - Private
     
     private func configure() {
+        isExclusiveTouch = true
         configureImageAsDefault()
+    }
+    
+    private func getExplosionImagesToAnimate() -> [UIImage] {
+        let explosive1 = UIImage(named: "explosion_animation_1")!
+        let explosive2 = UIImage(named: "explosion_animation_2")!
+        let explosive3 = UIImage(named: "explosion_animation_3")!
+        let explosive4 = UIImage(named: "explosion_animation_4")!
+        let explosive5 = UIImage(named: "explosion_animation_5")!
+        let explosive6 = UIImage(named: "explosion_animation_6")!
+        let images = [explosive1, explosive2, explosive3, explosive4, explosive5, explosive6]
+        return images
     }
     
     //MARK: - Touches
