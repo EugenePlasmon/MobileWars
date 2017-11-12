@@ -20,11 +20,24 @@ class VibrationService: NSObject {
     public class func playVibration(withStyle style: VibrationStyle) {
         switch style {
         case .light:
-            let impactStyle: UIImpactFeedbackStyle = .light
-            let generator = UIImpactFeedbackGenerator(style: impactStyle)
-            generator.impactOccurred()
+            if #available(iOS 10.0, *) {
+                playLightVibration()
+            } else {
+                playHeavyVibration()
+            }
         case .heavy:
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            playHeavyVibration()
         }
+    }
+    
+    @available(iOS 10.0, *)
+    private class func playLightVibration() {
+        let impactStyle: UIImpactFeedbackStyle = .light
+        let generator = UIImpactFeedbackGenerator(style: impactStyle)
+        generator.impactOccurred()
+    }
+    
+    private class func playHeavyVibration() {
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
 }
