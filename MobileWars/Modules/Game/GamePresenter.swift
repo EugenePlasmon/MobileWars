@@ -50,6 +50,7 @@ public class GamePresenter: NSObject {
     }
     private var touchesInCurrentCombo = 0
     private var currentComboMode: ComboMode = .noCombo
+    private var defendersAliveCount = defendersCount
     
     init(userInterface: GameVC) {
         self.userInterface = userInterface
@@ -314,5 +315,26 @@ extension GamePresenter: GameVCOutput {
         userInterface.hideComboLabel(withFadeOut: true)
         touchesInCurrentCombo = 0
         userInterface.updateScoreLabel(withScore: score)
+        
+        defendersAliveCount -= 1
+        
+        if defendersAliveCount == 0 {
+            //game over
+            RecordsService.saveRecordToCache(withScore: score,
+                                                  team: .ios) //TODO: team
+            
+            let title = "Game over!"
+            let message = "You reached \(score) scores"
+            let okTitle = "OK"
+            
+            let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let actionOk = UIAlertAction(title: okTitle, style: .cancel, handler: { (action) in
+                self.closeModule()
+            })
+            
+            ac.addAction(actionOk)
+            
+            userInterface.present(ac, animated: true, completion: nil)
+        }
     }
 }
