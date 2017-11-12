@@ -51,6 +51,10 @@ class RecordsService: NSObject {
         return parseRecords(fromCacheArray: cacheArray!)
     }
     
+    public class func clearCache() {
+        UserDefaults.standard.removeObject(forKey: cacheKey)
+    }
+    
     //MARK: - Private
     
     private class func parseRecords(fromCacheArray cacheArray: [[String: Any]]) -> [Record] {
