@@ -275,7 +275,8 @@ extension GamePresenter: GameVCOutput {
         userInterface.updateScoreLabel(withScore: score)
         
         VibrationService.playVibration(withStyle: .light)
-        
+        PlayerService.playSound(ofType: .hit)
+
         if currentComboMode != .noCombo {
             userInterface.showComboLabel(withRate: currentComboMode.rawValue)
         } else {
@@ -311,6 +312,7 @@ extension GamePresenter: GameVCOutput {
         userInterface.removeDefender(withId: defenderId)
         
         VibrationService.playVibration(withStyle: .heavy)
+        PlayerService.playSound(ofType: .explosion)
         
         score -= scoreDecreaseAfterCollideWithDefender
         currentComboMode = .noCombo
