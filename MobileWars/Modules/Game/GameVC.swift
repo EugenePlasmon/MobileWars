@@ -342,6 +342,7 @@ extension GameVC: EnemyLogoViewOutput {
     func didTouchDown(_ sender: EnemyLogoView) {
         guard let id = sender.enemyId else {
             assert(false, "EnemyLogoView has no id")
+            return
         }
         
         output.viewDidTouchDownEnemy(withId: id)
@@ -350,6 +351,7 @@ extension GameVC: EnemyLogoViewOutput {
     func didTouchUp(_ sender: EnemyLogoView) {
         guard let id = sender.enemyId else {
             assert(false, "EnemyLogoView has no id")
+            return
         }
         
         output.viewDidTouchUpEnemy(withId: id)
