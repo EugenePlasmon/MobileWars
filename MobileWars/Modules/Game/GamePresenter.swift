@@ -339,4 +339,14 @@ extension GamePresenter: GameVCOutput {
             userInterface.present(ac, animated: true, completion: nil)
         }
     }
+    
+    func viewDidTouchOnBG() {
+        guard currentComboMode != .noCombo else { return }
+        
+        currentComboMode = .noCombo
+        userInterface.hideComboLabel(withFadeOut: true)
+        touchesInCurrentCombo = 0
+        print("RESET COMBO")
+    }
+    
 }

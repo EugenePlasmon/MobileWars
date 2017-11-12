@@ -40,6 +40,7 @@ class EnemyLogoView: UIView {
         let nib = UINib(nibName: "EnemyLogoView", bundle: nil)
         let view = nib.instantiate(withOwner: self,
                                      options: [:]).first as! EnemyLogoView
+
         view.team = team
         view.configure()
         
