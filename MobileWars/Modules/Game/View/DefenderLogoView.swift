@@ -30,9 +30,25 @@ class DefenderLogoView: UIView {
         return CGSize(width: 60, height: 60)
     }
     
+    public func configureImageAsDefault() {
+        defenderImage.image = #imageLiteral(resourceName: "apple_default")
+        
+    }
+    
+    public func returnAnimatedImages() -> [UIImage] {
+        let explosive1 = UIImage(named: "explosion_animation_1")!
+        let explosive2 = UIImage(named: "explosion_animation_2")!
+        let explosive3 = UIImage(named: "explosion_animation_3")!
+        let explosive4 = UIImage(named: "explosion_animation_4")!
+        let explosive5 = UIImage(named: "explosion_animation_5")!
+        let explosive6 = UIImage(named: "explosion_animation_6")!
+        let images: [UIImage] = [explosive1, explosive2, explosive3, explosive4, explosive5, explosive6]
+        return images
+    }
+    
     //MARK: - Private
     
     private func configure() {
-        defenderImage.image = #imageLiteral(resourceName: "apple_default")
+        configureImageAsDefault()
     }
 }
