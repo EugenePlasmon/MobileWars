@@ -65,7 +65,7 @@ class GameVC: UIViewController {
     
     //MARK: - Init
     
-    class func createModule() -> GameVC {
+    public class func createModule() -> GameVC {
         let nib = UINib(nibName: "GameVC", bundle: nil)
         let vc = nib.instantiate(withOwner: self,
                                  options: [:]).first as! GameVC
