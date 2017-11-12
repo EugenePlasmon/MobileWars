@@ -108,8 +108,6 @@ class GameVC: UIViewController {
     private func nearestAngleForHorizontalPosition(fromCurrentAngle angle: Radians) -> Radians {
         var nearestAngle: Radians!
         
-        print("current angle = \(angle)")
-        
         //we want to rotate still to left even at small positive angle
         let maxPositiveAngleForRotateToLeft: Radians = 0.1
         

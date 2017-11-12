@@ -48,7 +48,7 @@ class MainMenuVC: UIViewController {
     }
     
     @IBAction func recordsButtonPressed(_ sender: UIButton) {
-        
+        output.didPressRecordsButton()
     }
 
     @IBAction func settingsButtonPressed(_ sender: UIButton) {

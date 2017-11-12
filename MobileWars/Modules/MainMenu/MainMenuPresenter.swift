@@ -30,4 +30,9 @@ extension MainMenuPresenter: MainMenuVCOutput {
         let gameVC = GameVC.createModule(withTeam: .android)
         userInterface.present(gameVC, animated: true, completion: nil)
     }
+    
+    func didPressRecordsButton() {
+        let recordsVC = RecordsVC.createModule()
+        userInterface.present(recordsVC, animated: true, completion: nil)
+    }
 }
