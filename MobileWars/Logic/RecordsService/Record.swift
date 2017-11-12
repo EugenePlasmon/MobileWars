@@ -31,4 +31,8 @@ struct Record {
     let reachedScore: Int
     let date: Date
     let team: Team
+    
+    var description: String {
+        return "Score: \(reachedScore), date: \(date), team: \(team)"
+    }
 }

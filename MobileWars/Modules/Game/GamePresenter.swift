@@ -320,6 +320,9 @@ extension GamePresenter: GameVCOutput {
         
         if defendersAliveCount == 0 {
             //game over
+            RecordsService.saveRecordToCache(withScore: score,
+                                                  team: .ios) //TODO: team
+            
             let title = "Game over!"
             let message = "You reached \(score) scores"
             let okTitle = "OK"

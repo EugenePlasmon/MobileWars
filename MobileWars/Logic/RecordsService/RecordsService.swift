@@ -20,7 +20,7 @@ class RecordsService: NSObject {
     
     //MARK: - Public
     
-    public func saveRecordToCache(withScore score: Int, team: Team) {
+    public class func saveRecordToCache(withScore score: Int, team: Team) {
         var cacheArray = UserDefaults.standard.object(forKey: cacheKey) as? [[String: Any]]
         
         if cacheArray == nil {
@@ -41,7 +41,7 @@ class RecordsService: NSObject {
         UserDefaults.standard.set(cacheArray, forKey: cacheKey)
     }
     
-    public func getRecordsFromCache() -> [Record] {
+    public class func getRecordsFromCache() -> [Record] {
         let cacheArray = UserDefaults.standard.object(forKey: cacheKey) as? [[String: Any]]
         
         if cacheArray == nil {
@@ -53,7 +53,7 @@ class RecordsService: NSObject {
     
     //MARK: - Private
     
-    private func parseRecords(fromCacheArray cacheArray: [[String: Any]]) -> [Record] {
+    private class func parseRecords(fromCacheArray cacheArray: [[String: Any]]) -> [Record] {
         var records: [Record] = []
         
         for recordDict in cacheArray {
@@ -64,7 +64,7 @@ class RecordsService: NSObject {
         return records
     }
     
-    private func parseRecord(fromDictionary dict: [String: Any]) -> Record {
+    private class func parseRecord(fromDictionary dict: [String: Any]) -> Record {
         let scoreNumber = dict[kScore] as! NSNumber
         let score = scoreNumber.intValue
         
