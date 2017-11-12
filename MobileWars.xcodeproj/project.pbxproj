@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		ECD28E751FB890B100E04962 /* hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E731FB890B100E04962 /* hit.mp3 */; };
 		ECD28E761FB890B100E04962 /* explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E741FB890B100E04962 /* explosion.mp3 */; };
-		ECD28E791FB8910D00E04962 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD28E781FB8910D00E04962 /* Player.swift */; };
+		ECD28E791FB8910D00E04962 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD28E781FB8910D00E04962 /* PlayerService.swift */; };
 		F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F233D1111FB74518003816DD /* DefenderLogoView.swift */; };
 		F233D1141FB74539003816DD /* DefenderLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F233D1131FB74539003816DD /* DefenderLogoView.xib */; };
 		F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		ECD28E731FB890B100E04962 /* hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hit.mp3; sourceTree = "<group>"; };
 		ECD28E741FB890B100E04962 /* explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion.mp3; sourceTree = "<group>"; };
-		ECD28E781FB8910D00E04962 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		ECD28E781FB8910D00E04962 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
 		F233D1111FB74518003816DD /* DefenderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefenderLogoView.swift; sourceTree = "<group>"; };
 		F233D1131FB74539003816DD /* DefenderLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefenderLogoView.xib; sourceTree = "<group>"; };
 		F87D8A0C1FB64E1700C0855E /* MobileWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,12 +82,12 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		ECD28E7A1FB8911300E04962 /* Player */ = {
+		ECD28E7A1FB8911300E04962 /* PlayerService */ = {
 			isa = PBXGroup;
 			children = (
-				ECD28E781FB8910D00E04962 /* Player.swift */,
+				ECD28E781FB8910D00E04962 /* PlayerService.swift */,
 			);
-			path = Player;
+			path = PlayerService;
 			sourceTree = "<group>";
 		};
 		F87D8A031FB64E1700C0855E = {
@@ -123,7 +123,7 @@
 				F87D8A491FB86EF300C0855E /* AppDelegate */,
 				F87D8A481FB86EEC00C0855E /* VibrationService */,
 				F87D8A471FB86EE000C0855E /* RecordsService */,
-				ECD28E7A1FB8911300E04962 /* Player */,
+				ECD28E7A1FB8911300E04962 /* PlayerService */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -316,7 +316,7 @@
 				F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */,
 				F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */,
 				F87D8A461FB86EAE00C0855E /* RecordsService.swift in Sources */,
-				ECD28E791FB8910D00E04962 /* Player.swift in Sources */,
+				ECD28E791FB8910D00E04962 /* PlayerService.swift in Sources */,
 				F87D8A411FB7768100C0855E /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

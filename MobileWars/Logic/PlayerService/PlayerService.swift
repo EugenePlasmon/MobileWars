@@ -9,12 +9,12 @@
 import AVFoundation
 
 
-enum SoundType: String {
+public enum SoundType: String {
     case explosion = "explosion"
     case hit = "hit"
 }
 
-class Player {
+class PlayerService {
     
     private var player: AVAudioPlayer?
 

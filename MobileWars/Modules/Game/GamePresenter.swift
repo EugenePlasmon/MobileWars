@@ -52,7 +52,7 @@ public class GamePresenter: NSObject {
     private var touchesInCurrentCombo = 0
     private var currentComboMode: ComboMode = .noCombo
     private var defendersAliveCount = defendersCount
-    private var player: Player?
+    private var playerService = PlayerService()
     
     init(userInterface: GameVC, team: Team) {
         self.userInterface = userInterface
@@ -250,11 +250,6 @@ public class GamePresenter: NSObject {
 //MARK: - GameVCOutput
 extension GamePresenter: GameVCOutput {
     
-    func playSound(ofType type: SoundType) {
-        player = Player()
-        player?.playSound(ofType: type)
-    }
-    
     func viewDidReady() {
         score = 0 // Обнуляем счет при новой игровой "сессии"
         userInterface.hideComboLabel(withFadeOut: false)
@@ -281,6 +276,8 @@ extension GamePresenter: GameVCOutput {
         userInterface.updateScoreLabel(withScore: score)
         
         VibrationService.playVibration(withStyle: .light)
+        playerService.playSound(ofType: .hit)
+
         
         if currentComboMode != .noCombo {
             userInterface.showComboLabel(withRate: currentComboMode.rawValue)
@@ -317,6 +314,7 @@ extension GamePresenter: GameVCOutput {
         userInterface.removeDefender(withId: defenderId)
         
         VibrationService.playVibration(withStyle: .heavy)
+        playerService.playSound(ofType: .explosion)
         
         score -= scoreDecreaseAfterCollideWithDefender
         currentComboMode = .noCombo

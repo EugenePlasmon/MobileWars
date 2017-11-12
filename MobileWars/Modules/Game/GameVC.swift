@@ -190,7 +190,6 @@ extension GameVC: GameVCInput {
         
         enemyLogoView.rotate(toAngle: toAngle,
                              withAngularVelocity: killEnemySlowAngularVelocity)
-        output.playSound(ofType: .hit)
     }
     
     func dropDownEnemy(withId id: String) {
@@ -334,7 +333,6 @@ extension GameVC: UICollisionBehaviorDelegate {
         guard let enemyId = enemyView.enemyId else {return}
         guard let defenderId = identifier as? NSString else {return}
         
-        output.playSound(ofType: .explosion)
         output.viewDidCollide(enemyWithId: enemyId, andDefenderWithId: defenderId as String)
     }
 }
