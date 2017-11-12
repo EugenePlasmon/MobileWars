@@ -21,4 +21,6 @@ protocol MainMenuVCOutput {
     func didPressPlayAndroidTeamButton()
     
     func didPressRecordsButton()
+    
+    func didPressSettingsButton()
 }

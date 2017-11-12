@@ -35,4 +35,9 @@ extension MainMenuPresenter: MainMenuVCOutput {
         let recordsVC = RecordsVC.createModule()
         userInterface.present(recordsVC, animated: true, completion: nil)
     }
+    
+    func didPressSettingsButton() {
+        let settingsVS = SettingsVC.createModule()
+        userInterface.present(settingsVS, animated: true, completion: nil)
+    }
 }
