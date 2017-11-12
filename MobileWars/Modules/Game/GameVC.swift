@@ -155,19 +155,39 @@ extension GameVC: GameVCInput {
         }
     }
     
+    func removeEnemyWithExplosion(withId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        guard let behavior = enemiesMoveBehaviours[id] else {return}
+        
+        animator.removeBehavior(behavior)
+        collisionBehavior.removeItem(enemyLogoView)
+        behavior.removeItem(enemyLogoView)
+        enemiesMoveBehaviours[id] = nil
+        
+        let animation: [UIImage] = enemyLogoView.configureImageAsExplosive()
+        UIView.animate(withDuration: 0.5, animations: {
+            enemyLogoView.alpha = 0.0
+        }, completion: { (completed) in
+            enemyLogoView.removeFromSuperview()
+        })
+        
+        enemyLogoView.enemyImage.image = UIImage.animatedImage(with: animation, duration: 5.0)
+    }
+    
     func removeDefender(withId id: String) {
         guard let defenderLogoView = defenders[id] else {return}
         collisionBehavior.removeBoundary(withIdentifier: defenderLogoView.defenderId! as NSString)
         collisionBehavior.removeItem(defenderLogoView)
         enemiesMoveBehaviours[id] = nil
         
+        let animation: [UIImage] = defenderLogoView.configureImageAsDead()
         UIView.animate(withDuration: 0.5, animations: {
             defenderLogoView.alpha = 0.0
         }, completion: { (completed) in
             defenderLogoView.removeFromSuperview()
         })
-        
-        defenderLogoView.configureImageAsDead()
+
+        defenderLogoView.defenderImage.image = UIImage.animatedImage(with: animation, duration: 5.0)
     }
     
     func updateScoreLabel(withScore score: Int) {

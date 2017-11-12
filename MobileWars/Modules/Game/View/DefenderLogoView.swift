@@ -12,6 +12,14 @@ import UIKit
 class DefenderLogoView: UIView {
 
     public var defenderId: String?
+    var images: [UIImage] = []
+    
+    let explosive1 = UIImage(named: "explosion_animation_1")!
+    let explosive2 = UIImage(named: "explosion_animation_2")!
+    let explosive3 = UIImage(named: "explosion_animation_3")!
+    let explosive4 = UIImage(named: "explosion_animation_4")!
+    let explosive5 = UIImage(named: "explosion_animation_5")!
+    let explosive6 = UIImage(named: "explosion_animation_6")!
     
     @IBOutlet weak var defenderImage: UIImageView!
     
@@ -32,10 +40,12 @@ class DefenderLogoView: UIView {
     
     public func configureImageAsDefault() {
         defenderImage.image = #imageLiteral(resourceName: "apple_default")
+        
     }
     
-    public func configureImageAsDead() {
-        defenderImage.image = #imageLiteral(resourceName: "Damage")
+    public func configureImageAsDead() -> [UIImage] {
+        images = [explosive1, explosive2, explosive3, explosive4, explosive5, explosive6]
+        return images
     }
     
     //MARK: - Private
