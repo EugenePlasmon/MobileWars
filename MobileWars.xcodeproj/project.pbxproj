@@ -17,6 +17,9 @@
 		F2E63E4D1FB87FEF00DEBFDF /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4C1FB87FEF00DEBFDF /* SettingsPresenter.swift */; };
 		F2E63E501FB88F9800DEBFDF /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */; };
 		F2E63E541FB8914100DEBFDF /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */; };
+		F8454FFE1FB8A6B800EC25BB /* AdditionScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8454FFD1FB8A6B800EC25BB /* AdditionScoreView.swift */; };
+		F84550001FB8A6C500EC25BB /* AdditionScoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8454FFF1FB8A6C500EC25BB /* AdditionScoreView.xib */; };
+		F84550021FB8ACBF00EC25BB /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84550011FB8ACBF00EC25BB /* UIViewExtensions.swift */; };
 		F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */; };
 		F87D8A121FB64E1700C0855E /* MainMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A111FB64E1700C0855E /* MainMenuVC.swift */; };
 		F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A161FB64E1700C0855E /* Assets.xcassets */; };
@@ -53,6 +56,9 @@
 		F2E63E4C1FB87FEF00DEBFDF /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		F2E63E4E1FB88F9800DEBFDF /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
+		F8454FFD1FB8A6B800EC25BB /* AdditionScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionScoreView.swift; sourceTree = "<group>"; };
+		F8454FFF1FB8A6C500EC25BB /* AdditionScoreView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdditionScoreView.xib; sourceTree = "<group>"; };
+		F84550011FB8ACBF00EC25BB /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		F87D8A0C1FB64E1700C0855E /* MobileWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F87D8A111FB64E1700C0855E /* MainMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuVC.swift; sourceTree = "<group>"; };
@@ -196,6 +202,8 @@
 				F87D8A361FB6597B00C0855E /* EnemyLogoView.xib */,
 				F233D1111FB74518003816DD /* DefenderLogoView.swift */,
 				F233D1131FB74539003816DD /* DefenderLogoView.xib */,
+				F8454FFD1FB8A6B800EC25BB /* AdditionScoreView.swift */,
+				F8454FFF1FB8A6C500EC25BB /* AdditionScoreView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -216,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				F87D8A3A1FB700A700C0855E /* PrimitiveTypeExtensions.swift */,
+				F84550011FB8ACBF00EC25BB /* UIViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -344,6 +353,7 @@
 				ECD28E751FB890B100E04962 /* hit.mp3 in Resources */,
 				ECD28E761FB890B100E04962 /* explosion.mp3 in Resources */,
 				F87D8A241FB64E8600C0855E /* MainMenuVC.xib in Resources */,
+				F84550001FB8A6C500EC25BB /* AdditionScoreView.xib in Resources */,
 				F87D8A2A1FB6507800C0855E /* GameVC.xib in Resources */,
 				F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */,
 				F233D1141FB74539003816DD /* DefenderLogoView.xib in Resources */,
@@ -358,6 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F84550021FB8ACBF00EC25BB /* UIViewExtensions.swift in Sources */,
 				F87D8A441FB85ACA00C0855E /* VibrationService.swift in Sources */,
 				F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */,
 				F87D8A341FB6595D00C0855E /* EnemyLogoView.swift in Sources */,
@@ -371,6 +382,7 @@
 				F87D8A4E1FB88AB300C0855E /* RecordsVC.swift in Sources */,
 				F87D8A531FB88F6B00C0855E /* RecordCell.swift in Sources */,
 				F87D8A2E1FB6541F00C0855E /* MainMenuVCInterface.swift in Sources */,
+				F8454FFE1FB8A6B800EC25BB /* AdditionScoreView.swift in Sources */,
 				F2E63E501FB88F9800DEBFDF /* SettingsTableViewCell.swift in Sources */,
 				F2E63E4D1FB87FEF00DEBFDF /* SettingsPresenter.swift in Sources */,
 				F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */,

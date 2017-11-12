@@ -273,6 +273,7 @@ extension GamePresenter: GameVCOutput {
         startTimerForNextTouchInCombo()
         calculateScore()
         userInterface.updateScoreLabel(withScore: score)
+        userInterface.showAdditionScoreLabel(atEnemyWithId: id, score: currentComboMode.rawValue)
         
         VibrationService.playVibration(withStyle: .light)
         PlayerService.playSound(ofType: .hit)

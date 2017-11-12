@@ -293,7 +293,46 @@ extension GameVC: GameVCInput {
         
         return behavior.linearVelocity(for: enemyLogoView)
     }
-
+    
+    func showAdditionScoreLabel(atEnemyWithId id: String, score: Int) {
+        guard let enemyLogoView = enemies[id] else {return}
+        
+        let logoMinY = enemyLogoView.frame.minY
+        let logoMidX = enemyLogoView.frame.midX
+        
+        let additionScoreView = AdditionScoreView.view()
+        additionScoreView.additionScoreLabel.text = "+\(score)"
+        
+        gameSceneView.addSubview(additionScoreView)
+        
+        let yOffset: CGFloat = 2.0
+        let viewHeight = additionScoreView.bounds.height
+        
+        additionScoreView.center = CGPoint(x: logoMidX,
+                                           y: logoMinY - yOffset - viewHeight/2)
+        
+        additionScoreView.alpha = 0.0
+        additionScoreView.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            additionScoreView.alpha = 1.0
+            additionScoreView.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
+        }, completion: { (completed) in
+            
+            UIView.animate(withDuration: 0.1, animations: {
+                additionScoreView.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
+            })
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                UIView.animate(withDuration: 0.3, animations: {
+                    additionScoreView.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
+                    additionScoreView.alpha = 0.0
+                }, completion: { (completed) in
+                    additionScoreView.removeFromSuperview()
+                })
+            })
+        })
+    }
 }
 
 
