@@ -103,7 +103,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
                                 <state key="normal" image="cup_icon"/>
                                 <connections>
-                                    <action selector="scoresButtonPressed:" destination="iz7-tQ-oLD" eventType="touchUpInside" id="Lgv-AQ-sIz"/>
+                                    <action selector="recordsButtonPressed:" destination="iz7-tQ-oLD" eventType="touchUpInside" id="Lgv-AQ-sIz"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLP-qb-Uvi">
@@ -145,7 +145,7 @@
                 <outlet property="bottomSeparatorView" destination="s6E-21-qyt" id="uV1-Lp-jLB"/>
                 <outlet property="playAndroidTeamButton" destination="8hh-ca-jev" id="mVK-Y0-xIp"/>
                 <outlet property="playIOSTeamButton" destination="n3X-M9-OdL" id="xPE-LT-Ork"/>
-                <outlet property="scoresButton" destination="BR0-bs-F3O" id="JRg-je-qY0"/>
+                <outlet property="recordsButton" destination="BR0-bs-F3O" id="JRg-je-qY0"/>
                 <outlet property="settingsButton" destination="yLP-qb-Uvi" id="cUY-89-eus"/>
                 <outlet property="topSeparatorView" destination="1zj-Pm-cPq" id="7h8-Jc-jDL"/>
             </connections>

@@ -65,11 +65,11 @@ class GameVC: UIViewController {
     
     //MARK: - Init
     
-    class func createModule() -> GameVC {
+    public class func createModule(withTeam team: Team) -> GameVC {
         let nib = UINib(nibName: "GameVC", bundle: nil)
         let vc = nib.instantiate(withOwner: self,
-                                 options: [:]).first as! GameVC
-        vc.output = GamePresenter(userInterface: vc)
+                                   options: [:]).first as! GameVC
+        vc.output = GamePresenter(userInterface: vc, team: team)
         
         return vc
     }
@@ -118,8 +118,8 @@ class GameVC: UIViewController {
 //MARK: - GameVCInput
 extension GameVC: GameVCInput {
     
-    func addEnemy(at point: CGPoint, withId id: String) {
-        let enemyLogoView = EnemyLogoView.createView()
+    func addEnemy(at point: CGPoint, withId id: String, ofTeam team: Team) {
+        let enemyLogoView = EnemyLogoView.createView(withTeam: team)
         enemyLogoView.output = self
         enemyLogoView.enemyId = id
         enemyLogoView.center = point
@@ -140,8 +140,8 @@ extension GameVC: GameVCInput {
         output.viewDidAddEnemy(withId: id)
     }
     
-    func addDefender(at point: CGPoint, withId id: String) {
-        let defenderLogoView = DefenderLogoView.createView()
+    func addDefender(at point: CGPoint, withId id: String, ofTeam team: Team) {
+        let defenderLogoView = DefenderLogoView.createView(withTeam: team)
         defenderLogoView.defenderId = id
         defenderLogoView.center = point
         
@@ -213,8 +213,22 @@ extension GameVC: GameVCInput {
         }
     }
     
-    func killDefender(withId id: String) {
-        //TODO: explosion of defender
+    func removeEnemyWithExplosion(withId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        guard let behavior = enemiesMoveBehaviours[id] else {return}
+        
+        animator.removeBehavior(behavior)
+        collisionBehavior.removeItem(enemyLogoView)
+        behavior.removeItem(enemyLogoView)
+        enemiesMoveBehaviours[id] = nil
+        
+        enemyLogoView.showExplosion()
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            enemyLogoView.alpha = 0.0
+        }, completion: { (completed) in
+            enemyLogoView.removeFromSuperview()
+        })
     }
     
     func removeDefender(withId id: String) {
@@ -223,7 +237,15 @@ extension GameVC: GameVCInput {
         collisionBehavior.removeItem(defenderLogoView)
         enemiesMoveBehaviours[id] = nil
         
-        defenderLogoView.removeFromSuperview()
+        defenderLogoView.showExplosion()
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            defenderLogoView.alpha = 0.0
+        }, completion: { (completed) in
+            defenderLogoView.removeFromSuperview()
+        })
+
+        
     }
     
     func updateScoreLabel(withScore score: Int) {

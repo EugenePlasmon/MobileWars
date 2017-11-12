@@ -15,7 +15,7 @@ class MainMenuVC: UIViewController {
     
     @IBOutlet weak var playIOSTeamButton: UIButton!
     @IBOutlet weak var playAndroidTeamButton: UIButton!
-    @IBOutlet weak var scoresButton: UIButton!
+    @IBOutlet weak var recordsButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var topSeparatorView: UIView!
     @IBOutlet weak var bottomSeparatorView: UIView!
@@ -40,14 +40,14 @@ class MainMenuVC: UIViewController {
     //MARK: - Actions
     
     @IBAction func playIOSTeamButtonPressed(_ sender: UIButton) {
-        output.didPressPlayButton()
+        output.didPressPlayIOSTeamButton()
     }
     
     @IBAction func playAndroidTeamButtonPressed(_ sender: UIButton) {
-        
+        output.didPressPlayAndroidTeamButton()
     }
     
-    @IBAction func scoresButtonPressed(_ sender: UIButton) {
+    @IBAction func recordsButtonPressed(_ sender: UIButton) {
         
     }
 

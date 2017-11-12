@@ -23,9 +23,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vQa-st-WDo">
-                        <rect key="frame" x="0.0" y="61" width="375" height="606"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQa-st-WDo">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nO8-vK-qn7">
@@ -92,7 +91,11 @@
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
+                    <constraint firstItem="Hns-qo-QxD" firstAttribute="trailing" secondItem="vQa-st-WDo" secondAttribute="trailing" id="29x-Wt-xoR"/>
+                    <constraint firstItem="Hns-qo-QxD" firstAttribute="bottom" secondItem="vQa-st-WDo" secondAttribute="bottom" id="5f3-KV-17y"/>
                     <constraint firstItem="nO8-vK-qn7" firstAttribute="top" secondItem="Hns-qo-QxD" secondAttribute="top" id="8vc-i6-FpM"/>
+                    <constraint firstItem="vQa-st-WDo" firstAttribute="top" secondItem="nO8-vK-qn7" secondAttribute="bottom" id="U4X-pw-nh0"/>
+                    <constraint firstItem="vQa-st-WDo" firstAttribute="leading" secondItem="Hns-qo-QxD" secondAttribute="leading" id="gjT-Lr-E4B"/>
                     <constraint firstItem="nO8-vK-qn7" firstAttribute="trailing" secondItem="Hns-qo-QxD" secondAttribute="trailing" id="jvc-Rt-EXu"/>
                     <constraint firstItem="nO8-vK-qn7" firstAttribute="leading" secondItem="Hns-qo-QxD" secondAttribute="leading" id="r7i-Sn-mMh"/>
                 </constraints>
