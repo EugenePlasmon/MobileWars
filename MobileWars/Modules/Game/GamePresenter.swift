@@ -111,6 +111,8 @@ public class GamePresenter: NSObject {
         self.userInterface.addVelocity(randomStartVelocity, forEnemyWithId: id)
         
         let newMovingTimer = Timer.scheduledTimer(withTimeInterval: velocityUpdateTimeInterval, repeats: true) { [weak self] (timer) in
+            if self == nil {return}
+            
             let randomVelocity = CGPoint.random(xMin: -50, xMax: 50,
                                                 yMin: -50, yMax: 50)
             self?.userInterface.addVelocity(randomVelocity, forEnemyWithId: id)
@@ -178,6 +180,9 @@ public class GamePresenter: NSObject {
         }
         
         movingEnemyTimers = [:]
+        
+        timerForNextTouchInCombo?.invalidate()
+        timerForNextTouchInCombo = nil
     }
     
     private func startTimerForNextTouchInCombo() {
@@ -212,6 +217,7 @@ extension GamePresenter: GameVCOutput {
     
     func viewWillDissapear() {
         stopAddingEnemies()
+        invalidateAllTimers()
     }
     
     func viewDidPressBackButton() {
