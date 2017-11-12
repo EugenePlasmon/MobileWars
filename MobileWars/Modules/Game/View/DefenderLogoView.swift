@@ -9,11 +9,20 @@
 import UIKit
 
 
+private let explosionAnimationDuration = 5.0
+
+
 class DefenderLogoView: UIView {
 
     public var defenderId: String?
     
     @IBOutlet weak var defenderImage: UIImageView!
+    
+    //MARK: - Lifecycle
+    
+    deinit {
+        defenderImage.stopAnimating()
+    }
     
     //MARK: - Public
     
@@ -32,17 +41,23 @@ class DefenderLogoView: UIView {
     
     public func configureImageAsDefault() {
         defenderImage.image = #imageLiteral(resourceName: "apple_default")
-        
     }
     
-    public func returnAnimatedImages() -> [UIImage] {
+    public func showExplosion() {
+        defenderImage.animationImages = getExplosionImagesToAnimate()
+        defenderImage.startAnimating()
+    }
+    
+    //MARK: - Private
+    
+    private func getExplosionImagesToAnimate() -> [UIImage] {
         let explosive1 = UIImage(named: "explosion_animation_1")!
         let explosive2 = UIImage(named: "explosion_animation_2")!
         let explosive3 = UIImage(named: "explosion_animation_3")!
         let explosive4 = UIImage(named: "explosion_animation_4")!
         let explosive5 = UIImage(named: "explosion_animation_5")!
         let explosive6 = UIImage(named: "explosion_animation_6")!
-        let images: [UIImage] = [explosive1, explosive2, explosive3, explosive4, explosive5, explosive6]
+        let images = [explosive1, explosive2, explosive3, explosive4, explosive5, explosive6]
         return images
     }
     
