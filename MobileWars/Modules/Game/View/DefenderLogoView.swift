@@ -30,9 +30,17 @@ class DefenderLogoView: UIView {
         return CGSize(width: 60, height: 60)
     }
     
+    public func configureImageAsDefault() {
+        defenderImage.image = #imageLiteral(resourceName: "apple_default")
+    }
+    
+    public func configureImageAsDead() {
+        defenderImage.image = #imageLiteral(resourceName: "Damage")
+    }
+    
     //MARK: - Private
     
     private func configure() {
-        defenderImage.image = #imageLiteral(resourceName: "apple_default")
+        configureImageAsDefault()
     }
 }

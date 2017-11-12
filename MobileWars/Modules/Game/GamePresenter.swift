@@ -259,7 +259,6 @@ extension GamePresenter: GameVCOutput {
         movingEnemyTimers[enemyId] = nil
         
         userInterface.killEnemy(withId: enemyId)
-        //TODO: explodeEnemy
         userInterface.removeEnemy(withId: enemyId, withFadeOut: false)
         userInterface.removeDefender(withId: defenderId)
     }
