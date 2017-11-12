@@ -38,6 +38,7 @@ protocol GameVCInput {
     func getGameViewFrame() -> CGRect
     
     func getVelocityOfEnemy(withId id: String) -> CGPoint
+    
 }
 
 
@@ -57,4 +58,5 @@ protocol GameVCOutput {
     
     func viewDidCollide(enemyWithId enemyId: String, andDefenderWithId
                                  defenderId: String)
+    
 }

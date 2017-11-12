@@ -23,6 +23,7 @@ private let maxXAdditionVelocity: CGFloat = 20.0
 private let minYAdditionVelocity: CGFloat = -20.0
 private let maxYAdditionVelocity: CGFloat = 20.0
 
+private let minusScore = 10
 
 public class GamePresenter: NSObject {
     
@@ -298,5 +299,11 @@ extension GamePresenter: GameVCOutput {
         //TODO: explodeEnemy
         userInterface.removeEnemy(withId: enemyId, withFadeOut: false)
         userInterface.removeDefender(withId: defenderId)
+        
+        score -= minusScore
+        currentComboMode = .noCombo
+        userInterface.hideComboLabel()
+        touchesInCurrentCombo = 0
+        userInterface.updateScoreLabel(withScore: score)
     }
 }
