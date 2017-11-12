@@ -13,12 +13,15 @@ extension Int {
     
     public static func random(from: Int,
                                 to: Int) -> Int {
-        assert(to > from,
+        assert(to >= from,
                "Invalid parameters: to must be greater than from")
         
         let diff = to - from
         
-        return 1 + from + Int(arc4random()) % diff
+        let randomPart = diff > 0 ? Int(arc4random()) % diff
+                                  : 0
+        
+        return 1 + from + randomPart
     }
 }
 
@@ -27,13 +30,16 @@ extension Double {
     
     public static func random(from: Double,
                                 to: Double) -> Double {
-        assert(to > from,
+        assert(to >= from,
                "Invalid parameters: to must be greater than from")
         
         let diff = to - from
         let k = 100000.0
         
-        return from + Double(Int(arc4random()) % Int(diff * k)) / k
+        let randomPart = diff > 0 ? Double(Int(arc4random()) % Int(diff * k)) / k
+                                  : 0
+        
+        return from + randomPart
     }
 }
 
@@ -42,13 +48,16 @@ extension CGFloat {
     
     public static func random(from: CGFloat,
                                 to: CGFloat) -> CGFloat {
-        assert(to > from,
+        assert(to >= from,
                "Invalid parameters: to must be greater than from")
         
         let diff = to - from
         let k: CGFloat = 100000.0
         
-        return from + CGFloat(Int(arc4random()) % Int(diff * k)) / k
+        let randomPart = diff > 0 ? CGFloat(Int(arc4random()) % Int(diff * k)) / k
+                                  : 0
+        
+        return from + randomPart
     }
 }
 
@@ -59,9 +68,9 @@ extension CGPoint {
                               xMax: CGFloat,
                               yMin: CGFloat,
                               yMax: CGFloat) -> CGPoint {
-        assert(xMax > xMin,
+        assert(xMax >= xMin,
                "Invalid parameters: to must be greater than from")
-        assert(yMax > yMin,
+        assert(yMax >= yMin,
                "Invalid parameters: to must be greater than from")
         
         let randomX = CGFloat.random(from: xMin, to: xMax)
