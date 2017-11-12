@@ -25,6 +25,7 @@
 		F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A3A1FB700A700C0855E /* PrimitiveTypeExtensions.swift */; };
 		F87D8A3E1FB700C200C0855E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A3D1FB700C200C0855E /* .gitignore */; };
 		F87D8A411FB7768100C0855E /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A401FB7768100C0855E /* SettingsVC.swift */; };
+		F87D8A441FB85ACA00C0855E /* VibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A431FB85ACA00C0855E /* VibrationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		F87D8A3A1FB700A700C0855E /* PrimitiveTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTypeExtensions.swift; sourceTree = "<group>"; };
 		F87D8A3D1FB700C200C0855E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		F87D8A401FB7768100C0855E /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		F87D8A431FB85ACA00C0855E /* VibrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */,
+				F87D8A431FB85ACA00C0855E /* VibrationService.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F87D8A441FB85ACA00C0855E /* VibrationService.swift in Sources */,
 				F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */,
 				F87D8A341FB6595D00C0855E /* EnemyLogoView.swift in Sources */,
 				F87D8A121FB64E1700C0855E /* MainMenuVC.swift in Sources */,
