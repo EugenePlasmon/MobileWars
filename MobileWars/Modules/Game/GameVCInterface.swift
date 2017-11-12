@@ -25,7 +25,7 @@ protocol GameVCInput {
     
     func removeEnemy(withId id: String, withFadeOut: Bool)
     
-    func killDefender(withId id: String)
+    func removeEnemyWithExplosion(withId id: String)
     
     func removeDefender(withId id: String)
     

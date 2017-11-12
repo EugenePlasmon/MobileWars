@@ -24,6 +24,7 @@ class GameVC: UIViewController {
     var enemies: [String: EnemyLogoView] = [:]
     var defenders: [String: DefenderLogoView] = [:]
     var enemiesMoveBehaviours: [String: UIDynamicItemBehavior] = [:]
+    let explosionAnimationDuration = 5.0
     
     lazy var collisionBehavior: UICollisionBehavior = {
         let behavior = UICollisionBehavior()
@@ -213,8 +214,24 @@ extension GameVC: GameVCInput {
         }
     }
     
-    func killDefender(withId id: String) {
-        //TODO: explosion of defender
+    func removeEnemyWithExplosion(withId id: String) {
+        guard let enemyLogoView = enemies[id] else {return}
+        guard let behavior = enemiesMoveBehaviours[id] else {return}
+        
+        animator.removeBehavior(behavior)
+        collisionBehavior.removeItem(enemyLogoView)
+        behavior.removeItem(enemyLogoView)
+        enemiesMoveBehaviours[id] = nil
+        
+        let imagesToAnimate: [UIImage] = enemyLogoView.returnAnimatedImages()
+        UIView.animate(withDuration: 0.5, animations: {
+            enemyLogoView.alpha = 0.0
+        }, completion: { (completed) in
+            enemyLogoView.removeFromSuperview()
+        })
+        
+        enemyLogoView.enemyImage.image = UIImage.animatedImage(with: imagesToAnimate,
+                                                           duration: explosionAnimationDuration)
     }
     
     func removeDefender(withId id: String) {
@@ -223,7 +240,15 @@ extension GameVC: GameVCInput {
         collisionBehavior.removeItem(defenderLogoView)
         enemiesMoveBehaviours[id] = nil
         
-        defenderLogoView.removeFromSuperview()
+        let imagesToAnimate: [UIImage] = defenderLogoView.returnAnimatedImages()
+        UIView.animate(withDuration: 0.5, animations: {
+            defenderLogoView.alpha = 0.0
+        }, completion: { (completed) in
+            defenderLogoView.removeFromSuperview()
+        })
+
+        defenderLogoView.defenderImage.image = UIImage.animatedImage(with: imagesToAnimate,
+                                                                 duration: explosionAnimationDuration)
     }
     
     func updateScoreLabel(withScore score: Int) {

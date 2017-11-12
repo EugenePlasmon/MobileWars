@@ -295,10 +295,8 @@ extension GamePresenter: GameVCOutput {
     func viewDidCollide(enemyWithId enemyId: String, andDefenderWithId defenderId: String) {
         movingEnemyTimers[enemyId]?.invalidate()
         movingEnemyTimers[enemyId] = nil
-        
-        userInterface.killEnemy(withId: enemyId)
-        //TODO: explodeEnemy
-        userInterface.removeEnemy(withId: enemyId, withFadeOut: false)
+
+        userInterface.removeEnemyWithExplosion(withId: enemyId)
         userInterface.removeDefender(withId: defenderId)
         
         score -= scoreDecreaseAfterCollideWithDefender
