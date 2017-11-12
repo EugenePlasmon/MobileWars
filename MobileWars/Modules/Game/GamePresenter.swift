@@ -303,7 +303,7 @@ extension GamePresenter: GameVCOutput {
         
         score -= scoreDecreaseAfterCollideWithDefender
         currentComboMode = .noCombo
-        userInterface.hideComboLabel()
+        userInterface.hideComboLabel(withFadeOut: true)
         touchesInCurrentCombo = 0
         userInterface.updateScoreLabel(withScore: score)
     }
