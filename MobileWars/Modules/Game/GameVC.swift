@@ -164,14 +164,14 @@ extension GameVC: GameVCInput {
         behavior.removeItem(enemyLogoView)
         enemiesMoveBehaviours[id] = nil
         
-        let animation: [UIImage] = enemyLogoView.configureImageAsExplosive()
+        let imagesToAnimate: [UIImage] = enemyLogoView.returnAnimatedImages()
         UIView.animate(withDuration: 0.5, animations: {
             enemyLogoView.alpha = 0.0
         }, completion: { (completed) in
             enemyLogoView.removeFromSuperview()
         })
         
-        enemyLogoView.enemyImage.image = UIImage.animatedImage(with: animation, duration: 5.0)
+        enemyLogoView.enemyImage.image = UIImage.animatedImage(with: imagesToAnimate, duration: 5.0)
     }
     
     func removeDefender(withId id: String) {
@@ -180,14 +180,14 @@ extension GameVC: GameVCInput {
         collisionBehavior.removeItem(defenderLogoView)
         enemiesMoveBehaviours[id] = nil
         
-        let animation: [UIImage] = defenderLogoView.configureImageAsDead()
+        let imagesToAnimate: [UIImage] = defenderLogoView.returnAnimatedImages()
         UIView.animate(withDuration: 0.5, animations: {
             defenderLogoView.alpha = 0.0
         }, completion: { (completed) in
             defenderLogoView.removeFromSuperview()
         })
 
-        defenderLogoView.defenderImage.image = UIImage.animatedImage(with: animation, duration: 5.0)
+        defenderLogoView.defenderImage.image = UIImage.animatedImage(with: imagesToAnimate, duration: 5.0)
     }
     
     func updateScoreLabel(withScore score: Int) {
