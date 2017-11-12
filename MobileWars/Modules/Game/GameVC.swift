@@ -65,11 +65,11 @@ class GameVC: UIViewController {
     
     //MARK: - Init
     
-    public class func createModule() -> GameVC {
+    public class func createModule(withTeam team: Team) -> GameVC {
         let nib = UINib(nibName: "GameVC", bundle: nil)
         let vc = nib.instantiate(withOwner: self,
-                                 options: [:]).first as! GameVC
-        vc.output = GamePresenter(userInterface: vc)
+                                   options: [:]).first as! GameVC
+        vc.output = GamePresenter(userInterface: vc, team: team)
         
         return vc
     }
@@ -118,8 +118,8 @@ class GameVC: UIViewController {
 //MARK: - GameVCInput
 extension GameVC: GameVCInput {
     
-    func addEnemy(at point: CGPoint, withId id: String) {
-        let enemyLogoView = EnemyLogoView.createView()
+    func addEnemy(at point: CGPoint, withId id: String, ofTeam team: Team) {
+        let enemyLogoView = EnemyLogoView.createView(withTeam: team)
         enemyLogoView.output = self
         enemyLogoView.enemyId = id
         enemyLogoView.center = point
@@ -140,8 +140,8 @@ extension GameVC: GameVCInput {
         output.viewDidAddEnemy(withId: id)
     }
     
-    func addDefender(at point: CGPoint, withId id: String) {
-        let defenderLogoView = DefenderLogoView.createView()
+    func addDefender(at point: CGPoint, withId id: String, ofTeam team: Team) {
+        let defenderLogoView = DefenderLogoView.createView(withTeam: team)
         defenderLogoView.defenderId = id
         defenderLogoView.center = point
         

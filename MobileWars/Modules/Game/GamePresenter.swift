@@ -36,6 +36,7 @@ public class GamePresenter: NSObject {
     }
     
     unowned var userInterface: GameVC
+    public var team: Team
     
     private var addingEnemiesTimer: Timer?
     private var movingEnemyTimers: [String: Timer] = [:]
@@ -52,8 +53,9 @@ public class GamePresenter: NSObject {
     private var currentComboMode: ComboMode = .noCombo
     private var defendersAliveCount = defendersCount
     
-    init(userInterface: GameVC) {
+    init(userInterface: GameVC, team: Team) {
         self.userInterface = userInterface
+        self.team = team
     }
     
     deinit {
@@ -101,7 +103,7 @@ public class GamePresenter: NSObject {
             
             let id = UUID().uuidString
             
-            userInterface.addDefender(at: randomPointAtBottom, withId: id)
+            userInterface.addDefender(at: randomPointAtBottom, withId: id, ofTeam: team)
         }
     }
     
@@ -119,7 +121,7 @@ public class GamePresenter: NSObject {
         
         let id = UUID().uuidString
         
-        userInterface.addEnemy(at: randomPointAtTop, withId: id)
+        userInterface.addEnemy(at: randomPointAtTop, withId: id, ofTeam: team)
     }
     
     private func startMovingEnemy(withId id: String) {

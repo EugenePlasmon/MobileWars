@@ -16,6 +16,8 @@ class DefenderLogoView: UIView {
 
     public var defenderId: String?
     
+    private var team: Team!
+    
     @IBOutlet weak var defenderImage: UIImageView!
     
     //MARK: - Lifecycle
@@ -26,21 +28,33 @@ class DefenderLogoView: UIView {
     
     //MARK: - Public
     
-    public class func createView() -> DefenderLogoView {
+    public class func createView(withTeam team: Team) -> DefenderLogoView {
         let nib = UINib(nibName: "DefenderLogoView", bundle: nil)
         let view = nib.instantiate(withOwner: self,
                                      options: [:]).first as! DefenderLogoView
+        view.team = team
         view.configure()
         
         return view
     }
     
     public class func size() -> CGSize {
-        return CGSize(width: 60, height: 60)
+        return CGSize(width: 50, height: 50)
     }
     
     public func configureImageAsDefault() {
-        defenderImage.image = #imageLiteral(resourceName: "apple_default")
+        var image: UIImage!
+        
+        switch team {
+        case .ios:
+            image = #imageLiteral(resourceName: "apple_default")
+        case .android:
+            image = #imageLiteral(resourceName: "android_default")
+        default:
+            return
+        }
+        
+        defenderImage.image = image
     }
     
     public func showExplosion() {
