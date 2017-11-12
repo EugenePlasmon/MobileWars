@@ -52,7 +52,6 @@ public class GamePresenter: NSObject {
     private var touchesInCurrentCombo = 0
     private var currentComboMode: ComboMode = .noCombo
     private var defendersAliveCount = defendersCount
-    private var playerService = PlayerService()
     
     init(userInterface: GameVC, team: Team) {
         self.userInterface = userInterface
@@ -278,7 +277,6 @@ extension GamePresenter: GameVCOutput {
         VibrationService.playVibration(withStyle: .light)
         PlayerService.playSound(ofType: .hit)
 
-        
         if currentComboMode != .noCombo {
             userInterface.showComboLabel(withRate: currentComboMode.rawValue)
         } else {
