@@ -55,6 +55,12 @@ class RecordsVC: UIViewController {
         super.viewWillAppear(animated)
     }
     
+    //MARK: - Actions
+    
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        closeModule()
+    }
+    
     //MARK: - Private
     
     private func configure() {
@@ -64,6 +70,10 @@ class RecordsVC: UIViewController {
     private func registerReusableCells() {
         let nib = UINib(nibName: "RecordCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: recordsCellReuseId)
+    }
+    
+    private func closeModule() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
