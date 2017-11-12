@@ -9,6 +9,10 @@
 import UIKit
 
 
+private let killEnemySlowAngularVelocity: RadiansPerSecond = 1.5
+private let killEnemyFastAngularVelocity: RadiansPerSecond = 5.0
+
+
 class GameVC: UIViewController {
     
     var output: GameVCOutput!
@@ -62,6 +66,25 @@ class GameVC: UIViewController {
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         output.viewDidPressBackButton()
+    }
+    
+    //MARK: - Private
+    
+    private func nearestAngleForHorizontalPosition(fromCurrentAngle angle: Radians) -> Radians {
+        var nearestAngle: Radians!
+        
+        print("current angle = \(angle)")
+        
+        //we want to rotate still to left even at small positive angle
+        let maxPositiveAngleForRotateToLeft: Radians = 0.1
+        
+        if angle >= -Radians.pi && angle <= maxPositiveAngleForRotateToLeft {
+            nearestAngle = -Radians.pi / 2
+        } else {
+            nearestAngle = Radians.pi / 2
+        }
+        
+        return nearestAngle
     }
 }
 
@@ -126,13 +149,22 @@ extension GameVC: GameVCInput {
         guard let enemyLogoView = enemies[id] else {return}
         
         enemyLogoView.configureImageAsDead()
-        enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 1.5)
+        
+        let currentAngle = enemyLogoView.currentRotationAngle()
+        let toAngle = nearestAngleForHorizontalPosition(fromCurrentAngle: currentAngle)
+        
+        enemyLogoView.rotate(toAngle: toAngle,
+                             withAngularVelocity: killEnemySlowAngularVelocity)
     }
     
     func dropDownEnemy(withId id: String) {
         guard let enemyLogoView = enemies[id] else {return}
         
-        enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 5.0)
+        let currentAngle = enemyLogoView.currentRotationAngle()
+        let toAngle = nearestAngleForHorizontalPosition(fromCurrentAngle: currentAngle)
+        
+        enemyLogoView.rotate(toAngle: toAngle,
+                             withAngularVelocity: killEnemyFastAngularVelocity)
     }
     
     func removeEnemy(withId id: String, withFadeOut: Bool) {
