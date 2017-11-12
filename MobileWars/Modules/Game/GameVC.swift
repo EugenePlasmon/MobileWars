@@ -99,7 +99,7 @@ class GameVC: UIViewController {
         let touchLocation = touch.location(in: gameSceneView)
         
         if touchLocation.y >= 0 {
-            output.viewDidResetCombo()
+            output.viewDidTouchOnBG()
         }
     }
     

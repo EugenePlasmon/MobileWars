@@ -58,6 +58,6 @@ protocol GameVCOutput {
     
     func viewDidCollide(enemyWithId enemyId: String, andDefenderWithId
                                  defenderId: String)
-    func viewDidResetCombo()
+    func viewDidTouchOnBG()
     
 }

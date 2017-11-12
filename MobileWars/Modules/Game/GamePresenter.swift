@@ -340,7 +340,7 @@ extension GamePresenter: GameVCOutput {
         }
     }
     
-    func viewDidResetCombo() {
+    func viewDidTouchOnBG() {
         guard currentComboMode != .noCombo else { return }
         
         currentComboMode = .noCombo
