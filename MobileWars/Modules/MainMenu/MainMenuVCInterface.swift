@@ -19,4 +19,6 @@ protocol MainMenuVCOutput {
     func didPressPlayIOSTeamButton()
     
     func didPressPlayAndroidTeamButton()
+    
+    func didPressRecordsButton()
 }

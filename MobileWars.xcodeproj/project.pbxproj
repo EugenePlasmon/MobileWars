@@ -28,6 +28,10 @@
 		F87D8A441FB85ACA00C0855E /* VibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A431FB85ACA00C0855E /* VibrationService.swift */; };
 		F87D8A461FB86EAE00C0855E /* RecordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A451FB86EAE00C0855E /* RecordsService.swift */; };
 		F87D8A4B1FB86F1800C0855E /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A4A1FB86F1800C0855E /* Record.swift */; };
+		F87D8A4E1FB88AB300C0855E /* RecordsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A4C1FB88AB300C0855E /* RecordsVC.swift */; };
+		F87D8A4F1FB88AB300C0855E /* RecordsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A4D1FB88AB300C0855E /* RecordsVC.xib */; };
+		F87D8A531FB88F6B00C0855E /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A511FB88F6B00C0855E /* RecordCell.swift */; };
+		F87D8A541FB88F6B00C0855E /* RecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A521FB88F6B00C0855E /* RecordCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +58,10 @@
 		F87D8A431FB85ACA00C0855E /* VibrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationService.swift; sourceTree = "<group>"; };
 		F87D8A451FB86EAE00C0855E /* RecordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsService.swift; sourceTree = "<group>"; };
 		F87D8A4A1FB86F1800C0855E /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		F87D8A4C1FB88AB300C0855E /* RecordsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsVC.swift; sourceTree = "<group>"; };
+		F87D8A4D1FB88AB300C0855E /* RecordsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordsVC.xib; sourceTree = "<group>"; };
+		F87D8A511FB88F6B00C0855E /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		F87D8A521FB88F6B00C0855E /* RecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +118,7 @@
 				F87D8A251FB64F4200C0855E /* MainMenu */,
 				F87D8A281FB6506800C0855E /* Game */,
 				F87D8A421FB7768500C0855E /* Settings */,
+				F87D8A501FB88AB700C0855E /* Records */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -200,6 +209,25 @@
 			path = AppDelegate;
 			sourceTree = "<group>";
 		};
+		F87D8A501FB88AB700C0855E /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				F87D8A551FB88F6E00C0855E /* Cell */,
+				F87D8A4C1FB88AB300C0855E /* RecordsVC.swift */,
+				F87D8A4D1FB88AB300C0855E /* RecordsVC.xib */,
+			);
+			path = Records;
+			sourceTree = "<group>";
+		};
+		F87D8A551FB88F6E00C0855E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F87D8A511FB88F6B00C0855E /* RecordCell.swift */,
+				F87D8A521FB88F6B00C0855E /* RecordCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -259,7 +287,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F87D8A541FB88F6B00C0855E /* RecordCell.xib in Resources */,
 				F87D8A1A1FB64E1700C0855E /* LaunchScreen.storyboard in Resources */,
+				F87D8A4F1FB88AB300C0855E /* RecordsVC.xib in Resources */,
 				F87D8A3E1FB700C200C0855E /* .gitignore in Resources */,
 				F87D8A241FB64E8600C0855E /* MainMenuVC.xib in Resources */,
 				F87D8A2A1FB6507800C0855E /* GameVC.xib in Resources */,
@@ -285,6 +315,8 @@
 				F87D8A301FB655AA00C0855E /* GameVCInterface.swift in Sources */,
 				F87D8A271FB6506100C0855E /* GameVC.swift in Sources */,
 				F87D8A321FB655B900C0855E /* GamePresenter.swift in Sources */,
+				F87D8A4E1FB88AB300C0855E /* RecordsVC.swift in Sources */,
+				F87D8A531FB88F6B00C0855E /* RecordCell.swift in Sources */,
 				F87D8A2E1FB6541F00C0855E /* MainMenuVCInterface.swift in Sources */,
 				F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */,
 				F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */,
