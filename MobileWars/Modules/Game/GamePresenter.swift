@@ -303,8 +303,18 @@ extension GamePresenter: GameVCOutput {
         
         score -= scoreDecreaseAfterCollideWithDefender
         currentComboMode = .noCombo
-        userInterface.hideComboLabel()
+        userInterface.hideComboLabel(withFadeOut: true)
         touchesInCurrentCombo = 0
         userInterface.updateScoreLabel(withScore: score)
     }
+    
+    func viewDidResetCombo() {
+        guard currentComboMode != .noCombo else { return }
+        
+        currentComboMode = .noCombo
+        userInterface.hideComboLabel(withFadeOut: true)
+        touchesInCurrentCombo = 0
+        print("RESET COMBO")
+    }
+    
 }

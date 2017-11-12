@@ -78,7 +78,7 @@ class GameVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+    
         output.viewDidReady()
     }
     
@@ -92,6 +92,15 @@ class GameVC: UIViewController {
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         output.viewDidPressBackButton()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let touchLocation = touch.location(in: gameSceneView)
+        
+        if touchLocation.y >= 0 {
+            output.viewDidResetCombo()
+        }
     }
     
     //MARK: - Private
@@ -264,6 +273,7 @@ extension GameVC: GameVCInput {
         
         return behavior.linearVelocity(for: enemyLogoView)
     }
+
 }
 
 
