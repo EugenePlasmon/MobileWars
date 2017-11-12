@@ -223,6 +223,13 @@ extension GameVC: GameVCInput {
     func getGameViewFrame() -> CGRect {
         return gameSceneView.frame
     }
+    
+    func getVelocityOfEnemy(withId id: String) -> CGPoint {
+        guard let enemyLogoView = enemies[id] else {return .zero}
+        guard let behavior = enemiesMoveBehaviours[id] else {return .zero}
+        
+        return behavior.linearVelocity(for: enemyLogoView)
+    }
 }
 
 

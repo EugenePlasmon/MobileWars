@@ -37,6 +37,7 @@ protocol GameVCInput {
     
     func getGameViewFrame() -> CGRect
     
+    func getVelocityOfEnemy(withId id: String) -> CGPoint
 }
 
 
