@@ -29,7 +29,6 @@ class EnemyLogoView: UIView {
     public weak var output: EnemyLogoViewOutput?
     public var enemyId: String?
     private var currentRotationAngle = 0.0
-    var images: [UIImage] = []
     
     @IBOutlet weak var enemyImage: UIImageView!
     
@@ -53,6 +52,7 @@ class EnemyLogoView: UIView {
     }
     
     public func returnAnimatedImages() -> [UIImage] {
+        var images: [UIImage] = []
         let explosive1 = UIImage(named: "explosion_animation_1")!
         let explosive2 = UIImage(named: "explosion_animation_2")!
         let explosive3 = UIImage(named: "explosion_animation_3")!

@@ -12,7 +12,6 @@ import UIKit
 class DefenderLogoView: UIView {
 
     public var defenderId: String?
-    var images: [UIImage] = []
     
     @IBOutlet weak var defenderImage: UIImageView!
     
@@ -37,6 +36,7 @@ class DefenderLogoView: UIView {
     }
     
     public func returnAnimatedImages() -> [UIImage] {
+        var images: [UIImage] = []
         let explosive1 = UIImage(named: "explosion_animation_1")!
         let explosive2 = UIImage(named: "explosion_animation_2")!
         let explosive3 = UIImage(named: "explosion_animation_3")!
