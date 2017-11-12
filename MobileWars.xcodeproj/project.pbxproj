@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ECD28E751FB890B100E04962 /* hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E731FB890B100E04962 /* hit.mp3 */; };
+		ECD28E761FB890B100E04962 /* explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E741FB890B100E04962 /* explosion.mp3 */; };
+		ECD28E791FB8910D00E04962 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD28E781FB8910D00E04962 /* Player.swift */; };
 		F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F233D1111FB74518003816DD /* DefenderLogoView.swift */; };
 		F233D1141FB74539003816DD /* DefenderLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F233D1131FB74539003816DD /* DefenderLogoView.xib */; };
 		F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */; };
@@ -31,6 +34,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ECD28E731FB890B100E04962 /* hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hit.mp3; sourceTree = "<group>"; };
+		ECD28E741FB890B100E04962 /* explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion.mp3; sourceTree = "<group>"; };
+		ECD28E781FB8910D00E04962 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		F233D1111FB74518003816DD /* DefenderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefenderLogoView.swift; sourceTree = "<group>"; };
 		F233D1131FB74539003816DD /* DefenderLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefenderLogoView.xib; sourceTree = "<group>"; };
 		F87D8A0C1FB64E1700C0855E /* MobileWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +73,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ECD28E771FB890B600E04962 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				ECD28E741FB890B100E04962 /* explosion.mp3 */,
+				ECD28E731FB890B100E04962 /* hit.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		ECD28E7A1FB8911300E04962 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				ECD28E781FB8910D00E04962 /* Player.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
 		F87D8A031FB64E1700C0855E = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +123,7 @@
 				F87D8A491FB86EF300C0855E /* AppDelegate */,
 				F87D8A481FB86EEC00C0855E /* VibrationService */,
 				F87D8A471FB86EE000C0855E /* RecordsService */,
+				ECD28E7A1FB8911300E04962 /* Player */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -151,6 +175,7 @@
 		F87D8A3C1FB700B100C0855E /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				ECD28E771FB890B600E04962 /* Sounds */,
 				F87D8A161FB64E1700C0855E /* Assets.xcassets */,
 				F87D8A181FB64E1700C0855E /* LaunchScreen.storyboard */,
 				F87D8A1B1FB64E1700C0855E /* Info.plist */,
@@ -261,6 +286,8 @@
 			files = (
 				F87D8A1A1FB64E1700C0855E /* LaunchScreen.storyboard in Resources */,
 				F87D8A3E1FB700C200C0855E /* .gitignore in Resources */,
+				ECD28E751FB890B100E04962 /* hit.mp3 in Resources */,
+				ECD28E761FB890B100E04962 /* explosion.mp3 in Resources */,
 				F87D8A241FB64E8600C0855E /* MainMenuVC.xib in Resources */,
 				F87D8A2A1FB6507800C0855E /* GameVC.xib in Resources */,
 				F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */,
@@ -289,6 +316,7 @@
 				F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */,
 				F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */,
 				F87D8A461FB86EAE00C0855E /* RecordsService.swift in Sources */,
+				ECD28E791FB8910D00E04962 /* Player.swift in Sources */,
 				F87D8A411FB7768100C0855E /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

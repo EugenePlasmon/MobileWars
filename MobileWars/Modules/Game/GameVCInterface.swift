@@ -60,4 +60,6 @@ protocol GameVCOutput {
                                  defenderId: String)
     func viewDidTouchOnBG()
     
+    func playSound(ofType type: SoundType)
+    
 }

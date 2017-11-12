@@ -52,6 +52,7 @@ public class GamePresenter: NSObject {
     private var touchesInCurrentCombo = 0
     private var currentComboMode: ComboMode = .noCombo
     private var defendersAliveCount = defendersCount
+    private var player: Player?
     
     init(userInterface: GameVC, team: Team) {
         self.userInterface = userInterface
@@ -248,6 +249,11 @@ public class GamePresenter: NSObject {
 
 //MARK: - GameVCOutput
 extension GamePresenter: GameVCOutput {
+    
+    func playSound(ofType type: SoundType) {
+        player = Player()
+        player?.playSound(ofType: type)
+    }
     
     func viewDidReady() {
         score = 0 // Обнуляем счет при новой игровой "сессии"
