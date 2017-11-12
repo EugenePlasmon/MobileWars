@@ -11,9 +11,9 @@ import UIKit
 
 protocol GameVCInput {
     
-    func addEnemy(at point: CGPoint, withId id: String)
+    func addEnemy(at point: CGPoint, withId id: String, ofTeam team: Team)
     
-    func addDefender(at point: CGPoint, withId id: String)
+    func addDefender(at point: CGPoint, withId id: String, ofTeam team: Team)
     
     func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String)
     
@@ -38,7 +38,7 @@ protocol GameVCInput {
     func getGameViewFrame() -> CGRect
     
     func getVelocityOfEnemy(withId id: String) -> CGPoint
-    
+        
 }
 
 
@@ -58,4 +58,6 @@ protocol GameVCOutput {
     
     func viewDidCollide(enemyWithId enemyId: String, andDefenderWithId
                                  defenderId: String)
+    func viewDidTouchOnBG()
+        
 }

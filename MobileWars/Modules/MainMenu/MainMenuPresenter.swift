@@ -21,9 +21,19 @@ class MainMenuPresenter: NSObject {
 
 extension MainMenuPresenter: MainMenuVCOutput {
     
-    func didPressPlayButton() {
-        let gameVC = GameVC.createModule()
+    func didPressPlayIOSTeamButton() {
+        let gameVC = GameVC.createModule(withTeam: .ios)
         userInterface.present(gameVC, animated: true, completion: nil)
+    }
+    
+    func didPressPlayAndroidTeamButton() {
+        let gameVC = GameVC.createModule(withTeam: .android)
+        userInterface.present(gameVC, animated: true, completion: nil)
+    }
+    
+    func didPressRecordsButton() {
+        let recordsVC = RecordsVC.createModule()
+        userInterface.present(recordsVC, animated: true, completion: nil)
     }
     
     func didPressSettingsButton() {

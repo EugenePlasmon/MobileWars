@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ECD28E751FB890B100E04962 /* hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E731FB890B100E04962 /* hit.mp3 */; };
+		ECD28E761FB890B100E04962 /* explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E741FB890B100E04962 /* explosion.mp3 */; };
+		ECD28E791FB8910D00E04962 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD28E781FB8910D00E04962 /* PlayerService.swift */; };
 		F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F233D1111FB74518003816DD /* DefenderLogoView.swift */; };
 		F233D1141FB74539003816DD /* DefenderLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F233D1131FB74539003816DD /* DefenderLogoView.xib */; };
 		F2E63E491FB87F2200DEBFDF /* SettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */; };
@@ -33,9 +36,16 @@
 		F87D8A441FB85ACA00C0855E /* VibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A431FB85ACA00C0855E /* VibrationService.swift */; };
 		F87D8A461FB86EAE00C0855E /* RecordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A451FB86EAE00C0855E /* RecordsService.swift */; };
 		F87D8A4B1FB86F1800C0855E /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A4A1FB86F1800C0855E /* Record.swift */; };
+		F87D8A4E1FB88AB300C0855E /* RecordsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A4C1FB88AB300C0855E /* RecordsVC.swift */; };
+		F87D8A4F1FB88AB300C0855E /* RecordsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A4D1FB88AB300C0855E /* RecordsVC.xib */; };
+		F87D8A531FB88F6B00C0855E /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D8A511FB88F6B00C0855E /* RecordCell.swift */; };
+		F87D8A541FB88F6B00C0855E /* RecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87D8A521FB88F6B00C0855E /* RecordCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ECD28E731FB890B100E04962 /* hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hit.mp3; sourceTree = "<group>"; };
+		ECD28E741FB890B100E04962 /* explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion.mp3; sourceTree = "<group>"; };
+		ECD28E781FB8910D00E04962 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
 		F233D1111FB74518003816DD /* DefenderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefenderLogoView.swift; sourceTree = "<group>"; };
 		F233D1131FB74539003816DD /* DefenderLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefenderLogoView.xib; sourceTree = "<group>"; };
 		F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsVC.xib; sourceTree = "<group>"; };
@@ -64,6 +74,10 @@
 		F87D8A431FB85ACA00C0855E /* VibrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationService.swift; sourceTree = "<group>"; };
 		F87D8A451FB86EAE00C0855E /* RecordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsService.swift; sourceTree = "<group>"; };
 		F87D8A4A1FB86F1800C0855E /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		F87D8A4C1FB88AB300C0855E /* RecordsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsVC.swift; sourceTree = "<group>"; };
+		F87D8A4D1FB88AB300C0855E /* RecordsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordsVC.xib; sourceTree = "<group>"; };
+		F87D8A511FB88F6B00C0855E /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		F87D8A521FB88F6B00C0855E /* RecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +98,25 @@
 				F2E63E531FB8914100DEBFDF /* SettingsTableViewCell.xib */,
 			);
 			path = Cell;
+            sourceTree = "<group>";
+        };
+		ECD28E771FB890B600E04962 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				ECD28E741FB890B100E04962 /* explosion.mp3 */,
+				ECD28E731FB890B100E04962 /* hit.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
+		ECD28E7A1FB8911300E04962 /* PlayerService */ = {
+			isa = PBXGroup;
+			children = (
+				ECD28E781FB8910D00E04962 /* PlayerService.swift */,
+			);
+			path = PlayerService;
+            sourceTree = "<group>";
+        };
 		F87D8A031FB64E1700C0855E = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +150,7 @@
 				F87D8A491FB86EF300C0855E /* AppDelegate */,
 				F87D8A481FB86EEC00C0855E /* VibrationService */,
 				F87D8A471FB86EE000C0855E /* RecordsService */,
+				ECD28E7A1FB8911300E04962 /* PlayerService */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -129,6 +161,7 @@
 				F87D8A251FB64F4200C0855E /* MainMenu */,
 				F87D8A281FB6506800C0855E /* Game */,
 				F87D8A421FB7768500C0855E /* Settings */,
+				F87D8A501FB88AB700C0855E /* Records */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -170,6 +203,7 @@
 		F87D8A3C1FB700B100C0855E /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				ECD28E771FB890B600E04962 /* Sounds */,
 				F87D8A161FB64E1700C0855E /* Assets.xcassets */,
 				F87D8A181FB64E1700C0855E /* LaunchScreen.storyboard */,
 				F87D8A1B1FB64E1700C0855E /* Info.plist */,
@@ -221,6 +255,25 @@
 				F87D8A0F1FB64E1700C0855E /* AppDelegate.swift */,
 			);
 			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		F87D8A501FB88AB700C0855E /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				F87D8A551FB88F6E00C0855E /* Cell */,
+				F87D8A4C1FB88AB300C0855E /* RecordsVC.swift */,
+				F87D8A4D1FB88AB300C0855E /* RecordsVC.xib */,
+			);
+			path = Records;
+			sourceTree = "<group>";
+		};
+		F87D8A551FB88F6E00C0855E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F87D8A511FB88F6B00C0855E /* RecordCell.swift */,
+				F87D8A521FB88F6B00C0855E /* RecordCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,10 +335,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F87D8A541FB88F6B00C0855E /* RecordCell.xib in Resources */,
 				F87D8A1A1FB64E1700C0855E /* LaunchScreen.storyboard in Resources */,
 				F2E63E491FB87F2200DEBFDF /* SettingsVC.xib in Resources */,
 				F87D8A3E1FB700C200C0855E /* .gitignore in Resources */,
 				F2E63E541FB8914100DEBFDF /* SettingsTableViewCell.xib in Resources */,
+				F87D8A4F1FB88AB300C0855E /* RecordsVC.xib in Resources */,
+				ECD28E751FB890B100E04962 /* hit.mp3 in Resources */,
+				ECD28E761FB890B100E04962 /* explosion.mp3 in Resources */,
 				F87D8A241FB64E8600C0855E /* MainMenuVC.xib in Resources */,
 				F87D8A2A1FB6507800C0855E /* GameVC.xib in Resources */,
 				F87D8A171FB64E1700C0855E /* Assets.xcassets in Resources */,
@@ -311,12 +368,15 @@
 				F87D8A271FB6506100C0855E /* GameVC.swift in Sources */,
 				F2E63E4B1FB87FCC00DEBFDF /* SettingsVCInterface.swift in Sources */,
 				F87D8A321FB655B900C0855E /* GamePresenter.swift in Sources */,
+				F87D8A4E1FB88AB300C0855E /* RecordsVC.swift in Sources */,
+				F87D8A531FB88F6B00C0855E /* RecordCell.swift in Sources */,
 				F87D8A2E1FB6541F00C0855E /* MainMenuVCInterface.swift in Sources */,
 				F2E63E501FB88F9800DEBFDF /* SettingsTableViewCell.swift in Sources */,
 				F2E63E4D1FB87FEF00DEBFDF /* SettingsPresenter.swift in Sources */,
 				F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */,
 				F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */,
 				F87D8A461FB86EAE00C0855E /* RecordsService.swift in Sources */,
+				ECD28E791FB8910D00E04962 /* PlayerService.swift in Sources */,
 				F87D8A411FB7768100C0855E /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

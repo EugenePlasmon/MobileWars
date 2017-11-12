@@ -30,25 +30,51 @@ class EnemyLogoView: UIView {
     public weak var output: EnemyLogoViewOutput?
     public var enemyId: String?
     
+    private var team: Team!
+    
     @IBOutlet weak var enemyImage: UIImageView!
     
     //MARK: - Public
     
-    public class func createView() -> EnemyLogoView {
+    public class func createView(withTeam team: Team) -> EnemyLogoView {
         let nib = UINib(nibName: "EnemyLogoView", bundle: nil)
         let view = nib.instantiate(withOwner: self,
                                      options: [:]).first as! EnemyLogoView
+
+        view.team = team
         view.configure()
         
         return view
     }
     
     public func configureImageAsDefault() {
-        enemyImage.image = #imageLiteral(resourceName: "android_default")
+        var image: UIImage!
+        
+        switch team {
+        case .ios:
+            image = #imageLiteral(resourceName: "android_default")
+        case .android:
+            image = #imageLiteral(resourceName: "apple_default")
+        default:
+            return
+        }
+        
+        enemyImage.image = image
     }
     
     public func configureImageAsDead() {
-        enemyImage.image = #imageLiteral(resourceName: "android_dead")
+        var image: UIImage!
+        
+        switch team {
+        case .ios:
+            image = #imageLiteral(resourceName: "android_dead")
+        case .android:
+            image = #imageLiteral(resourceName: "apple_dead")
+        default:
+            return
+        }
+        
+        enemyImage.image = image
     }
     
     public func rotate(toAngle: Radians, withAngularVelocity angularVelocity: RadiansPerSecond) {
@@ -84,6 +110,7 @@ class EnemyLogoView: UIView {
     //MARK: - Private
     
     private func configure() {
+        isExclusiveTouch = true
         configureImageAsDefault()
     }
     

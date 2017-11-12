@@ -65,11 +65,11 @@ class GameVC: UIViewController {
     
     //MARK: - Init
     
-    class func createModule() -> GameVC {
+    public class func createModule(withTeam team: Team) -> GameVC {
         let nib = UINib(nibName: "GameVC", bundle: nil)
         let vc = nib.instantiate(withOwner: self,
-                                 options: [:]).first as! GameVC
-        vc.output = GamePresenter(userInterface: vc)
+                                   options: [:]).first as! GameVC
+        vc.output = GamePresenter(userInterface: vc, team: team)
         
         return vc
     }
@@ -78,7 +78,7 @@ class GameVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+    
         output.viewDidReady()
     }
     
@@ -94,12 +94,19 @@ class GameVC: UIViewController {
         output.viewDidPressBackButton()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let touchLocation = touch.location(in: gameSceneView)
+        
+        if touchLocation.y >= 0 {
+            output.viewDidTouchOnBG()
+        }
+    }
+    
     //MARK: - Private
     
     private func nearestAngleForHorizontalPosition(fromCurrentAngle angle: Radians) -> Radians {
         var nearestAngle: Radians!
-        
-        print("current angle = \(angle)")
         
         //we want to rotate still to left even at small positive angle
         let maxPositiveAngleForRotateToLeft: Radians = 0.1
@@ -118,8 +125,8 @@ class GameVC: UIViewController {
 //MARK: - GameVCInput
 extension GameVC: GameVCInput {
     
-    func addEnemy(at point: CGPoint, withId id: String) {
-        let enemyLogoView = EnemyLogoView.createView()
+    func addEnemy(at point: CGPoint, withId id: String, ofTeam team: Team) {
+        let enemyLogoView = EnemyLogoView.createView(withTeam: team)
         enemyLogoView.output = self
         enemyLogoView.enemyId = id
         enemyLogoView.center = point
@@ -140,8 +147,8 @@ extension GameVC: GameVCInput {
         output.viewDidAddEnemy(withId: id)
     }
     
-    func addDefender(at point: CGPoint, withId id: String) {
-        let defenderLogoView = DefenderLogoView.createView()
+    func addDefender(at point: CGPoint, withId id: String, ofTeam team: Team) {
+        let defenderLogoView = DefenderLogoView.createView(withTeam: team)
         defenderLogoView.defenderId = id
         defenderLogoView.center = point
         
@@ -286,6 +293,7 @@ extension GameVC: GameVCInput {
         
         return behavior.linearVelocity(for: enemyLogoView)
     }
+
 }
 
 

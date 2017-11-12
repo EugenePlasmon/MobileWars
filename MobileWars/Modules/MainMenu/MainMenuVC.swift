@@ -40,15 +40,15 @@ class MainMenuVC: UIViewController {
     //MARK: - Actions
     
     @IBAction func playIOSTeamButtonPressed(_ sender: UIButton) {
-        output.didPressPlayButton()
+        output.didPressPlayIOSTeamButton()
     }
     
     @IBAction func playAndroidTeamButtonPressed(_ sender: UIButton) {
-        
+        output.didPressPlayAndroidTeamButton()
     }
     
     @IBAction func recordsButtonPressed(_ sender: UIButton) {
-        
+        output.didPressRecordsButton()
     }
 
     @IBAction func settingsButtonPressed(_ sender: UIButton) {

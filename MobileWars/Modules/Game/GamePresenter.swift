@@ -36,6 +36,7 @@ public class GamePresenter: NSObject {
     }
     
     unowned var userInterface: GameVC
+    public var team: Team
     
     private var addingEnemiesTimer: Timer?
     private var movingEnemyTimers: [String: Timer] = [:]
@@ -52,8 +53,9 @@ public class GamePresenter: NSObject {
     private var currentComboMode: ComboMode = .noCombo
     private var defendersAliveCount = defendersCount
     
-    init(userInterface: GameVC) {
+    init(userInterface: GameVC, team: Team) {
         self.userInterface = userInterface
+        self.team = team
     }
     
     deinit {
@@ -101,7 +103,7 @@ public class GamePresenter: NSObject {
             
             let id = UUID().uuidString
             
-            userInterface.addDefender(at: randomPointAtBottom, withId: id)
+            userInterface.addDefender(at: randomPointAtBottom, withId: id, ofTeam: team)
         }
     }
     
@@ -119,7 +121,7 @@ public class GamePresenter: NSObject {
         
         let id = UUID().uuidString
         
-        userInterface.addEnemy(at: randomPointAtTop, withId: id)
+        userInterface.addEnemy(at: randomPointAtTop, withId: id, ofTeam: team)
     }
     
     private func startMovingEnemy(withId id: String) {
@@ -273,7 +275,8 @@ extension GamePresenter: GameVCOutput {
         userInterface.updateScoreLabel(withScore: score)
         
         VibrationService.playVibration(withStyle: .light)
-        
+        PlayerService.playSound(ofType: .hit)
+
         if currentComboMode != .noCombo {
             userInterface.showComboLabel(withRate: currentComboMode.rawValue)
         } else {
@@ -309,6 +312,7 @@ extension GamePresenter: GameVCOutput {
         userInterface.removeDefender(withId: defenderId)
         
         VibrationService.playVibration(withStyle: .heavy)
+        PlayerService.playSound(ofType: .explosion)
         
         score -= scoreDecreaseAfterCollideWithDefender
         currentComboMode = .noCombo
@@ -321,7 +325,7 @@ extension GamePresenter: GameVCOutput {
         if defendersAliveCount == 0 {
             //game over
             RecordsService.saveRecordToCache(withScore: score,
-                                                  team: .ios) //TODO: team
+                                                  team: team)
             
             let title = "Game over!"
             let message = "You reached \(score) scores"
@@ -337,4 +341,14 @@ extension GamePresenter: GameVCOutput {
             userInterface.present(ac, animated: true, completion: nil)
         }
     }
+    
+    func viewDidTouchOnBG() {
+        guard currentComboMode != .noCombo else { return }
+        
+        currentComboMode = .noCombo
+        userInterface.hideComboLabel(withFadeOut: true)
+        touchesInCurrentCombo = 0
+        print("RESET COMBO")
+    }
+    
 }
