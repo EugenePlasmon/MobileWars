@@ -22,7 +22,7 @@ class MainMenuVC: UIViewController {
     
     //MARK: - Init
     
-    class func createModule() -> MainMenuVC {
+    public class func createModule() -> MainMenuVC {
         let nib = UINib(nibName: "MainMenuVC", bundle: nil)
         let vc = nib.instantiate(withOwner: self,
                                    options: [:]).first as! MainMenuVC

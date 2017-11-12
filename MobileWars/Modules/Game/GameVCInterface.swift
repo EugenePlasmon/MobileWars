@@ -13,6 +13,8 @@ protocol GameVCInput {
     
     func addEnemy(at point: CGPoint, withId id: String)
     
+    func addDefender(at point: CGPoint, withId id: String)
+    
     func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String)
     
     func stopEnemy(withId id: String)
@@ -23,7 +25,19 @@ protocol GameVCInput {
     
     func removeEnemy(withId id: String, withFadeOut: Bool)
     
+    func killDefender(withId id: String)
+    
+    func removeDefender(withId id: String)
+    
     func updateScoreLabel(withScore score: Int)
+    
+    func showComboLabel(withRate rate: Int)
+    
+    func hideComboLabel()
+    
+    func getGameViewFrame() -> CGRect
+    
+    func getVelocityOfEnemy(withId id: String) -> CGPoint
 }
 
 
@@ -41,5 +55,6 @@ protocol GameVCOutput {
     
     func viewDidTouchUpEnemy(withId id: String)
     
-    func viewAddScore()
+    func viewDidCollide(enemyWithId enemyId: String, andDefenderWithId
+                                 defenderId: String)
 }

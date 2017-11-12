@@ -88,6 +88,7 @@
             </view>
             <connections>
                 <outlet property="backButton" destination="Lav-eh-zYp" id="Yr4-Gz-PLe"/>
+                <outlet property="comboLabel" destination="MaY-lt-PDB" id="aAr-Ou-LQb"/>
                 <outlet property="gameSceneView" destination="vQa-st-WDo" id="vfw-hz-qhi"/>
                 <outlet property="scoreLabel" destination="ttB-Nc-roO" id="nS2-Te-MQr"/>
                 <outlet property="topBarView" destination="nO8-vK-qn7" id="oFh-WU-Eqj"/>

@@ -9,14 +9,21 @@
 import UIKit
 
 
+private let killEnemySlowAngularVelocity: RadiansPerSecond = 1.5
+private let killEnemyFastAngularVelocity: RadiansPerSecond = 5.0
+
+
 class GameVC: UIViewController {
     
     var output: GameVCOutput!
     var enemies: [String: EnemyLogoView] = [:]
+    var defenders: [String: DefenderLogoView] = [:]
     var enemiesMoveBehaviours: [String: UIDynamicItemBehavior] = [:]
     
     lazy var collisionBehavior: UICollisionBehavior = {
         let behavior = UICollisionBehavior()
+        behavior.collisionDelegate = self
+        behavior.translatesReferenceBoundsIntoBoundary = true
         return behavior
     }()
     
@@ -28,6 +35,7 @@ class GameVC: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var gameSceneView: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var comboLabel: UILabel!
     
     //MARK: - Init
     
@@ -59,6 +67,25 @@ class GameVC: UIViewController {
     @IBAction func backButtonPressed(_ sender: UIButton) {
         output.viewDidPressBackButton()
     }
+    
+    //MARK: - Private
+    
+    private func nearestAngleForHorizontalPosition(fromCurrentAngle angle: Radians) -> Radians {
+        var nearestAngle: Radians!
+        
+        print("current angle = \(angle)")
+        
+        //we want to rotate still to left even at small positive angle
+        let maxPositiveAngleForRotateToLeft: Radians = 0.1
+        
+        if angle >= -Radians.pi && angle <= maxPositiveAngleForRotateToLeft {
+            nearestAngle = -Radians.pi / 2
+        } else {
+            nearestAngle = Radians.pi / 2
+        }
+        
+        return nearestAngle
+    }
 }
 
 
@@ -82,10 +109,23 @@ extension GameVC: GameVCInput {
         enemiesMoveBehaviours[id] = behavior
         
         collisionBehavior.addItem(enemyLogoView)
-        collisionBehavior.translatesReferenceBoundsIntoBoundary = true
         animator.addBehavior(collisionBehavior)
         
         output.viewDidAddEnemy(withId: id)
+    }
+    
+    func addDefender(at point: CGPoint, withId id: String) {
+        let defenderLogoView = DefenderLogoView.createView()
+        defenderLogoView.defenderId = id
+        defenderLogoView.center = point
+        
+        gameSceneView.addSubview(defenderLogoView)
+        
+        defenders[id] = defenderLogoView
+        
+        collisionBehavior.addBoundary(withIdentifier: id as NSCopying,
+                                                 for: UIBezierPath(rect: defenderLogoView.frame))
+        
     }
     
     func addVelocity(_ velocity: CGPoint, forEnemyWithId id: String) {
@@ -108,15 +148,23 @@ extension GameVC: GameVCInput {
     func killEnemy(withId id: String) {
         guard let enemyLogoView = enemies[id] else {return}
         
-        output.viewAddScore()
         enemyLogoView.configureImageAsDead()
-        enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 1.5)
+        
+        let currentAngle = enemyLogoView.currentRotationAngle()
+        let toAngle = nearestAngleForHorizontalPosition(fromCurrentAngle: currentAngle)
+        
+        enemyLogoView.rotate(toAngle: toAngle,
+                             withAngularVelocity: killEnemySlowAngularVelocity)
     }
     
     func dropDownEnemy(withId id: String) {
         guard let enemyLogoView = enemies[id] else {return}
         
-        enemyLogoView.rotate(toAngle: Radians(-Double.pi / 2), withAngularVelocity: 5.0)
+        let currentAngle = enemyLogoView.currentRotationAngle()
+        let toAngle = nearestAngleForHorizontalPosition(fromCurrentAngle: currentAngle)
+        
+        enemyLogoView.rotate(toAngle: toAngle,
+                             withAngularVelocity: killEnemyFastAngularVelocity)
     }
     
     func removeEnemy(withId id: String, withFadeOut: Bool) {
@@ -124,6 +172,7 @@ extension GameVC: GameVCInput {
         guard let behavior = enemiesMoveBehaviours[id] else {return}
         
         animator.removeBehavior(behavior)
+        collisionBehavior.removeItem(enemyLogoView)
         behavior.removeItem(enemyLogoView)
         enemiesMoveBehaviours[id] = nil
         
@@ -138,13 +187,53 @@ extension GameVC: GameVCInput {
         }
     }
     
+    func killDefender(withId id: String) {
+        //TODO: explosion of defender
+    }
+    
+    func removeDefender(withId id: String) {
+        guard let defenderLogoView = defenders[id] else {return}
+        collisionBehavior.removeBoundary(withIdentifier: defenderLogoView.defenderId! as NSString)
+        collisionBehavior.removeItem(defenderLogoView)
+        enemiesMoveBehaviours[id] = nil
+        
+        defenderLogoView.removeFromSuperview()
+    }
+    
     func updateScoreLabel(withScore score: Int) {
         let stringScore = "\(score)"
         scoreLabel.text = stringScore
     }
+    
+    func showComboLabel(withRate rate: Int) {
+        UIView.animate(withDuration: 0.2) {
+            self.comboLabel.text = "Combo x\(rate)"
+            self.comboLabel.alpha = 1
+        }
+    }
+    
+    func hideComboLabel() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.comboLabel.alpha = 0
+        }, completion: { (completed) in
+            self.comboLabel.text = nil
+        })
+    }
+    
+    func getGameViewFrame() -> CGRect {
+        return gameSceneView.frame
+    }
+    
+    func getVelocityOfEnemy(withId id: String) -> CGPoint {
+        guard let enemyLogoView = enemies[id] else {return .zero}
+        guard let behavior = enemiesMoveBehaviours[id] else {return .zero}
+        
+        return behavior.linearVelocity(for: enemyLogoView)
+    }
 }
 
 
+//MARK: - EnemyLogoViewOutput
 extension GameVC: EnemyLogoViewOutput {
     
     func didTouchDown(_ sender: EnemyLogoView) {
@@ -161,5 +250,23 @@ extension GameVC: EnemyLogoViewOutput {
         }
         
         output.viewDidTouchUpEnemy(withId: id)
+    }
+}
+
+
+//MARK: - UICollisionBehaviorDelegate
+extension GameVC: UICollisionBehaviorDelegate {
+    
+    //identifier is equal to defender id
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor
+                                 item: UIDynamicItem, withBoundaryIdentifier
+                           identifier: NSCopying?,
+                                 at p: CGPoint) {
+        let enemyView = item as! EnemyLogoView
+        
+        guard let enemyId = enemyView.enemyId else {return}
+        guard let defenderId = identifier as? NSString else {return}
+        
+        output.viewDidCollide(enemyWithId: enemyId, andDefenderWithId: defenderId as String)
     }
 }

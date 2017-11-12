@@ -28,7 +28,6 @@ class EnemyLogoView: UIView {
 
     public weak var output: EnemyLogoViewOutput?
     public var enemyId: String?
-    private var currentRotationAngle = 0.0
     
     @IBOutlet weak var enemyImage: UIImageView!
     
@@ -52,10 +51,11 @@ class EnemyLogoView: UIView {
     }
     
     public func rotate(toAngle: Radians, withAngularVelocity angularVelocity: RadiansPerSecond) {
-        let zKeyPath = "layer.presentationLayer.transform.rotation.z"
-        let currentAngle = (value(forKeyPath: zKeyPath) as? NSNumber)?.floatValue ?? 0.0
-        
+        let currentAngle = currentRotationAngle()
         let angleDiff = abs(toAngle - currentAngle)
+        
+        guard angleDiff > 0.001 else {return}
+        
         let duration = Double(angleDiff / angularVelocity)
         
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
@@ -65,7 +65,14 @@ class EnemyLogoView: UIView {
         rotateAnimation.fromValue = currentAngle
         rotateAnimation.toValue = toAngle
         
-        layer.add(rotateAnimation, forKey: "slowRotation")
+        layer.add(rotateAnimation, forKey: "rotation")
+    }
+    
+    public func currentRotationAngle() -> Radians {
+        let zKeyPath = "layer.presentationLayer.transform.rotation.z"
+        let currentAngle = (value(forKeyPath: zKeyPath) as? NSNumber)?.floatValue ?? 0.0
+
+        return currentAngle
     }
 
     //MARK: - Private
