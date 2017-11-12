@@ -1,5 +1,5 @@
 # MobileWars
-Time-killer game! The project was created in purpose to participate iOS developers olympics by swiftbook.ru. Time for developing = 2 days :]
+Time-killer game! The project was created in purpose to participate iOS developers olympics by [link to swiftbook](swiftbook.ru). Time for developing = 2 days :]
 
 You can download project and play it yourself. It's fun!
 
