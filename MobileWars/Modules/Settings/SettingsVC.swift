@@ -8,15 +8,42 @@
 
 import UIKit
 
+
+private let settingsCellIdentifier = "settingsCellIdentifier"
+
+
 class SettingsVC: UIViewController {
 
     var output: SettingsVCOutput!
-    let settingsCellIdentifier = "settingsCellIdentifier"
-    let options = ["Vibration after kill enemy",
-                   "Vibration after lose life",
-                   "Sounds in app"]
+
+    let vibrationOptions = ["Vibration after kill enemy",
+                            "Vibration after lose life"]
+    let soundOptions = ["Sounds in app"]
     
-    @IBOutlet weak var tableView: UITableView!
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    enum SectionType: Int {
+        case vibration = 0
+        case sound = 1
+        
+        public static func sectionType(fromInt int: Int) -> SectionType? {
+            switch int {
+            case 0: return .vibration
+            case 1: return .sound
+            default: return nil
+            }
+        }
+    }
+    
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+            registerReusableCells()
+        }
+    }
     
     public class func createModule() -> SettingsVC {
         let nib = UINib(nibName: "SettingsVC", bundle: nil)
@@ -27,22 +54,22 @@ class SettingsVC: UIViewController {
         return vc
     }
     
-    private func setupTableView() {
+    //MARK: - Private
+    
+    private func registerReusableCells() {
         let nib = UINib(nibName: "SettingsCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: settingsCellIdentifier)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupTableView()
-    }
-    
     //MARK: - Actions
+    
     @IBAction func backButtonPressed(_ sender: UIButton) {
         output.viewDidPressBackButton()
     }
 }
 
+
+    //MARK: - UITableViewDataSource
 
 extension SettingsVC: UITableViewDataSource {
     
@@ -50,30 +77,37 @@ extension SettingsVC: UITableViewDataSource {
         return 2
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 2
-        } else if section == 1 {
-            return 1
-        } else {
-            return 0
+    func tableView(_ tableView: UITableView, numberOfRowsInSection
+                       section: Int) -> Int {
+        let sectionType = SectionType.sectionType(fromInt: section)!
+        
+        switch sectionType {
+        case .vibration:
+            return vibrationOptions.count
+        case .sound:
+            return soundOptions.count
         }
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellIdentifier,
                                                             for: indexPath) as! SettingsCell
+        let sectionType = SectionType.sectionType(fromInt: indexPath.section)!
         cell.output = self
         
-        if indexPath.section == 0 {
+        switch sectionType {
+        case .vibration:
+            let vibro = vibrationOptions[indexPath.row]
             if indexPath.row == 0 {
-                cell.settingTextLabel.text = options[indexPath.row]
+                cell.settingTextLabel.text = vibro
                 cell.switchSetting.setOn(SettingsService.vibrationOnEnemyIsOn(), animated: false)
             } else if indexPath.row == 1 {
-                cell.settingTextLabel.text = options[indexPath.row]
+                cell.settingTextLabel.text = vibro
                 cell.switchSetting.setOn(SettingsService.vibrationOnCollisionIsOn(), animated: false)
             }
-        } else if indexPath.section == 1 {
-            cell.settingTextLabel.text = options[2]
+        case .sound:
+            let sound = soundOptions[indexPath.row]
+            cell.settingTextLabel.text = sound
             cell.switchSetting.setOn(SettingsService.soundsIsOn(), animated: false)
         }
         
@@ -81,25 +115,30 @@ extension SettingsVC: UITableViewDataSource {
     }
 }
 
+    //MARK: - SettingsCellOutput
 
 extension SettingsVC: SettingsCellOutput {
     
     func cell(_ cell: SettingsCell, didChangeSwitcherValueTo newSwitcherValue: Bool) {
-        let indexPath = tableView.indexPath(for: cell)
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
         
-        if indexPath == nil {return}
+        let sectionType = SectionType.sectionType(fromInt: indexPath.section)!
         
-        if indexPath!.section == 0 {
-            if indexPath!.row == 0 {
-                //vib enemy
+        switch sectionType {
+        case .vibration:
+            if indexPath.row == 0 {
                 output.viewDidChangeVibrationOnEnemySwitcher(toValue: newSwitcherValue)
-            } else if indexPath!.row == 1 {
-                //vib defender
+            } else if indexPath.row == 1 {
                 output.viewDidChangeVibrationOnCollideSwitcher(toValue: newSwitcherValue)
             }
-        } else if indexPath!.section == 1 {
-            //sounds
+        case .sound:
             output.viewDidChangeSoundsSwitcher(toValue: newSwitcherValue)
         }
     }
+}
+
+//MARK: - UITableViewDelegate
+
+extension SettingsVC: UITableViewDelegate {
+    
 }
