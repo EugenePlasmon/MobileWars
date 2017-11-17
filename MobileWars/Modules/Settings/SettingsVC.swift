@@ -16,9 +16,9 @@ class SettingsVC: UIViewController {
 
     var output: SettingsVCOutput!
 
-    let vibrationOptions = ["Vibration after kill enemy",
+    let vibrationOptionsText = ["Vibration after kill enemy",
                             "Vibration after lose life"]
-    let soundOptions = ["Sounds in app"]
+    let soundOptionsText = ["Sounds in app"]
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -106,9 +106,9 @@ extension SettingsVC: UITableViewDataSource {
         
         switch sectionType {
         case .vibration:
-            return vibrationOptions.count
+            return vibrationOptionsText.count
         case .sound:
-            return soundOptions.count
+            return soundOptionsText.count
         }
     }
     
@@ -120,17 +120,16 @@ extension SettingsVC: UITableViewDataSource {
         
         switch sectionType {
         case .vibration:
-            let vibro = vibrationOptions[indexPath.row]
+            let vibroOptionTitle = vibrationOptionsText[indexPath.row]
+            cell.settingTextLabel.text = vibroOptionTitle
             if indexPath.row == 0 {
-                cell.settingTextLabel.text = vibro
                 cell.switchSetting.setOn(SettingsService.vibrationOnEnemyIsOn(), animated: false)
             } else if indexPath.row == 1 {
-                cell.settingTextLabel.text = vibro
                 cell.switchSetting.setOn(SettingsService.vibrationOnCollisionIsOn(), animated: false)
             }
         case .sound:
-            let sound = soundOptions[indexPath.row]
-            cell.settingTextLabel.text = sound
+            let soundOptionTitle = soundOptionsText[indexPath.row]
+            cell.settingTextLabel.text = soundOptionTitle
             cell.switchSetting.setOn(SettingsService.soundsIsOn(), animated: false)
         }
         
