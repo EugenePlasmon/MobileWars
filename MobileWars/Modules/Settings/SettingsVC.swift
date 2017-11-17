@@ -54,14 +54,14 @@ class SettingsVC: UIViewController {
         return vc
     }
     
-    //MARK: - Private
+//MARK: - Private
     
     private func registerReusableCells() {
         let nib = UINib(nibName: "SettingsCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: settingsCellIdentifier)
     }
     
-    //MARK: - Actions
+//MARK: - Actions
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         output.viewDidPressBackButton()
@@ -69,7 +69,30 @@ class SettingsVC: UIViewController {
 }
 
 
-    //MARK: - UITableViewDataSource
+//MARK: - SettingsCellOutput
+
+extension SettingsVC: SettingsCellOutput {
+    
+    func cell(_ cell: SettingsCell, didChangeSwitcherValueTo newSwitcherValue: Bool) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        
+        guard let sectionType = SectionType.sectionType(fromInt: indexPath.section) else { return }
+        
+        switch sectionType {
+        case .vibration:
+            if indexPath.row == 0 {
+                output.viewDidChangeVibrationOnEnemySwitcher(toValue: newSwitcherValue)
+            } else if indexPath.row == 1 {
+                output.viewDidChangeVibrationOnCollideSwitcher(toValue: newSwitcherValue)
+            }
+        case .sound:
+            output.viewDidChangeSoundsSwitcher(toValue: newSwitcherValue)
+        }
+    }
+}
+
+
+//MARK: - UITableViewDataSource
 
 extension SettingsVC: UITableViewDataSource {
     
@@ -112,28 +135,6 @@ extension SettingsVC: UITableViewDataSource {
         }
         
         return cell
-    }
-}
-
-    //MARK: - SettingsCellOutput
-
-extension SettingsVC: SettingsCellOutput {
-    
-    func cell(_ cell: SettingsCell, didChangeSwitcherValueTo newSwitcherValue: Bool) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        
-        let sectionType = SectionType.sectionType(fromInt: indexPath.section)!
-        
-        switch sectionType {
-        case .vibration:
-            if indexPath.row == 0 {
-                output.viewDidChangeVibrationOnEnemySwitcher(toValue: newSwitcherValue)
-            } else if indexPath.row == 1 {
-                output.viewDidChangeVibrationOnCollideSwitcher(toValue: newSwitcherValue)
-            }
-        case .sound:
-            output.viewDidChangeSoundsSwitcher(toValue: newSwitcherValue)
-        }
     }
 }
 

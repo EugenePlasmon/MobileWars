@@ -16,7 +16,7 @@ class SettingsPresenter: NSObject {
         self.userInterface = userInterface
     }
     
-    //MARK: - Private
+//MARK: - Private
     
     private func closeModule() {
         userInterface.dismiss(animated: true, completion: nil)
@@ -24,6 +24,8 @@ class SettingsPresenter: NSObject {
     
 }
 
+
+//MARK: - SettingsVCOutput
 extension SettingsPresenter: SettingsVCOutput {
     
     func viewDidPressBackButton() {
