@@ -33,7 +33,7 @@
                                 </constraints>
                                 <state key="normal" image="button_exit"/>
                                 <connections>
-                                    <action selector="backButtonPressed:" destination="aj2-1M-cKk" eventType="touchUpInside" id="srf-bJ-zTf"/>
+                                    <action selector="backButtonPressed:" destination="aj2-1M-cKk" eventType="touchUpInside" id="XnU-5a-nVj"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Records" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2W7-rZ-yIg">
