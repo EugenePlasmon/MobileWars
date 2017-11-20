@@ -31,8 +31,8 @@ extension RecordsPresenter: RecordsVCOutput {
         closeModule()
     }
     
-    func viewDidConfigure() {
+    func viewWillAppear() {
         let records = RecordsService.getRecordsFromCache()
-        userInterface.configure(record: records)
+        userInterface.configure(withRecords: records)
     }
 }

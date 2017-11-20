@@ -54,7 +54,7 @@ class RecordsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        output.viewDidConfigure()
+        output.viewWillAppear()
     }
     
     //MARK: - Actions
@@ -121,8 +121,8 @@ extension RecordsVC: UITableViewDelegate {
 
 extension RecordsVC: RecordsVCInput {
     
-    func configure(record: [Record]) {
-        records = record
+    func configure(withRecords records: [Record]) {
+        self.records = records
     }
     
 }

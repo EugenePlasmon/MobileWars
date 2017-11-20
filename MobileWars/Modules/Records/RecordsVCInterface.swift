@@ -8,7 +8,7 @@
 
 protocol RecordsVCInput {
     
-    func configure(record: [Record])
+    func configure(withRecords records: [Record])
     
 }
 
@@ -16,6 +16,6 @@ protocol RecordsVCOutput {
     
     func viewDidPressBackButton()
     
-    func viewDidConfigure()
+    func viewWillAppear()
     
 }
