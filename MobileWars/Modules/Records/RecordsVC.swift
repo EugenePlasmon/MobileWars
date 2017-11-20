@@ -14,6 +14,9 @@ private let recordsCellReuseId = "recordsCellReuseId"
 
 class RecordsVC: UIViewController {
     
+    var output: RecordsVCOutput!
+    private var records: [Record]!
+    
     enum SectionType: Int {
         case records = 0
         
@@ -38,13 +41,11 @@ class RecordsVC: UIViewController {
         }
     }
     
-    private var records: [Record]!
-    
     public class func createModule() -> RecordsVC {
         let nib = UINib(nibName: "RecordsVC", bundle: nil)
         let vc = nib.instantiate(withOwner: self,
                                    options: [:]).first as! RecordsVC
-        vc.configure()
+        vc.output = RecordsPresenter(userInterface: vc)
         
         return vc
     }
@@ -53,30 +54,24 @@ class RecordsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        output.viewWillAppear()
     }
     
     //MARK: - Actions
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        closeModule()
+        output.viewDidPressBackButton()
     }
     
     //MARK: - Private
-    
-    private func configure() {
-        records = RecordsService.getRecordsFromCache()
-    }
     
     private func registerReusableCells() {
         let nib = UINib(nibName: "RecordCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: recordsCellReuseId)
     }
-    
-    private func closeModule() {
-        dismiss(animated: true, completion: nil)
-    }
 }
 
+    //MARK: TableViewDataSource
 
 extension RecordsVC: UITableViewDataSource {
     
@@ -103,8 +98,14 @@ extension RecordsVC: UITableViewDataSource {
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
+
+//MARK: - TableViewDelegate
 
 extension RecordsVC: UITableViewDelegate {
     
@@ -115,6 +116,13 @@ extension RecordsVC: UITableViewDelegate {
         case .records:
             return RecordCell.height()
         }
+    }
+}
+
+extension RecordsVC: RecordsVCInput {
+    
+    func configure(withRecords records: [Record]) {
+        self.records = records
     }
     
 }

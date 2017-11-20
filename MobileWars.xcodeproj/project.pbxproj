@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC350DDB1FC00ED700A489A5 /* RecordsVCInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC350DDA1FC00ED700A489A5 /* RecordsVCInterface.swift */; };
+		EC350DDD1FC00EE900A489A5 /* RecordsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC350DDC1FC00EE900A489A5 /* RecordsPresenter.swift */; };
 		ECD28E751FB890B100E04962 /* hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E731FB890B100E04962 /* hit.mp3 */; };
 		ECD28E761FB890B100E04962 /* explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E741FB890B100E04962 /* explosion.mp3 */; };
 		ECD28E791FB8910D00E04962 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD28E781FB8910D00E04962 /* PlayerService.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC350DDA1FC00ED700A489A5 /* RecordsVCInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsVCInterface.swift; sourceTree = "<group>"; };
+		EC350DDC1FC00EE900A489A5 /* RecordsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsPresenter.swift; sourceTree = "<group>"; };
 		ECD28E731FB890B100E04962 /* hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hit.mp3; sourceTree = "<group>"; };
 		ECD28E741FB890B100E04962 /* explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion.mp3; sourceTree = "<group>"; };
 		ECD28E781FB8910D00E04962 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
@@ -281,8 +285,10 @@
 			isa = PBXGroup;
 			children = (
 				F87D8A551FB88F6E00C0855E /* Cell */,
+				EC350DDA1FC00ED700A489A5 /* RecordsVCInterface.swift */,
 				F87D8A4C1FB88AB300C0855E /* RecordsVC.swift */,
 				F87D8A4D1FB88AB300C0855E /* RecordsVC.xib */,
+				EC350DDC1FC00EE900A489A5 /* RecordsPresenter.swift */,
 			);
 			path = Records;
 			sourceTree = "<group>";
@@ -390,10 +396,12 @@
 				F87D8A271FB6506100C0855E /* GameVC.swift in Sources */,
 				F2E63E4B1FB87FCC00DEBFDF /* SettingsVCInterface.swift in Sources */,
 				F87D8A321FB655B900C0855E /* GamePresenter.swift in Sources */,
+				EC350DDB1FC00ED700A489A5 /* RecordsVCInterface.swift in Sources */,
 				F87D8A4E1FB88AB300C0855E /* RecordsVC.swift in Sources */,
 				F87D8A531FB88F6B00C0855E /* RecordCell.swift in Sources */,
 				F87D8A2E1FB6541F00C0855E /* MainMenuVCInterface.swift in Sources */,
 				F8454FFE1FB8A6B800EC25BB /* AdditionScoreView.swift in Sources */,
+				EC350DDD1FC00EE900A489A5 /* RecordsPresenter.swift in Sources */,
 				F2E63E501FB88F9800DEBFDF /* SettingsCell.swift in Sources */,
 				F2E63E4D1FB87FEF00DEBFDF /* SettingsPresenter.swift in Sources */,
 				F87D8A101FB64E1700C0855E /* AppDelegate.swift in Sources */,
