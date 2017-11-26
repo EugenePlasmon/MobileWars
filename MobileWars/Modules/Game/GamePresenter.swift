@@ -14,14 +14,6 @@ private let maxTimeIntervalForCombo = 5.0
 private let touchesCountRequiredToNextCombo = 5
 private let defendersCount = 3
 
-private let minXStartVelocity: CGFloat = -50.0
-private let maxXStartVelocity: CGFloat = 50.0
-private let minYStartVelocity: CGFloat = 100.0
-private let maxYStartVelocity: CGFloat = 300.0
-private let minXAdditionVelocity: CGFloat = -20.0
-private let maxXAdditionVelocity: CGFloat = 20.0
-private let minYAdditionVelocity: CGFloat = -20.0
-private let maxYAdditionVelocity: CGFloat = 20.0
 
 private let scoreDecreaseAfterCollideWithDefender = 10
 
@@ -125,36 +117,16 @@ public class GamePresenter: NSObject {
     }
     
     private func startMovingEnemy(withId id: String) {
-        let randomStartVelocity = CGPoint.random(xMin: minXStartVelocity,
-                                                 xMax: maxXStartVelocity,
-                                                 yMin: minYStartVelocity,
-                                                 yMax: maxYStartVelocity)
+        let randomStartVelocity = EnemyVelocityUpdater.randomStartVelocity
+        
         self.userInterface.addVelocity(randomStartVelocity, forEnemyWithId: id)
         
         let newMovingTimer = Timer.scheduledTimer(withTimeInterval: velocityUpdateTimeInterval, repeats: true) { [weak self] (timer) in
             if self == nil {return}
             
             let currentVelocity = (self?.userInterface.getVelocityOfEnemy(withId: id))!
+            let randomVelocity = EnemyVelocityUpdater.calculateRandomVelocity(from: currentVelocity)
             
-            var actualMinYAddition: CGFloat!
-            var actualMaxYAddition: CGFloat!
-            
-            if currentVelocity.y <= abs(minYAdditionVelocity) {
-                actualMinYAddition = -currentVelocity.y
-            } else {
-                actualMinYAddition = minYAdditionVelocity
-            }
-            
-            if actualMinYAddition > maxYAdditionVelocity {
-                actualMaxYAddition = actualMinYAddition
-            } else {
-                actualMaxYAddition = maxYAdditionVelocity
-            }
-            
-            let randomVelocity = CGPoint.random(xMin: minXAdditionVelocity,
-                                                xMax: maxXAdditionVelocity,
-                                                yMin: actualMinYAddition,
-                                                yMax: actualMaxYAddition)
             self?.userInterface.addVelocity(randomVelocity, forEnemyWithId: id)
         }
         

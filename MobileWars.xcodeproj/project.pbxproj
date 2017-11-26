@@ -12,6 +12,7 @@
 		ECD28E751FB890B100E04962 /* hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E731FB890B100E04962 /* hit.mp3 */; };
 		ECD28E761FB890B100E04962 /* explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECD28E741FB890B100E04962 /* explosion.mp3 */; };
 		ECD28E791FB8910D00E04962 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD28E781FB8910D00E04962 /* PlayerService.swift */; };
+		F229E4921FCB40570008314D /* EnemyVelocityUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = F229E4911FCB40570008314D /* EnemyVelocityUpdater.swift */; };
 		F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F233D1111FB74518003816DD /* DefenderLogoView.swift */; };
 		F233D1141FB74539003816DD /* DefenderLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F233D1131FB74539003816DD /* DefenderLogoView.xib */; };
 		F2E63E491FB87F2200DEBFDF /* SettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */; };
@@ -54,6 +55,7 @@
 		ECD28E731FB890B100E04962 /* hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hit.mp3; sourceTree = "<group>"; };
 		ECD28E741FB890B100E04962 /* explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion.mp3; sourceTree = "<group>"; };
 		ECD28E781FB8910D00E04962 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
+		F229E4911FCB40570008314D /* EnemyVelocityUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyVelocityUpdater.swift; sourceTree = "<group>"; };
 		F233D1111FB74518003816DD /* DefenderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefenderLogoView.swift; sourceTree = "<group>"; };
 		F233D1131FB74539003816DD /* DefenderLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefenderLogoView.xib; sourceTree = "<group>"; };
 		F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsVC.xib; sourceTree = "<group>"; };
@@ -120,6 +122,14 @@
 			path = PlayerService;
 			sourceTree = "<group>";
 		};
+		F229E4931FCB406B0008314D /* EnemyVelocityUpdater */ = {
+			isa = PBXGroup;
+			children = (
+				F229E4911FCB40570008314D /* EnemyVelocityUpdater.swift */,
+			);
+			path = EnemyVelocityUpdater;
+			sourceTree = "<group>";
+		};
 		F2E63E521FB88FA300DEBFDF /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +177,7 @@
 		F87D8A211FB64E1E00C0855E /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				F229E4931FCB406B0008314D /* EnemyVelocityUpdater */,
 				F87D8A491FB86EF300C0855E /* AppDelegate */,
 				F87D8A481FB86EEC00C0855E /* VibrationService */,
 				F87D8A471FB86EE000C0855E /* RecordsService */,
@@ -390,6 +401,7 @@
 				F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */,
 				F87D8A341FB6595D00C0855E /* EnemyLogoView.swift in Sources */,
 				F87D8A121FB64E1700C0855E /* MainMenuVC.swift in Sources */,
+				F229E4921FCB40570008314D /* EnemyVelocityUpdater.swift in Sources */,
 				F87D8A4B1FB86F1800C0855E /* Record.swift in Sources */,
 				F87D8A2C1FB652AD00C0855E /* MainMenuPresenter.swift in Sources */,
 				F87D8A301FB655AA00C0855E /* GameVCInterface.swift in Sources */,
