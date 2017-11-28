@@ -15,6 +15,8 @@
 		F229E4921FCB40570008314D /* EnemyVelocityUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = F229E4911FCB40570008314D /* EnemyVelocityUpdater.swift */; };
 		F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F233D1111FB74518003816DD /* DefenderLogoView.swift */; };
 		F233D1141FB74539003816DD /* DefenderLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F233D1131FB74539003816DD /* DefenderLogoView.xib */; };
+		F26925D31FCDDDC80005C937 /* GameScoreCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26925D21FCDDDC80005C937 /* GameScoreCounter.swift */; };
+		F26925D61FCDDDE20005C937 /* GameComboCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26925D51FCDDDE20005C937 /* GameComboCounter.swift */; };
 		F2E63E491FB87F2200DEBFDF /* SettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */; };
 		F2E63E4B1FB87FCC00DEBFDF /* SettingsVCInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4A1FB87FCC00DEBFDF /* SettingsVCInterface.swift */; };
 		F2E63E4D1FB87FEF00DEBFDF /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E63E4C1FB87FEF00DEBFDF /* SettingsPresenter.swift */; };
@@ -58,6 +60,8 @@
 		F229E4911FCB40570008314D /* EnemyVelocityUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyVelocityUpdater.swift; sourceTree = "<group>"; };
 		F233D1111FB74518003816DD /* DefenderLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefenderLogoView.swift; sourceTree = "<group>"; };
 		F233D1131FB74539003816DD /* DefenderLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefenderLogoView.xib; sourceTree = "<group>"; };
+		F26925D21FCDDDC80005C937 /* GameScoreCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoreCounter.swift; sourceTree = "<group>"; };
+		F26925D51FCDDDE20005C937 /* GameComboCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameComboCounter.swift; sourceTree = "<group>"; };
 		F2E63E481FB87F2200DEBFDF /* SettingsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsVC.xib; sourceTree = "<group>"; };
 		F2E63E4A1FB87FCC00DEBFDF /* SettingsVCInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVCInterface.swift; sourceTree = "<group>"; };
 		F2E63E4C1FB87FEF00DEBFDF /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
@@ -130,6 +134,22 @@
 			path = EnemyVelocityUpdater;
 			sourceTree = "<group>";
 		};
+		F26925D41FCDDDD00005C937 /* GameScoreCounter */ = {
+			isa = PBXGroup;
+			children = (
+				F26925D21FCDDDC80005C937 /* GameScoreCounter.swift */,
+			);
+			path = GameScoreCounter;
+			sourceTree = "<group>";
+		};
+		F26925D71FCDDDE60005C937 /* GameComboCounter */ = {
+			isa = PBXGroup;
+			children = (
+				F26925D51FCDDDE20005C937 /* GameComboCounter.swift */,
+			);
+			path = GameComboCounter;
+			sourceTree = "<group>";
+		};
 		F2E63E521FB88FA300DEBFDF /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +197,8 @@
 		F87D8A211FB64E1E00C0855E /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				F26925D71FCDDDE60005C937 /* GameComboCounter */,
+				F26925D41FCDDDD00005C937 /* GameScoreCounter */,
 				F229E4931FCB406B0008314D /* EnemyVelocityUpdater */,
 				F87D8A491FB86EF300C0855E /* AppDelegate */,
 				F87D8A481FB86EEC00C0855E /* VibrationService */,
@@ -399,6 +421,7 @@
 				F84550021FB8ACBF00EC25BB /* UIViewExtensions.swift in Sources */,
 				F87D8A441FB85ACA00C0855E /* VibrationService.swift in Sources */,
 				F233D1121FB74518003816DD /* DefenderLogoView.swift in Sources */,
+				F26925D61FCDDDE20005C937 /* GameComboCounter.swift in Sources */,
 				F87D8A341FB6595D00C0855E /* EnemyLogoView.swift in Sources */,
 				F87D8A121FB64E1700C0855E /* MainMenuVC.swift in Sources */,
 				F229E4921FCB40570008314D /* EnemyVelocityUpdater.swift in Sources */,
@@ -420,6 +443,7 @@
 				F87D8A3B1FB700A700C0855E /* PrimitiveTypeExtensions.swift in Sources */,
 				F87D8A461FB86EAE00C0855E /* RecordsService.swift in Sources */,
 				F84550041FB8B5AE00EC25BB /* SettingsService.swift in Sources */,
+				F26925D31FCDDDC80005C937 /* GameScoreCounter.swift in Sources */,
 				ECD28E791FB8910D00E04962 /* PlayerService.swift in Sources */,
 				F87D8A411FB7768100C0855E /* SettingsVC.swift in Sources */,
 			);

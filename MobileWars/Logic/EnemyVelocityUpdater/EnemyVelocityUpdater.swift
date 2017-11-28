@@ -22,12 +22,12 @@ private let maxYAdditionVelocity: CGFloat = 20.0
 
 class EnemyVelocityUpdater {
     
-    static var randomStartVelocity = CGPoint.random(xMin: minXStartVelocity,
-                                                    xMax: maxXStartVelocity,
-                                                    yMin: minYStartVelocity,
-                                                    yMax: maxYStartVelocity)
+    var randomStartVelocity = CGPoint.random(xMin: minXStartVelocity,
+                                             xMax: maxXStartVelocity,
+                                             yMin: minYStartVelocity,
+                                             yMax: maxYStartVelocity)
     
-    public class func calculateRandomVelocity(from velocity: CGPoint) -> CGPoint {
+    func calculateRandomVelocity(from velocity: CGPoint) -> CGPoint {
         var actualMinYAddition: CGFloat!
         var actualMaxYAddition: CGFloat!
         

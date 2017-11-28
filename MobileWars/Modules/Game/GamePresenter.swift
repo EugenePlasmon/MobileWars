@@ -10,39 +10,21 @@ import UIKit
 
 
 private let velocityUpdateTimeInterval = 0.05
-private let maxTimeIntervalForCombo = 5.0
-private let touchesCountRequiredToNextCombo = 5
 private let defendersCount = 3
-
-
 private let scoreDecreaseAfterCollideWithDefender = 10
 
 public class GamePresenter: NSObject {
     
-    enum ComboMode: Int {
-        case noCombo = 1
-        case x2 = 2
-        case x3 = 3
-        case x5 = 5
-        case x10 = 10
-    }
-    
     unowned var userInterface: GameVC
     public var team: Team
+    var enemyVelocityUpdater = EnemyVelocityUpdater()
+    var gameScoreCounter = GameScoreCounter()
+    var gameComboCounter = GameComboCounter()
     
     private var addingEnemiesTimer: Timer?
     private var movingEnemyTimers: [String: Timer] = [:]
     private var timerForNextTouchInCombo: Timer?
     private var lastTouchTime: Date?
-    private var score = 0 {
-        didSet {
-            if score < 0 {
-                score = 0
-            }
-        }
-    }
-    private var touchesInCurrentCombo = 0
-    private var currentComboMode: ComboMode = .noCombo
     private var defendersAliveCount = defendersCount
     
     init(userInterface: GameVC, team: Team) {
@@ -117,7 +99,7 @@ public class GamePresenter: NSObject {
     }
     
     private func startMovingEnemy(withId id: String) {
-        let randomStartVelocity = EnemyVelocityUpdater.randomStartVelocity
+        let randomStartVelocity = enemyVelocityUpdater.randomStartVelocity
         
         self.userInterface.addVelocity(randomStartVelocity, forEnemyWithId: id)
         
@@ -125,52 +107,12 @@ public class GamePresenter: NSObject {
             if self == nil {return}
             
             let currentVelocity = (self?.userInterface.getVelocityOfEnemy(withId: id))!
-            let randomVelocity = EnemyVelocityUpdater.calculateRandomVelocity(from: currentVelocity)
+            let randomVelocity = self?.enemyVelocityUpdater.calculateRandomVelocity(from: currentVelocity)
             
-            self?.userInterface.addVelocity(randomVelocity, forEnemyWithId: id)
+            self?.userInterface.addVelocity(randomVelocity!, forEnemyWithId: id)
         }
         
         movingEnemyTimers[id] = newMovingTimer
-    }
-    
-    //MARK: - Score counting
-    
-    private func calculateCombo() {
-        let now = Date()
-        
-        if lastTouchTime != nil {
-            touchesInCurrentCombo += 1
-                
-            if touchesInCurrentCombo >= touchesCountRequiredToNextCombo && currentComboMode != .x10 {
-                print("NEXT COMBO MODE!")
-                setNextComboMode()
-                touchesInCurrentCombo = 1
-            }
-        } else {
-            touchesInCurrentCombo = 1
-        }
-        
-        lastTouchTime = now
-    }
-    
-    private func calculateScore() {
-        calculateCombo()
-        score += currentComboMode.rawValue
-    }
-    
-    private func setNextComboMode() {
-        switch currentComboMode {
-        case .noCombo:
-            currentComboMode = .x2
-        case .x2:
-            currentComboMode = .x3
-        case .x3:
-            currentComboMode = .x5
-        case .x5:
-            currentComboMode = .x10
-        default:
-            break
-        }
     }
     
     // MARK: - Timers
@@ -200,7 +142,7 @@ public class GamePresenter: NSObject {
     private func startTimerForNextTouchInCombo() {
         timerForNextTouchInCombo?.invalidate()
         
-        timerForNextTouchInCombo = Timer.scheduledTimer(timeInterval: maxTimeIntervalForCombo,
+        timerForNextTouchInCombo = Timer.scheduledTimer(timeInterval: gameComboCounter.maxTimeIntervalForCombo,
                                                               target: self,
                                                             selector: #selector(timerForNextTouchInComboExpired),
                                                             userInfo: nil,
@@ -210,8 +152,8 @@ public class GamePresenter: NSObject {
     @objc private func timerForNextTouchInComboExpired() {
         //TODO: mb show label combo expired?
         
-        currentComboMode = .noCombo
-        touchesInCurrentCombo = 0
+        gameComboCounter.currentComboMode = .noCombo
+        gameComboCounter.touchesInCurrentCombo = 0
         
         userInterface.hideComboLabel(withFadeOut: true)
     }
@@ -222,7 +164,7 @@ public class GamePresenter: NSObject {
 extension GamePresenter: GameVCOutput {
     
     func viewDidReady() {
-        score = 0 // Обнуляем счет при новой игровой "сессии"
+        gameScoreCounter.score = 0 // Обнуляем счет при новой игровой "сессии"
         userInterface.hideComboLabel(withFadeOut: false)
         startAddingEnemies()
         addDefenders()
@@ -243,9 +185,9 @@ extension GamePresenter: GameVCOutput {
     
     func viewDidTouchDownEnemy(withId id: String) {
         startTimerForNextTouchInCombo()
-        calculateScore()
-        userInterface.updateScoreLabel(withScore: score)
-        userInterface.showAdditionScoreLabel(atEnemyWithId: id, score: currentComboMode.rawValue)
+        gameScoreCounter.calculateScore()
+        userInterface.updateScoreLabel(withScore: gameScoreCounter.score)
+        userInterface.showAdditionScoreLabel(atEnemyWithId: id, score: gameComboCounter.currentComboMode.rawValue)
         
         if SettingsService.vibrationOnEnemyIsOn() {
             VibrationService.playVibration(withStyle: .light)
@@ -255,8 +197,8 @@ extension GamePresenter: GameVCOutput {
             PlayerService.playSound(ofType: .hit)
         }
 
-        if currentComboMode != .noCombo {
-            userInterface.showComboLabel(withRate: currentComboMode.rawValue)
+        if gameComboCounter.currentComboMode != .noCombo {
+            userInterface.showComboLabel(withRate: gameComboCounter.currentComboMode.rawValue)
         } else {
             userInterface.hideComboLabel(withFadeOut: true)
         }
@@ -297,21 +239,21 @@ extension GamePresenter: GameVCOutput {
             PlayerService.playSound(ofType: .explosion)
         }
         
-        score -= scoreDecreaseAfterCollideWithDefender
-        currentComboMode = .noCombo
+        gameScoreCounter.score -= scoreDecreaseAfterCollideWithDefender
+        gameComboCounter.currentComboMode = .noCombo
         userInterface.hideComboLabel(withFadeOut: true)
-        touchesInCurrentCombo = 0
-        userInterface.updateScoreLabel(withScore: score)
+        gameComboCounter.touchesInCurrentCombo = 0
+        userInterface.updateScoreLabel(withScore: gameScoreCounter.score)
         
         defendersAliveCount -= 1
         
         if defendersAliveCount == 0 {
             //game over
-            RecordsService.saveRecordToCache(withScore: score,
+            RecordsService.saveRecordToCache(withScore: gameScoreCounter.score,
                                                   team: team)
             
             let title = "Game over!"
-            let message = "You reached \(score) scores"
+            let message = "You reached \(gameScoreCounter.score) scores"
             let okTitle = "OK"
             
             let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -326,11 +268,11 @@ extension GamePresenter: GameVCOutput {
     }
     
     func viewDidTouchOnBG() {
-        guard currentComboMode != .noCombo else { return }
+        guard gameComboCounter.currentComboMode != .noCombo else { return }
         
-        currentComboMode = .noCombo
+        gameComboCounter.currentComboMode = .noCombo
         userInterface.hideComboLabel(withFadeOut: true)
-        touchesInCurrentCombo = 0
+        gameComboCounter.touchesInCurrentCombo = 0
         print("RESET COMBO")
     }
     
